@@ -1,34 +1,57 @@
-import 'package:admin/constants.dart';
-import 'package:admin/controllers/MenuAppController.dart';
-import 'package:admin/screens/main/main_screen.dart';
+import 'package:admin/app/core/utils/app_constant.dart';
+import 'package:admin/app/routes/app_pages.dart';
+import 'package:admin/app/routes/app_routes.dart';
+import 'package:admin/app/services/initial_setting_services.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> _init() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await GetStorage.init();
+
+  Get.log("Starting Services ......");
+
+  await Get.putAsync(() => InitialSettingServices().init());
+
+  Get.log("Started Services");
+}
+
+void main() async {
+  await _init();
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Admin Panel',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
-        canvasColor: secondaryColor,
-      ),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => MenuAppController(),
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: SimpleBuilder(
+        builder: (context) => GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: GetMaterialApp(
+            title: kAppName,
+            themeMode: Get.find<InitialSettingServices>().getthememode(),
+            theme: Get.find<InitialSettingServices>().getLightTheme(),
+            getPages: AppPages.pages,
+            initialRoute: AppRoutes.initial,
+            defaultTransition: Transition.fadeIn,
+            debugShowCheckedModeBanner: false,
           ),
-        ],
-        child: MainScreen(),
+        ),
       ),
     );
   }

@@ -1,0 +1,19 @@
+{
+    "app_name": "Earns Big Profit",
+    "default_theme" : "light",
+    "light_theme": {
+      "primary_color": "#2697FF",
+      "primary_dark_color": "#2697FF",
+      "accent_color": "#2A2D3E",
+      "accent_dark_color": "#2A2D3E",
+      "scaffold_color": "#FFFFFF",
+      "text_color": "#383838",
+      "hint_color" : "#797979"
+    },
+    
+    "app_language" : "en_US",
+    "app_version": "1.0.0",
+    "enable_version": "1",
+    "font_family": "Poppins"
+  
+  }
