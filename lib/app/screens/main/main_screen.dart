@@ -4,6 +4,7 @@ import 'package:admin/app/core/widgets/taps.dart';
 import 'package:admin/app/screens/companies/view/compaines_screen.dart';
 import 'package:admin/app/screens/dashboard/components/header.dart';
 import 'package:admin/app/screens/dashboard/view/dashboard_screen.dart';
+import 'package:admin/app/screens/logout/view/logout_screen.dart';
 import 'package:admin/app/screens/main/controller/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,7 +49,7 @@ class MainScreen extends GetView<MainController> {
                               return Container();
 
                             case dashboardTaps.Logout:
-                              return Container();
+                              return LogoutScreen();
                             default:
                               return Container();
                           }

@@ -16,7 +16,8 @@ enum companyTaps {
   Reminders,
   Team,
   Subscription,
-  Report
+  Report,
+  Setting
 }
 
 class MainTaps extends StatelessWidget {

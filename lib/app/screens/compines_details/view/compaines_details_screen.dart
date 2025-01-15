@@ -4,6 +4,7 @@ import 'package:admin/app/core/widgets/taps.dart';
 import 'package:admin/app/screens/compines_details/components/compaines_details_header.dart';
 import 'package:admin/app/screens/compines_details/controller/compaines_datails_controller.dart.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/company_users/view/company_user_screen.dart';
+import 'package:admin/app/screens/compines_details/nested_screens/setting/view/setting_screen.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/team/view/team_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,6 +56,8 @@ class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
                               return TeamScreen();
                             case companyTaps.Report:
                               return Container();
+                            case companyTaps.Setting:
+                              return SettingScreen();
                             default:
                               return Container();
                           }
