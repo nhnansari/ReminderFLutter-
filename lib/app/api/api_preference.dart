@@ -2,7 +2,7 @@ import 'package:get_storage/get_storage.dart';
 
 const String _apiToken = "api_token";
 const String userName = "userName";
-const String _authenticationData = "authentication_data";
+const String _setCompanyData = "setCompanyData";
 const String _userId = "user_id";
 const String appAuthQrCode = "qrCode";
 const String userEmail = "userEmail";
@@ -13,6 +13,7 @@ const String userCockies = "userCockies";
 const String deviceToken = "deviceToken";
 
 const String currentRoute = "currentRoute";
+const String currentCompinesRoute = "currentCompinesRoute";
 
 class AppPreferences {
   /// Set Api Token
@@ -43,15 +44,15 @@ class AppPreferences {
   static removeUserName() => GetStorage().remove(userName);
 
   /// Set Authentication Data
-  static setAuthenticationData(String value) =>
-      GetStorage().write(_authenticationData, value);
+  static setSetCompanyData( value) =>
+      GetStorage().write(_setCompanyData, value);
 
   /// Get Authentication Data
-  static get getAuthenticationData =>
-      GetStorage().read<String>(_authenticationData);
+  static get getSetCompanyData =>
+      GetStorage().read(_setCompanyData);
 
   /// Remove Authentication Data
-  static removeAuthenticationData() => GetStorage().remove(_authenticationData);
+  static removeSetCompanyData() => GetStorage().remove(_setCompanyData);
 
   // Set User Id
   static setUserId(String value) => GetStorage().write(_userId, value);
@@ -120,4 +121,13 @@ class AppPreferences {
 
   /// Remove currentRoute
   static removeCurrentRoute() => GetStorage().remove(currentRoute);
+
+  /// Set currentRoute
+  static setCompaniesCurrentRoute(value) => GetStorage().write(currentCompinesRoute, value);
+
+  /// Get currentRoute
+  static get getCompaniesCurrentRoute => GetStorage().read<int>(currentCompinesRoute);
+
+  /// Remove currentRoute
+  static removeCompaniesCurrentRoute() => GetStorage().remove(currentCompinesRoute);
 }

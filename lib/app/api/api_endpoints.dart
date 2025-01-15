@@ -8,15 +8,14 @@ const String kVarifyOtp = "/auth/verify_token";
 // get companies
 
 const String kCompanies = "/companies/list";
-
 const String kRegisterCompanies = "/companies/register";
-// const String kPasswordResetRequest = "/users/update_password";
-// const String kPasswordResetCodeReq = "/users/verify_reset_token";
 
-// const String kSetNewPassword = "/users/set_new_password"// const String kResendMFAAuthPass = "/authentication/resend_auth_code";
+// comapny Users
 
-// // MFA authenticaton
-// const String kMfaList = "/user_mfa/";
+const String kAddCompanyUser = "/companies/invite-member";
+const String kDeleteCompanyUser = "/companies/remove-worker";
+const String kCompanyWorkers = "/companies/company-workers";
+const String kInvitedUsers = "/companies/invited-members";
 // const String kMfaVarifyAppAuth = "/user_mfa/verify_authenticator";
 
 // // Membership

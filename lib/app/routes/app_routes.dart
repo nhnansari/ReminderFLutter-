@@ -8,8 +8,8 @@ class AppRoutes {
 
 
   static const String resetPassword = "/resetPassword";
-  // static const String emailVarification = "/emailVarification";
-  // static const String index = "/index";
+  static const String compainesDetails = "/compainesDetails";
+  static const String team = "/team";
   // static const String desposit = "/desposit";
   // static const String withdraw = "/withdraw";
   // static const String investment = "/investment";

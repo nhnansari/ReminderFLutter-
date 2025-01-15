@@ -42,7 +42,7 @@ class CustomTextfeild extends StatelessWidget {
   final keyBoardType;
   final String hinttext;
   final IconData? iconPath;
-  List<Map<String, String>>? dropdownItems;
+  List<String>? dropdownItems;
   final String? selectedItem;
   final Function(String?)? onDropdownChanged;
 
@@ -108,7 +108,105 @@ class CustomTextfeild extends StatelessWidget {
               ),
             ],
           ),
-        TextFormField(
+        dropdownItems != null
+            ? DropdownButtonFormField<String>(
+                hint: Text(hinttext,
+                    textAlign: TextAlign.start,
+                    style: AppTextstyle.text14.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: FontSizeManager.getFontSize(context, 13),
+                        color: AppColors.hintColor)),
+                style: AppTextstyle.text10.copyWith(
+                  color: AppColors.whiteColor,
+                  fontSize: FontSizeManager.getFontSize(context, 13),
+                ),
+                value: dropdownItems?.contains(selectedItem) ?? false
+                    ? selectedItem
+                    : null,
+                isExpanded: true,
+                validator: validator,
+                items: List.generate(
+                    dropdownItems!.length,
+                    (index) => DropdownMenuItem(
+                          value: dropdownItems![index],
+                          child: Text(
+                            dropdownItems![index],
+                            style: AppTextstyle.text10.copyWith(
+                              color: AppColors.whiteColor,
+                              fontSize:
+                                  FontSizeManager.getFontSize(context, 13),
+                            ),
+                          ),
+                        )),
+                selectedItemBuilder: (BuildContext context) => List.generate(
+                    dropdownItems!.length,
+                    (index) => DropdownMenuItem(
+                          value: dropdownItems![index],
+                          child: Text(
+                            dropdownItems![index],
+                            style: AppTextstyle.text10.copyWith(
+                              color: AppColors.whiteColor,
+                              fontSize:
+                                  FontSizeManager.getFontSize(context, 13),
+                            ),
+                          ),
+                        )),
+                onChanged: onDropdownChanged,
+                dropdownColor: AppColors.primaryColor,
+                decoration: InputDecoration(
+                  fillColor: AppColors.secondaryColor,
+                  filled: true,
+                  enabled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: AppColors.secondaryColor,
+                    ),
+                  ),
+                  errorStyle: AppTextstyle.text12.copyWith(color: Colors.red),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: AppColors.errorColor,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                    borderSide: const BorderSide(
+                      width: 1.5,
+                      color: Colors.red,
+                    ),
+                  ),
+                  prefixIcon: iconPath != null
+                      ? Icon(
+                          iconPath,
+                          color: AppColors.secondaryColor,
+                        )
+                      : null,
+                  // filled: true,
+                  // fillColor: fillcolor ?? AppColors.secondaryColor,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.r),
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: AppColors.secondaryColor,
+                    ),
+                  ),
+                  suffixIcon: icon,
+                  isCollapsed: Responsive.isMobile(context) ? true : null,
+                  prefix: prefixwidget,
+                  hintText: hinttext.tr,
+                  prefixIconConstraints: boxConstraints,
+                  hintStyle: AppTextstyle.text14.copyWith(
+                      color: AppColors.hintColor,
+                      fontSize: FontSizeManager.getFontSize(context, 12)),
+                ),
+              )
+            : TextFormField(
                 inputFormatters: inputFormatter,
                 onTap: ontap,
                 readOnly: readonly,
@@ -147,8 +245,7 @@ class CustomTextfeild extends StatelessWidget {
                         )),
                     filled: true,
                     fillColor: fillcolor ?? AppColors.whiteColor,
-                    isCollapsed:
-                        Responsive.isMobile(context) ? true : null,
+                    isCollapsed: Responsive.isMobile(context) ? true : null,
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
                     focusedBorder: OutlineInputBorder(

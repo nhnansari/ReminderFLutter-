@@ -59,7 +59,7 @@ class LoginController extends GetxController {
         await AppPreferences.setUserName(response['user']['fullName']);
         Get.log("Login Token: $token");
 
-        Get.offAllNamed(AppRoutes.companies);
+        Get.offAllNamed(AppRoutes.main);
 
         CustomSnackBar.show(message: "Login Successfully");
         clear();

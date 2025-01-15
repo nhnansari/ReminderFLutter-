@@ -86,6 +86,9 @@ class ApiClient {
           break;
         case 'GET':
           response = await http.get(uri, headers: headers);
+        case 'DELETE':
+          response =
+              await http.put(uri, headers: headers, body: jsonEncode(body));
         default:
           response = await http.get(uri, headers: headers);
       }

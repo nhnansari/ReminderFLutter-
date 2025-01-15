@@ -9,7 +9,7 @@ class ResetPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Title(
-      title: 'Reset Password | Earn Big Profits',
+      title: 'Reset Password',
       color: AppColors.textColor,
       child: Scaffold(
         body: SizedBox(

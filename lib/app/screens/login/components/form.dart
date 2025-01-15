@@ -108,8 +108,8 @@ class LoginForm extends StatelessWidget {
                   Obx(
                     () => Checkbox(
                       splashRadius: 0,
-                      fillColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
+                      fillColor: WidgetStateProperty.resolveWith<Color>(
+                          (Set<WidgetState> states) {
                         return checkBoxValue!
                             ? AppColors.secondaryColor
                             : AppColors.whiteColor;

@@ -3,7 +3,7 @@ class AppImages {
 
   static const String notificationLogo = "assets/images/ic_notification.png";
   static const String profile = "assets/images/profile.png";
-  // static const String landingImg2 = "assets/images/landingImg2.png";
+  static const String logo = "assets/images/logo.png";
   // static const String landingBg1 = "assets/images/landingBg1.png";
   // static const String landingBg2 = "assets/images/landingBg2.png";
   // static const String landingBg3 = "assets/images/landingBg3.png";

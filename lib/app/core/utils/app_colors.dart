@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppColors {
-  static const Color whiteColor = Color.fromARGB(232, 255, 255, 255);
+  static const Color whiteColor = Colors.white;
   static const Color errorColor = Colors.red;
   static const Color transparentColor = Colors.transparent;
   static const Color blackColor = Colors.black;

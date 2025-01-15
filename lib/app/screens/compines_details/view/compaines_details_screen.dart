@@ -1,18 +1,18 @@
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/widgets/taps.dart';
-import 'package:admin/app/screens/companies/view/compaines_screen.dart';
-import 'package:admin/app/screens/dashboard/components/header.dart';
-import 'package:admin/app/screens/dashboard/view/dashboard_screen.dart';
-import 'package:admin/app/screens/main/controller/main_controller.dart';
+import 'package:admin/app/screens/compines_details/components/compaines_details_header.dart';
+import 'package:admin/app/screens/compines_details/controller/compaines_datails_controller.dart.dart';
+import 'package:admin/app/screens/compines_details/nested_screens/company_users/view/company_user_screen.dart';
+import 'package:admin/app/screens/compines_details/nested_screens/team/view/team_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MainScreen extends GetView<MainController> {
+class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<MainController>(
-        init: MainController(),
+    return GetBuilder<CompainesDetailsController>(
+        init: CompainesDetailsController(),
         builder: (controller) {
           return Title(
             title: "Task App",
@@ -20,14 +20,14 @@ class MainScreen extends GetView<MainController> {
             child: Scaffold(
                 backgroundColor: AppColors.whiteColor,
                 appBar: PreferredSize(
-                  child: Header(),
+                  child: CompainesDetailsHeader(),
                   preferredSize: Size.fromHeight(60),
                 ),
                 // drawer: SideMenu(),
                 body: SafeArea(
                     child: Column(
                   children: [
-                    MainTaps(),
+                    CompainesTap(),
                     height10,
                     Expanded(
                       child: PageView.builder(
@@ -35,19 +35,25 @@ class MainScreen extends GetView<MainController> {
                         onPageChanged: (int index) {
                           controller.changeIndex(index);
                         },
-                        itemCount: dashboardTaps.values.length,
+                        itemCount: companyTaps.values.length,
                         itemBuilder: (context, index) {
-                          switch (dashboardTaps.values[index]) {
-                            case dashboardTaps.Dashboard:
-                              return DashboardScreen();
-                            case dashboardTaps.Companies:
-                              return CompainesScreen();
-                            case dashboardTaps.Profile:
+                          switch (companyTaps.values[index]) {
+                            case companyTaps.Overview:
                               return Container();
-                            case dashboardTaps.Settings:
+                            case companyTaps.Users:
+                              return CompanyUserScreen();
+                            case companyTaps.Jobs:
+                              return Container();
+                            case companyTaps.Project:
+                              return Container();
+                            case companyTaps.Subscription:
                               return Container();
 
-                            case dashboardTaps.Logout:
+                            case companyTaps.Reminders:
+                              return Container();
+                            case companyTaps.Team:
+                              return TeamScreen();
+                            case companyTaps.Report:
                               return Container();
                             default:
                               return Container();

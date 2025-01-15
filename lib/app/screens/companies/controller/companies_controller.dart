@@ -46,8 +46,7 @@ class CompaniesController extends GetxController {
     try {
       final Map<String, dynamic> body = {
         "name": nameController.text.trim(),
-        "subdomain": subDomainController.text.trim(),
-        "logo": urlController.text.trim()
+        "logo":""
       };
 
       CustomLoading.show();
