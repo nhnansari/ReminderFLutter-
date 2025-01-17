@@ -7,7 +7,8 @@ class SettingController extends GetxController {
     await AppPreferences.removeCompaniesCurrentRoute();
 
     await AppPreferences.removeSetCompanyData();
+    await AppPreferences.removeCurrentRoute();
 
-    Get.offAllNamed(AppRoutes.main);
+    Get.offAndToNamed(AppRoutes.main);
   }
 }

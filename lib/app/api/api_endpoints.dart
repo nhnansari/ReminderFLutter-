@@ -18,7 +18,7 @@ const String kCompanyWorkers = "/companies/company-workers";
 const String kInvitedUsers = "/companies/invited-members";
 // const String kMfaVarifyAppAuth = "/user_mfa/verify_authenticator";
 
-// // Membership
+// // Project
 // const String kMemberShipPLan = "/memberships/list";
 // const String kCurrentMemberShip = "/memberships/current";
 // const String kPurchaseMembership = "/memberships/purchase";
@@ -26,10 +26,10 @@ const String kInvitedUsers = "/companies/invited-members";
 
 // // Profile
 
-// const String kProfile = "/user_profile";
-// const String kCheckUserByAccId = "/users/info/";
-// const String kReferralLink = "/users/referral_link";
-// const String kUploadProfile = "/user_profile/image/presign";
+const String kCreateProject = "/projects";
+const String kGetProjects = "/projects";
+const String kUpdateProjects = "/projects";
+const String kDeleteProject = "/projects";
 // const String kUploadProfileImage = "/user_profile/image";
 
 // // Balances

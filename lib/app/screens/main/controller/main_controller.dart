@@ -1,16 +1,18 @@
+// import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/taps.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class  MainController extends GetxController {
-   late PageController pageController;
-  late ScrollController scrollController = ScrollController();
+class MainController extends GetxController {
+  late PageController pageController;
+  // late ScrollController scrollController;
 
   @override
   void onInit() {
     int initialRoute = 0;
     if (GetPlatform.isWeb) {
+      // initialRoute = 0;
       initialRoute = AppPreferences.getCurrentRoute ?? 0;
     }
 
@@ -21,7 +23,7 @@ class  MainController extends GetxController {
     pageController = PageController(initialPage: initialRoute);
     currentScreen.value = dashboardTaps.values[initialRoute];
 
-    scrollController = ScrollController();
+    // scrollController = ScrollController();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       // await getProfile();
       // await getCurrentMembership();
@@ -40,10 +42,7 @@ class  MainController extends GetxController {
     super.onInit();
   }
 
-
-
   final Rx<dashboardTaps> currentScreen = dashboardTaps.Dashboard.obs;
-
 
   void changeIndex(int index) {
     currentScreen.value = dashboardTaps.values[index];
@@ -51,7 +50,5 @@ class  MainController extends GetxController {
     if (GetPlatform.isWeb) {
       AppPreferences.setCurrentRoute(index);
     }
-   
-    
   }
 }

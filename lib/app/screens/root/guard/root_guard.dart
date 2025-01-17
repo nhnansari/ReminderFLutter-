@@ -15,6 +15,7 @@ class RouteGuard extends GetMiddleware {
       final checkData = AppPreferences.getSetCompanyData;
 
       if (route == AppRoutes.login ||
+          route == AppRoutes.initial ||
           route == AppRoutes.signUp ||
           route == AppRoutes.resetPassword) {
         if (checkData != null) {
