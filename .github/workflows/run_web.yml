@@ -1,16 +1,32 @@
-name: Gh-Pages
+name: Build and Deploy to Server
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2 # Only works with v2
-      - uses: subosito/flutter-action@v1
-      - uses: bluefireteam/flutter-gh-pages@v7
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Set up Flutter environment
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+
+      # Build Flutter web project
+      - name: Build Flutter Web
+        run: flutter build web --release
+
+      # Deploy to the server and build Docker image there
+      - name: Deploy to Server and Build
+        uses: appleboy/scp-action@v0.1.3
         with:
-            baseHref: /Flutter-Responsive-Admin-Panel-or-Dashboard/
+          host: ${{ vars.SERVER_HOST }}
+          username: ${{ vars.SERVER_USER }}
+          password: ${{ secrets.SSH_PASSWORD }} # Or use `private-key`
+          source: "./"
+          target: ${{ vars.DEPLOY_PATH }} # Replace with your target directory on the server
