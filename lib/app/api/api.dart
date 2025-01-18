@@ -101,9 +101,9 @@ class ApiClient {
       } else if (response.statusCode == 401) {
         await AppPreferences.removeApiToken();
         await AppPreferences.removeUserEmail();
-        await AppPreferences.removeCurrentRoute();
+        await AppPreferences.removeProjectRoute();
         await AppPreferences.removeDeviceToken();
-        await AppPreferences.removeUserId();
+        await AppPreferences.removeCompanyId();
         // Get.put(LogoutController()).deleteReferralCookie();
         // Get.offAllNamed(AppRoutes.login);
       } else {

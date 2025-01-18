@@ -5,18 +5,16 @@ import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/responsive.dart';
 import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/screens/compines_details/controller/compaines_datails_controller.dart.dart';
+import 'package:admin/app/screens/project_details/controller/project_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class CompainesDetailsHeader extends StatelessWidget {
-  final controller = Get.put(CompainesDetailsController());
-  final GlobalKey<ScaffoldState> scaffoldKey;
+class ProjectDetailsHeader extends StatelessWidget {
+  final controller = Get.put(ProjectDetailsController());
 
-  CompainesDetailsHeader({
+  ProjectDetailsHeader({
     Key? key,
-    required this.scaffoldKey,
   }) : super(key: key);
 
   @override
@@ -54,9 +52,9 @@ class CompainesDetailsHeader extends StatelessWidget {
               width: 8,
             ),
             Text(
-              " > ",
+              " > Project > ",
               style: AppTextstyle.text10.copyWith(
-                  fontSize: FontSizeManager.getFontSize(context, 17),
+                  fontSize: FontSizeManager.getFontSize(context, 15),
                   color: AppColors.textColor,
                   fontWeight: FontWeight.normal),
             ),
@@ -64,7 +62,7 @@ class CompainesDetailsHeader extends StatelessWidget {
               width: 8,
             ),
             Text(
-              "${controller.companiesModel.value.name.toString()}",
+              "${controller.projectModel.value.name.toString()}",
               style: AppTextstyle.text10.copyWith(
                   fontSize: FontSizeManager.getFontSize(context, 14),
                   color: AppColors.textColor,
@@ -104,6 +102,10 @@ class CompainesDetailsHeader extends StatelessWidget {
                         child:
                             itemText(text: "Switch Company", context: context)),
                     PopupMenuItem(
+                        value: 'switch_project',
+                        child:
+                            itemText(text: "Switch Project", context: context)),
+                    PopupMenuItem(
                         value: 'logout',
                         child: itemText(text: "Logout", context: context)),
                   ],
@@ -120,7 +122,11 @@ class CompainesDetailsHeader extends StatelessWidget {
                         // Navigate to Subscriptions screen or perform an action
                         break;
                       case 'switch_company':
-                        Get.offAllNamed(AppRoutes.companies);
+                        Get.offAndToNamed(AppRoutes.companies);
+                        // Handle switch company logic
+                        break;
+                      case 'switch_project':
+                        Get.offAllNamed(AppRoutes.compainesDetails);
                         // Handle switch company logic
                         break;
                       case 'logout':

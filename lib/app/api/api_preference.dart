@@ -3,8 +3,8 @@ import 'package:get_storage/get_storage.dart';
 const String _apiToken = "api_token";
 const String userName = "userName";
 const String _setCompanyData = "setCompanyData";
-const String _userId = "user_id";
-const String appAuthQrCode = "qrCode";
+const String companyId = "companyId";
+const String setProjectDetails = "setProjectDetails";
 const String userEmail = "userEmail";
 const String userLoginTokken = "userLoginTokken";
 const String Otp = "Otp";
@@ -12,7 +12,7 @@ const String VarifySession = "VarifySession";
 const String userCockies = "userCockies";
 const String deviceToken = "deviceToken";
 
-const String currentRoute = "currentRoute";
+const String projectRoute = "projectRoute";
 const String currentCompinesRoute = "currentCompinesRoute";
 
 class AppPreferences {
@@ -54,14 +54,14 @@ class AppPreferences {
   /// Remove Authentication Data
   static removeSetCompanyData() => GetStorage().remove(_setCompanyData);
 
-  // Set User Id
-  static setUserId(String value) => GetStorage().write(_userId, value);
+  // Set CompanyId
+  static setCompanyId(String value) => GetStorage().write(companyId, value);
 
-  /// Get User Id
-  static get getUserId => GetStorage().read<String>(_userId);
+  /// Get CompanyId
+  static get getCompanyId => GetStorage().read<String>(companyId);
 
-  /// Remove User Id
-  static removeUserId() => GetStorage().remove(_userId);
+  /// Remove  CompanyId
+  static removeCompanyId() => GetStorage().remove(companyId);
 
   static setCookies(String value) => GetStorage().write(userCockies, value);
 
@@ -74,14 +74,14 @@ class AppPreferences {
 
 
   // set app authentication qr code
-  static setAppAuthQrCode(String value) =>
-      GetStorage().write(appAuthQrCode, value);
+  static setProjectDetail( value) =>
+      GetStorage().write(setProjectDetails, value);
 
   /// Get app authentication qr code
-  static get getAppAuthQrCode => GetStorage().read<String>(appAuthQrCode);
+  static get getProjectDetail => GetStorage().read(setProjectDetails);
 
   /// Remove app authentication qr code
-  static removeAppAuthQrCode() => GetStorage().remove(appAuthQrCode);
+  static removeProjectDetail() => GetStorage().remove(setProjectDetails);
 
   // set user email for signup otp varify
 
@@ -113,14 +113,14 @@ class AppPreferences {
   /// Remove VarifySession for varify app Authentication mfa
   static removeVarifySession() => GetStorage().remove(VarifySession);
 
-  /// Set currentRoute
-  static setCurrentRoute(value) => GetStorage().write(currentRoute, value);
+  /// Set project Route
+  static setProjectRoute(value) => GetStorage().write(projectRoute, value);
 
-  /// Get currentRoute
-  static get getCurrentRoute => GetStorage().read<int>(currentRoute);
+  /// Get project Route
+  static get getProjectRoute => GetStorage().read<int>(projectRoute);
 
-  /// Remove currentRoute
-  static removeCurrentRoute() => GetStorage().remove(currentRoute);
+  /// Remove project Route
+  static removeProjectRoute() => GetStorage().remove(projectRoute);
 
   /// Set currentRoute
   static setCompaniesCurrentRoute(value) => GetStorage().write(currentCompinesRoute, value);

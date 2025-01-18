@@ -1,11 +1,13 @@
 // import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/taps.dart';
+import 'package:admin/app/screens/compines_details/nested_screens/project/model/project_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class MainController extends GetxController {
+class ProjectDetailsController extends GetxController {
   late PageController pageController;
+  var projectModel = ProjectListData().obs;
   // late ScrollController scrollController;
 
   @override
@@ -13,18 +15,19 @@ class MainController extends GetxController {
     int initialRoute = 0;
     if (GetPlatform.isWeb) {
       // initialRoute = 0;
-      initialRoute = AppPreferences.getCurrentRoute ?? 0;
+      initialRoute = AppPreferences.getProjectRoute ?? 0;
     }
 
-    if (initialRoute < 0 || initialRoute >= dashboardTaps.values.length) {
+    if (initialRoute < 0 || initialRoute >= projectDetailsTaps.values.length) {
       initialRoute = 0; // Fallback to a valid value
     }
 
     pageController = PageController(initialPage: initialRoute);
-    currentScreen.value = dashboardTaps.values[initialRoute];
+    currentScreen.value = projectDetailsTaps.values[initialRoute];
 
     // scrollController = ScrollController();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+   WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getData();
       // await getProfile();
       // await getCurrentMembership();
       // await getReferralLink();
@@ -42,13 +45,23 @@ class MainController extends GetxController {
     super.onInit();
   }
 
-  final Rx<dashboardTaps> currentScreen = dashboardTaps.Dashboard.obs;
+  getData() async {
+    final getArgs = await AppPreferences.getProjectDetail;
+
+    if (getArgs != null) {
+      projectModel.value = ProjectListData.fromJson(getArgs);
+      AppPreferences.setCompanyId(projectModel.value.id.toString());
+
+      update();
+    }
+  }
+  final Rx<projectDetailsTaps> currentScreen = projectDetailsTaps.Task.obs;
 
   void changeIndex(int index) {
-    currentScreen.value = dashboardTaps.values[index];
+    currentScreen.value = projectDetailsTaps.values[index];
     pageController.jumpToPage(index);
     if (GetPlatform.isWeb) {
-      AppPreferences.setCurrentRoute(index);
+      AppPreferences.setProjectRoute(index);
     }
   }
 }

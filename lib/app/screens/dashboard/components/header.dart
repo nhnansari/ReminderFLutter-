@@ -1,5 +1,4 @@
 import 'package:admin/app/controllers/MenuAppController.dart';
-import 'package:admin/app/core/assets/app_icons.dart';
 import 'package:admin/app/core/assets/app_images.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
@@ -12,14 +11,13 @@ import 'package:get/get.dart';
 
 class Header extends StatelessWidget {
   final controller = Get.put(MenuAppController());
-  Header({
-    Key? key,
-  }) : super(key: key);
+  final Color backColor;
+  Header({Key? key, this.backColor = AppColors.whiteColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.whiteColor,
+      color: backColor,
       child: InnerPadding(
         child: Row(
           children: [
@@ -30,7 +28,7 @@ class Header extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             SizedBox(
-              width: 10,
+              width: 8,
             ),
             // if (!Responsive.isDesktop(context))
             //   IconButton(
@@ -48,14 +46,14 @@ class Header extends StatelessWidget {
 
             Spacer(),
 
-            CircleAvatar(
-              backgroundColor: AppColors.primaryColor,
-              radius: 23.r,
-              child: SvgPicture.asset(
-                AppIcons.notification,
-                color: AppColors.whiteColor,
-              ),
-            ),
+            // CircleAvatar(
+            //   backgroundColor: AppColors.primaryColor,
+            //   radius: 23.r,
+            //   child: SvgPicture.asset(
+            //     AppIcons.notification,
+            //     color: AppColors.whiteColor,
+            //   ),
+            // ),
             CircleAvatar(
               backgroundColor: AppColors.primaryColor,
               backgroundImage: AssetImage(AppImages.profile),
@@ -63,7 +61,7 @@ class Header extends StatelessWidget {
             ),
 
             SizedBox(
-              width: 10,
+              width: 8,
             ),
             Text(
               "Malik Imran",

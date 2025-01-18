@@ -1,6 +1,6 @@
+import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/compines_details/controller/compaines_datails_controller.dart.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/project/model/project_model.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/project/respository/project_repo.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,6 @@ class ProjectController extends GetxController {
 
   final nameController = TextEditingController();
   final descController = TextEditingController();
-  final companiesDetailsController = Get.put(CompainesDetailsController());
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
 
@@ -53,8 +52,8 @@ class ProjectController extends GetxController {
 
   Future<void> getProjects() async {
     try {
-      final parameter =
-          "?companyId=${companiesDetailsController.companiesModel.value.id}";
+      final companyId = await AppPreferences.getCompanyId;
+      final parameter = "?companyId=$companyId";
       CustomLoading.show();
       final response = await projectRepo.getProjects(parameter: parameter);
 
@@ -105,11 +104,12 @@ class ProjectController extends GetxController {
   }
 
   void createProject() async {
+    final companyId = await AppPreferences.getCompanyId;
     try {
       final Map<String, dynamic> body = {
         "name": nameController.text.trim(),
         "description": descController.text.trim(),
-        "companyId": companiesDetailsController.companiesModel.value.id,
+        "companyId": companyId,
         "startDate": startDateController.text.trim(),
         "endDate": endDateController.text.trim()
       };

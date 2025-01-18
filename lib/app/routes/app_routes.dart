@@ -1,6 +1,6 @@
 class AppRoutes {
   static const initial = "/";
-  static const String main = "/main";
+  static const String projectDetailScreen = "/projectDetailScreen";
   // static const String dashboard = "/dashboard";
   static const String companies = "/compaines";
   static const String login = "/login";

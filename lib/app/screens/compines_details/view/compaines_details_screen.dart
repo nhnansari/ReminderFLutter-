@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CompainesDetailsController>(
@@ -20,50 +21,44 @@ class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
             title: "Task App",
             color: AppColors.textColor,
             child: Scaffold(
+                key: scaffoldKey,
                 backgroundColor: AppColors.whiteColor,
                 appBar: PreferredSize(
-                  child: CompainesDetailsHeader(),
+                  child: CompainesDetailsHeader(
+                    scaffoldKey: scaffoldKey,
+                  ),
                   preferredSize: Size.fromHeight(60),
                 ),
+                // drawer: CustomDrawer(),
                 // drawer: SideMenu(),
                 body: SafeArea(
                     child: Column(
                   children: [
-                    Expanded(flex: -1, child: CompainesTap()),
+                    CompainesTap(),
                     height10,
                     Expanded(
-                      child: PageView.builder(
-                        controller: controller.pageController,
-                        onPageChanged: (int index) {
-                          controller.changeIndex(index);
-                        },
-                        itemCount: companyTaps.values.length,
-                        itemBuilder: (context, index) {
-                          switch (companyTaps.values[index]) {
-                            case companyTaps.Overview:
-                              return Container();
-                            case companyTaps.Users:
-                              return CompanyUserScreen();
-                            case companyTaps.Jobs:
-                              return Container();
-                            case companyTaps.Project:
-                              return ProjectScreen();
-                            case companyTaps.Subscription:
-                              return Container();
-
-                            case companyTaps.Reminders:
-                              return Container();
-                            case companyTaps.Team:
-                              return TeamScreen();
-                            case companyTaps.Report:
-                              return Container();
-                            case companyTaps.Setting:
-                              return SettingScreen();
-                            default:
-                              return Container();
-                          }
-                        },
-                      ),
+                      child:  PageView.builder(
+                          controller: controller.pageController,
+                          onPageChanged: (int index) {
+                            controller.changeIndex(index);
+                          },
+                          itemCount: companyTaps.values.length,
+                          itemBuilder: (context, index) {
+                            switch (companyTaps.values[index]) {
+                              case companyTaps.Users:
+                                return CompanyUserScreen();
+                              case companyTaps.Projects:
+                                return ProjectScreen();
+                              case companyTaps.Team:
+                                return TeamScreen();
+                              case companyTaps.Settings:
+                                return SettingScreen();
+                              default:
+                                return Container();
+                            }
+                          },
+                        ),
+                  
                     )
                   ],
                 )

@@ -21,7 +21,7 @@ class RouteGuard extends GetMiddleware {
         if (checkData != null) {
           return RouteSettings(name: AppRoutes.compainesDetails);
         }
-        return RouteSettings(name: AppRoutes.main);
+        return RouteSettings(name: AppRoutes.companies);
       }
       // Allow access to other routes
       return null;
@@ -50,6 +50,6 @@ RouteSettings checkUser() {
   if (getToken == null) {
     return RouteSettings(name: AppRoutes.login);
   } else {
-    return RouteSettings(name: AppRoutes.main);
+    return RouteSettings(name: AppRoutes.companies);
   }
 }
