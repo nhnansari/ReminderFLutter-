@@ -1,5 +1,3 @@
-import 'package:admin/app/core/assets/app_images.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/widgets/auth_header.dart';
 import 'package:admin/app/responsive.dart';
 import 'package:admin/app/screens/sign_up/components/sighnup_form.dart';
@@ -20,49 +18,29 @@ class SignUpScreen extends GetView<SignUpController> {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    if (Responsive.isDesktop(context)) AuthHeader(),
+                    AuthHeader(),
 
-                    height20,
-                    if (!Responsive.isDesktop(context)) ...[
-                      Image.asset(
-                        AppImages.img1,
-                        fit: BoxFit.scaleDown,
-                        height: 200.h,
-                        width: 300.w,
-                      ),
-                    ],
                     Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 12.w, vertical: 20.h),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            if (Responsive.isDesktop(context)) ...[
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Image.asset(
-                                      AppImages.img1,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                            Expanded(
-                              child: Form(
-                                key: signUpFormKey,
-                                child: SignUpForm(
-                                  ontap: () {
-                                    if (signUpFormKey.currentState!
-                                        .validate()) {
-                                      // print(controller.refId);
-                                      controller.signUpUser();
-                                    }
-                                  },
-                                ),
-                              ),
+                        child: Container(
+                          constraints: BoxConstraints(
+                              maxWidth: Responsive.isDesktop(context)
+                                  ? 150.w
+                                  : Responsive.isTablet(context)
+                                      ? 240.w
+                                      : 320.w),
+                          child: Form(
+                            key: signUpFormKey,
+                            child: SignUpForm(
+                              ontap: () {
+                                if (signUpFormKey.currentState!.validate()) {
+                                  // print(controller.refId);
+                                  controller.signUpUser();
+                                }
+                              },
                             ),
-                          ],
+                          ),
                         )),
 
                     // if (Responsive.isDesktop(context)) ...[

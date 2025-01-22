@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 
 class AppColors {
   static const Color whiteColor = Colors.white;
+  static const Color lightBack = Color.fromARGB(82, 0, 0, 0);
+
   static const Color errorColor = Colors.red;
   static const Color transparentColor = Colors.transparent;
   static const Color blackColor = Colors.black;

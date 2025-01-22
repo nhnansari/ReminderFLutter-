@@ -1,9 +1,11 @@
+import 'package:admin/app/core/assets/app_images.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
+
 import 'package:admin/app/core/widgets/small_buttom.dart';
 import 'package:admin/app/responsive.dart';
 import 'package:admin/app/routes/app_routes.dart';
+import 'package:admin/app/screens/compines_details/components/compaines_details_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,51 +15,141 @@ class AuthHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.backColor,
-      padding: EdgeInsets.symmetric(
-        horizontal: 7.w,
-      ),
-      height: 60.h,
-      child: Row(
-        children: [
-          if (!Responsive.isMobile(context))
-            Text(
-              "Reminder App",
-              style: AppTextstyle.text10.copyWith(
-                  fontSize: FontSizeManager.getFontSize(context, 16),
-                  color: AppColors.whiteColor,
-                  fontWeight: FontWeight.bold),
-            ),
-          if (!Responsive.isMobile(context))
-            Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-          SmallButton(
-            name: "Login",
-            textColor: AppColors.whiteColor,
-            backcolor: AppColors.primaryColor,
-            fontSize: 13,
-            onclick: () {
-              Get.toNamed(AppRoutes.login);
-            },
-            width: 30.w,
-            height: 40.h,
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          color: AppColors.whiteColor,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // if (!Responsive.isDesktop(context))
+
+              Image.asset(
+                AppImages.logo,
+                height: 50.h,
+                width: 50,
+                fit: BoxFit.cover,
+              ),
+              if (!Responsive.isMobile(context)) ...[
+                SizedBox(
+                  width: 12.w,
+                ),
+                Text(
+                  "Home",
+                  style: AppTextstyle.text10.copyWith(
+                    fontSize: FontSizeManager.getFontSize(context, 12),
+                    color: AppColors.textColor,
+                  ),
+                ),
+                SizedBox(
+                  width: 9,
+                ),
+                Text(
+                  "Features",
+                  style: AppTextstyle.text10.copyWith(
+                    fontSize: FontSizeManager.getFontSize(context, 12),
+                    color: AppColors.textColor,
+                  ),
+                ),
+                SizedBox(
+                  width: 9,
+                ),
+                Text(
+                  "About",
+                  style: AppTextstyle.text10.copyWith(
+                    fontSize: FontSizeManager.getFontSize(context, 12),
+                    color: AppColors.textColor,
+                  ),
+                ),
+                SizedBox(
+                  width: 9,
+                ),
+                Text(
+                  "Contact",
+                  style: AppTextstyle.text10.copyWith(
+                    fontSize: FontSizeManager.getFontSize(context, 12),
+                    color: AppColors.textColor,
+                  ),
+                ),
+              ],
+              Spacer(),
+              if (!Responsive.isMobile(context)) ...[
+                SmallButton(
+                  name: " Login ",
+                  textColor: AppColors.textColor,
+                  borderColor: AppColors.textColor,
+                  backcolor: AppColors.whiteColor,
+                  fontSize: 13,
+                  width: 100,
+                  onclick: () {
+                    Get.toNamed(AppRoutes.login);
+                  },
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                SmallButton(
+                  name: "SignUp",
+                  textColor: AppColors.whiteColor,
+                  borderColor: AppColors.textColor,
+                  backcolor: AppColors.textColor,
+                  fontSize: 13,
+                  width: 100,
+                  onclick: () {
+                    Get.toNamed(AppRoutes.signUp);
+                  },
+                ),
+              ],
+              if (Responsive.isMobile(context))
+                IconButton(
+                  iconSize: 26,
+                  padding: EdgeInsets.all(0),
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    showMenu(
+                        color: AppColors.secondaryColor,
+                        context: context,
+                        position: RelativeRect.fromLTRB(
+                            50.0, 50.0, 0.0, 0.0), // Position of the menu
+                        items: [
+                          PopupMenuItem(
+                              value: 'login',
+                              child: itemText(text: "Login", context: context)),
+                          PopupMenuItem(
+                              value: 'signUp',
+                              child:
+                                  itemText(text: "Sign Up", context: context)),
+                        ]).then((value) async {
+                      // Handle item selection
+                      if (value != null) {
+                        switch (value) {
+                          case 'login':
+                            Get.toNamed(AppRoutes.login);
+
+                            // Navigate to Profile screen or perform an action
+                            break;
+                          case 'signUp':
+                            Get.toNamed(AppRoutes.signUp);
+
+                            // Navigate to Subscriptions screen or perform an action
+                            break;
+                        }
+                      }
+                    });
+                  },
+                ),
+              // width8,
+              // ProfileCard()
+            ],
           ),
-          width8,
-          SmallButton(
-            name: "SignUp",
-            textColor: AppColors.whiteColor,
-            backcolor: AppColors.primaryColor,
-            fontSize: 13,
-            width: 30.w,
-            height: 40.h,
-            onclick: () {
-              Get.toNamed(AppRoutes.signUp);
-            },
-          ),
-          // width8,
-          // ProfileCard()
-        ],
-      ),
+        ),
+        Divider(
+          thickness: 0.5,
+          height: 1,
+          color: AppColors.lightBack,
+        )
+      ],
     );
   }
 }

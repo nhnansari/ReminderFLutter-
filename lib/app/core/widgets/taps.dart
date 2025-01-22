@@ -9,9 +9,12 @@ import 'package:get/get.dart';
 enum projectDetailsTaps { Task, Reminders, Settings }
 
 enum companyTaps {
+  Dashboard,
   Projects,
-  Users,
+  Employees,
   Team,
+  
+  Reminders,
   Settings
 }
 
@@ -113,7 +116,13 @@ class CompainesTap extends StatelessWidget {
                                       style: AppTextstyle.text10.copyWith(
                                           fontSize: FontSizeManager.getFontSize(
                                               context, 13),
-                                          color: AppColors.textColor),
+                                          color: companiesController
+                                                      .currentScreen
+                                                      .value
+                                                      .index ==
+                                                  index
+                                              ? AppColors.textColor
+                                              : AppColors.greyColor),
                                     ),
                                     height10,
                                     Container(
@@ -123,10 +132,10 @@ class CompainesTap extends StatelessWidget {
                                           ? AppColors.backColor
                                           : AppColors.transparentColor,
                                       height: 1.5,
-                                      width:
-                                          (companyTaps.values[index].name.length *
-                                                  12)
-                                              .toDouble(),
+                                      width: (companyTaps
+                                                  .values[index].name.length *
+                                              12)
+                                          .toDouble(),
                                     )
                                   ],
                                 ),

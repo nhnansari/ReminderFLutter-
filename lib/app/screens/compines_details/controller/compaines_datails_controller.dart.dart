@@ -52,7 +52,9 @@ class CompainesDetailsController extends GetxController {
 
     if (getArgs != null) {
       companiesModel.value = Company.fromJson(getArgs);
-      AppPreferences.setCompanyId(companiesModel.value.id.toString());
+      await AppPreferences.setCompanyId(companiesModel.value.id.toString());
+      final id = await AppPreferences.getCompanyId;
+      Get.log(id.toString());
       update();
     }
   }

@@ -15,7 +15,7 @@ class CompanyUserScreen extends GetView<CompanyUserController> {
         init: CompanyUserController(),
         builder: (controller) => Title(
               color: AppColors.primaryColor,
-              title: "Users",
+              title: "Employees",
               child: Column(children: [
                 Expanded(
                   child: InnerPadding(
@@ -25,7 +25,7 @@ class CompanyUserScreen extends GetView<CompanyUserController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Users",
+                            Text("Employees",
                                 style: AppTextstyle.text10.copyWith(
                                     fontSize: FontSizeManager.getFontSize(
                                         context, 18),
@@ -46,7 +46,7 @@ class CompanyUserScreen extends GetView<CompanyUserController> {
                             //   ),
                             // ),
                             SmallButton(
-                                name: "Add Users",
+                                name: "Add Employee",
                                 textColor: AppColors.whiteColor,
                                 backcolor: AppColors.secondaryColor,
                                 onclick: () {

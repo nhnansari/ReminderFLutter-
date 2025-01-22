@@ -1,4 +1,3 @@
-
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class CustomButton extends StatelessWidget {
         boxShadow: [
           BoxShadow(
               color: AppColors.shadowColor.withOpacity(0.29),
-              offset: const Offset(5, 6),
+              offset: const Offset(3, 4),
               blurRadius: 6,
               spreadRadius: 0)
         ],

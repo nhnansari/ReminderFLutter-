@@ -1,4 +1,3 @@
-import 'package:admin/app/core/assets/app_images.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/widgets/auth_header.dart';
 import 'package:admin/app/responsive.dart';
@@ -18,27 +17,18 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
         builder: (controller) => SingleChildScrollView(
               child: Column(
                 children: [
-                  if (Responsive.isDesktop(context)) AuthHeader(),
+                  AuthHeader(),
                   height20,
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w),
-                    child: Row(
-                      children: [
-                        if (Responsive.isDesktop(context)) ...[
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  AppImages.img1,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                        Expanded(child: ResetPasswordForm())
-                      ],
-                    ),
-                  ),
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                      child: Container(
+                          constraints: BoxConstraints(
+                              maxWidth: Responsive.isDesktop(context)
+                                  ? 150.w
+                                  : Responsive.isTablet(context)
+                                      ? 240.w
+                                      : 320.w),
+                          child: ResetPasswordForm())),
                 ],
               ),
             ));

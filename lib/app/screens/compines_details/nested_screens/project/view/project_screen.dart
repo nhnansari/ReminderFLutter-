@@ -24,8 +24,6 @@ class ProjectScreen extends GetView<ProjectController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //
-                height18,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -97,11 +95,10 @@ class ProjectScreen extends GetView<ProjectController> {
                                         controller.projectList[index];
                                     return InkWell(
                                       onTap: () {
-
-                                     AppPreferences.setProjectDetail(
-                                              project.toJson());
-                                          Get.toNamed(
-                                              AppRoutes.projectDetailScreen);
+                                        AppPreferences.setProjectDetail(
+                                            project.toJson());
+                                        Get.toNamed(
+                                            AppRoutes.projectDetailScreen);
                                         // Navigate to project details
                                       },
                                       child: CustomContainer(

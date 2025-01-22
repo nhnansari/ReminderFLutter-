@@ -37,28 +37,32 @@ class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
                     CompainesTap(),
                     height10,
                     Expanded(
-                      child:  PageView.builder(
-                          controller: controller.pageController,
-                          onPageChanged: (int index) {
-                            controller.changeIndex(index);
-                          },
-                          itemCount: companyTaps.values.length,
-                          itemBuilder: (context, index) {
-                            switch (companyTaps.values[index]) {
-                              case companyTaps.Users:
-                                return CompanyUserScreen();
-                              case companyTaps.Projects:
-                                return ProjectScreen();
-                              case companyTaps.Team:
-                                return TeamScreen();
-                              case companyTaps.Settings:
-                                return SettingScreen();
-                              default:
-                                return Container();
-                            }
-                          },
-                        ),
-                  
+                      child: PageView.builder(
+                        controller: controller.pageController,
+                        onPageChanged: (int index) {
+                          controller.changeIndex(index);
+                        },
+                        itemCount: companyTaps.values.length,
+                        itemBuilder: (context, index) {
+                          switch (companyTaps.values[index]) {
+                            case companyTaps.Employees:
+                              return CompanyUserScreen();
+                            case companyTaps.Projects:
+                              return ProjectScreen();
+                            case companyTaps.Team:
+                              return TeamScreen();
+                            case companyTaps.Settings:
+                              return SettingScreen();
+                            case companyTaps.Dashboard:
+                              return Container();
+                            case companyTaps.Reminders:
+                              return Container();
+
+                            default:
+                              return Container();
+                          }
+                        },
+                      ),
                     )
                   ],
                 )

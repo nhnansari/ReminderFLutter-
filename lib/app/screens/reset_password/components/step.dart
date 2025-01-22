@@ -18,15 +18,21 @@ class FormStepper extends StatelessWidget {
             children: [
               Text(
                 "Reset Password",
-                style: AppTextstyle.text13.copyWith(fontSize: FontSizeManager.getFontSize(context, 11),),
+                style: AppTextstyle.text13.copyWith(
+                  fontSize: FontSizeManager.getFontSize(context, 11),
+                ),
               ),
               Text(
                 "Email Varificaton",
-                style: AppTextstyle.text13.copyWith(fontSize: FontSizeManager.getFontSize(context, 11),),
+                style: AppTextstyle.text13.copyWith(
+                  fontSize: FontSizeManager.getFontSize(context, 11),
+                ),
               ),
               Text(
                 "     Done",
-                style: AppTextstyle.text13.copyWith(fontSize: FontSizeManager.getFontSize(context, 11),),
+                style: AppTextstyle.text13.copyWith(
+                  fontSize: FontSizeManager.getFontSize(context, 11),
+                ),
               ),
             ],
           ),
@@ -45,43 +51,37 @@ class FormStepper extends StatelessWidget {
                     Column(
                       children: [
                         circle(
-                          context: context,
+                            context: context,
                             number: "1",
-                            borderColor: currentIndex <= 2
-                                ? AppColors.primaryColor
-                                : AppColors.secondaryColor,
+                            borderColor: AppColors.textColor,
                             backColor: currentIndex <= 2
-                                ? AppColors.primaryColor
+                                ? AppColors.textColor
                                 : AppColors.whiteColor,
                             textColor: currentIndex <= 2
                                 ? AppColors.whiteColor
-                                : AppColors.primaryColor),
+                                : AppColors.textColor),
                       ],
                     ),
                     circle(
-                      context: context,
+                        context: context,
                         number: "2",
-                        borderColor: currentIndex > 0 && currentIndex <= 2
-                            ? AppColors.primaryColor
-                            : AppColors.secondaryColor,
+                        borderColor: AppColors.textColor,
                         backColor: currentIndex > 0 && currentIndex <= 2
-                            ? AppColors.primaryColor
+                            ? AppColors.textColor
                             : AppColors.whiteColor,
                         textColor: currentIndex > 0 && currentIndex <= 2
                             ? AppColors.whiteColor
-                            : AppColors.primaryColor),
+                            : AppColors.textColor),
                     circle(
-                      context: context,
+                        context: context,
                         number: "3",
-                        borderColor: currentIndex == 2
-                            ? AppColors.primaryColor
-                            : AppColors.secondaryColor,
+                        borderColor:  AppColors.textColor,
                         backColor: currentIndex == 2
-                            ? AppColors.primaryColor
+                            ? AppColors.textColor
                             : AppColors.whiteColor,
                         textColor: currentIndex == 2
                             ? AppColors.whiteColor
-                            : AppColors.primaryColor)
+                            : AppColors.textColor)
                   ],
                 )
               ],
@@ -110,7 +110,9 @@ Widget circle(
     child: Center(
       child: Text(
         number,
-        style: AppTextstyle.text14.copyWith(fontSize: FontSizeManager.getFontSize(context, 12),color: textColor),
+        style: AppTextstyle.text14.copyWith(
+            fontSize: FontSizeManager.getFontSize(context, 12),
+            color: textColor),
       ),
     ),
   );

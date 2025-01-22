@@ -108,8 +108,8 @@ class CompainesScreen extends GetView<CompaniesController> {
                                       final company =
                                           controller.companies.value[index];
                                       return InkWell(
-                                        onTap: () {
-                                          AppPreferences.setSetCompanyData(
+                                        onTap: () async{
+                                      await    AppPreferences.setSetCompanyData(
                                               company.toJson());
                                           Get.toNamed(
                                               AppRoutes.compainesDetails);
@@ -117,13 +117,15 @@ class CompainesScreen extends GetView<CompaniesController> {
                                         child: CustomContainer(
                                           boxConstraints:
                                               BoxConstraints(maxWidth: 150.w),
-                                          borderColor: AppColors.primaryColor,
+                                          borderColor: AppColors.textColor,
                                           margin: EdgeInsets.zero,
                                           backColor: AppColors.whiteColor,
                                           child: InnerPadding(
                                             child: Row(
                                               children: [
                                                 CircleAvatar(
+                                                  backgroundColor:
+                                                      AppColors.textColor,
                                                   maxRadius: 20.r,
                                                   child: company.logo != null
                                                       ? Center(
@@ -131,6 +133,13 @@ class CompainesScreen extends GetView<CompaniesController> {
                                                             company.name!
                                                                 .substring(0, 1)
                                                                 .toUpperCase(),
+                                                            style: AppTextstyle.text10.copyWith(
+                                                                fontSize: FontSizeManager
+                                                                    .getFontSize(
+                                                                        context,
+                                                                        12),
+                                                                color: AppColors
+                                                                    .whiteColor),
                                                           ),
                                                         )
                                                       : Image(

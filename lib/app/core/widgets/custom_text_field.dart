@@ -160,7 +160,7 @@ class CustomTextfeild extends StatelessWidget {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.r),
                     borderSide: BorderSide(
-                      width: 1.5,
+                      width: 1,
                       color: AppColors.secondaryColor,
                     ),
                   ),
@@ -168,14 +168,14 @@ class CustomTextfeild extends StatelessWidget {
                   focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.r),
                     borderSide: BorderSide(
-                      width: 1.5,
+                      width: 1,
                       color: AppColors.errorColor,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.r),
                     borderSide: const BorderSide(
-                      width: 1.5,
+                      width: 1,
                       color: Colors.red,
                     ),
                   ),
@@ -192,7 +192,7 @@ class CustomTextfeild extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.r),
                     borderSide: BorderSide(
-                      width: 1.5,
+                      width: 1,
                       color: AppColors.secondaryColor,
                     ),
                   ),
@@ -230,28 +230,28 @@ class CustomTextfeild extends StatelessWidget {
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.r),
                         borderSide: BorderSide(
-                          width: 1.5,
+                          width: 1,
                           color: outlinebordercolor ?? AppColors.secondaryColor,
                         )),
                     errorStyle: AppTextstyle.text12.copyWith(color: Colors.red),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.r),
-                        borderSide: BorderSide(width: 1.5, color: Colors.red)),
+                        borderSide: BorderSide(width: 1, color: Colors.red)),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.r),
                         borderSide: const BorderSide(
-                          width: 1.5,
+                          width: 1,
                           color: Colors.red,
                         )),
                     filled: true,
                     fillColor: fillcolor ?? AppColors.whiteColor,
                     isCollapsed: Responsive.isMobile(context) ? true : null,
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
+                        EdgeInsets.symmetric(horizontal: 8, vertical: 15.h),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15.r),
                         borderSide: BorderSide(
-                          width: 1.5,
+                          width: 1,
                           color: AppColors.secondaryColor,
                         )),
                     suffixIcon: icon,
