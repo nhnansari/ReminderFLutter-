@@ -24,7 +24,7 @@ const String kInvitedUsers = "/companies/invited-members";
 // const String kPurchaseMembership = "/memberships/purchase";
 // const String kMembershipHistory = "/memberships/history";
 
-// // Profile
+// projects
 
 const String kCreateProject = "/projects";
 const String kGetProjects = "/projects";
@@ -32,11 +32,11 @@ const String kUpdateProjects = "/projects";
 const String kDeleteProject = "/projects";
 // const String kUploadProfileImage = "/user_profile/image";
 
-// // Balances
-// const String kBalances = "/balances/all";
-// const String kTransferToUser = "/balances/transfer";
-// const String kAffiliateToMain = "/balances/affiliate_to_main";
-// const String kRoiToMain = "/balances/roi_to_main";
+// Custom messages
+const String kCreateCustomMessage = "/reminders/custom_message";
+const String kGetCustomMsgs = "/reminders/list_custom_messages";
+const String kUpdateCustomMsg = "/reminders/custom_message";
+const String kDeleteCustomMsg = "/reminders/custom_message";
 // const String kSavingToMain = "/balances/saving_to_main";
 
 // // notification

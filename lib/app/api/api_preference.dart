@@ -9,7 +9,7 @@ const String userEmail = "userEmail";
 const String userLoginTokken = "userLoginTokken";
 const String Otp = "Otp";
 const String VarifySession = "VarifySession";
-const String userCockies = "userCockies";
+const String customMsgId = "customMsgId";
 const String deviceToken = "deviceToken";
 
 const String projectRoute = "projectRoute";
@@ -63,14 +63,14 @@ class AppPreferences {
   /// Remove  CompanyId
   static removeCompanyId() => GetStorage().remove(companyId);
 
-  static setCookies(String value) => GetStorage().write(userCockies, value);
+  static setCustomMsgId(String value) => GetStorage().write(customMsgId, value);
 
-  /// Get Cookies
+  /// Get CustomMsgId
 
-  static get getCookies => GetStorage().read<String>(userCockies);
+  static get getCustomMsgId => GetStorage().read<String>(customMsgId);
 
-  /// Remove Cookies
-
+  /// Remove CustomMsgId
+ static removeCustomMsgId() => GetStorage().remove(customMsgId);
 
 
   // set app authentication qr code

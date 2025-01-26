@@ -7,6 +7,7 @@ import 'package:admin/app/screens/compines_details/nested_screens/company_users/
 import 'package:admin/app/screens/compines_details/nested_screens/project/view/project_screen.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/setting/view/setting_screen.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/team/view/team_screen.dart';
+import 'package:admin/app/screens/custom_messages/view/custom_messages_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -57,6 +58,10 @@ class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
                               return Container();
                             case companyTaps.Reminders:
                               return Container();
+                            case companyTaps.Task:
+                              return Container();
+                            case companyTaps.Custom_Messages:
+                              return CustomMessagesScreen();
 
                             default:
                               return Container();

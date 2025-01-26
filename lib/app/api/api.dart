@@ -59,12 +59,11 @@ class ApiClient {
         CustomSnackBar.show(message: "No internet connection available.");
         throw Exception("No internet connection available.");
       }
-      Get.log(
-          "$endPoint baseUrl[$method]: ${baseUrl + endPoint} ${"body:$body"}");
 
       final uri = parameter != null
           ? Uri.parse('$baseUrl$endPoint$parameter')
           : Uri.parse(baseUrl + endPoint);
+      Get.log("$endPoint baseUrl[$method]: $uri ${"body:$body"}");
 
       final headers = {
         'content-type': 'application/json',
@@ -88,7 +87,7 @@ class ApiClient {
           response = await http.get(uri, headers: headers);
         case 'DELETE':
           response =
-              await http.put(uri, headers: headers, body: jsonEncode(body));
+              await http.delete(uri, headers: headers, body: jsonEncode(body));
         default:
           response = await http.get(uri, headers: headers);
       }

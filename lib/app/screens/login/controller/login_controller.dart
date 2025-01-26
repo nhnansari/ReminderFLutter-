@@ -63,10 +63,10 @@ class LoginController extends GetxController {
 
         CustomSnackBar.show(message: "Login Successfully");
         clear();
+        Get.log((response['user'] != null).toString());
+        Get.log((response['user']['token'] != null).toString());
       }
       Get.log((response != null).toString());
-      Get.log((response['user'] != null).toString());
-      Get.log((response['user']['token'] != null).toString());
     } catch (e) {
       Get.log("Failed to Login. Error: ${e.toString()}");
 

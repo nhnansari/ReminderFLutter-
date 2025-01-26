@@ -13,9 +13,10 @@ enum companyTaps {
   Projects,
   Employees,
   Team,
-  
+  Task,
   Reminders,
-  Settings
+  Settings,
+  Custom_Messages,
 }
 
 class MainTaps extends StatelessWidget {
@@ -101,7 +102,7 @@ class CompainesTap extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: List.generate(
-                        companyTaps.values.length,
+                        companyTapsList.length,
                         (index) => Obx(
                               () => InkWell(
                                 onTap: () {
@@ -112,7 +113,7 @@ class CompainesTap extends StatelessWidget {
                                   children: [
                                     height8,
                                     Text(
-                                      companyTaps.values[index].name,
+                                      companyTapsList[index],
                                       style: AppTextstyle.text10.copyWith(
                                           fontSize: FontSizeManager.getFontSize(
                                               context, 13),
@@ -124,7 +125,7 @@ class CompainesTap extends StatelessWidget {
                                               ? AppColors.textColor
                                               : AppColors.greyColor),
                                     ),
-                                    height10,
+                                    height6,
                                     Container(
                                       color: companiesController
                                                   .currentScreen.value.index ==
@@ -132,10 +133,9 @@ class CompainesTap extends StatelessWidget {
                                           ? AppColors.backColor
                                           : AppColors.transparentColor,
                                       height: 1.5,
-                                      width: (companyTaps
-                                                  .values[index].name.length *
-                                              12)
-                                          .toDouble(),
+                                      width:
+                                          (companyTapsList[index].length * 12)
+                                              .toDouble(),
                                     )
                                   ],
                                 ),
@@ -156,7 +156,13 @@ class CompainesTap extends StatelessWidget {
   }
 }
 
-// List<String> dashboardTaps = [
-  
-// ];
-
+List<String> companyTapsList = [
+  "Dashboard",
+  "Projects",
+  "Employees",
+  "Team ",
+  "Task",
+  "Reminders",
+  "Settings",
+  "Custom Messages",
+];
