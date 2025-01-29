@@ -15,6 +15,7 @@ enum companyTaps {
   Team,
   Task,
   Reminders,
+  Subscriptions,
   Settings,
   Custom_Messages,
 }
@@ -163,6 +164,7 @@ List<String> companyTapsList = [
   "Team ",
   "Task",
   "Reminders",
+  "Subscriptions",
   "Settings",
   "Custom Messages",
 ];

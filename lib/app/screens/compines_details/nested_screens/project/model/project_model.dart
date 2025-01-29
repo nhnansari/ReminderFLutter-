@@ -153,12 +153,12 @@ class CreatedByUser {
   int? id;
   String? fullName;
   String? email;
-  Null stripeCustomerId;
-  Null subscriptionId;
-  Null subscriptionStatus;
-  Null stripeSessionId;
+  String?  stripeCustomerId;
+  String?  subscriptionId;
+  String?  subscriptionStatus;
+  String?  stripeSessionId;
   bool? emailVerified;
-  Null verificationCode;
+  String? verificationCode;
   String? createdAt;
   String? updatedAt;
 

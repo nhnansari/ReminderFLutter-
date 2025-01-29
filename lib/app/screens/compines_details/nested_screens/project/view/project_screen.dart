@@ -1,4 +1,3 @@
-import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
@@ -6,7 +5,6 @@ import 'package:admin/app/core/widgets/Custom_container.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
 import 'package:admin/app/responsive.dart';
-import 'package:admin/app/routes/app_routes.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/project/components/add_project_dailog.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/project/controller/project_controller.dart';
 import 'package:flutter/material.dart';
@@ -95,11 +93,11 @@ class ProjectScreen extends GetView<ProjectController> {
                                         controller.projectList[index];
                                     return InkWell(
                                       onTap: () {
-                                        AppPreferences.setProjectDetail(
-                                            project.toJson());
-                                        Get.toNamed(
-                                            AppRoutes.projectDetailScreen);
-                                        // Navigate to project details
+                                        // AppPreferences.setProjectDetail(
+                                        //     project.toJson());
+                                        // Get.toNamed(
+                                        //     AppRoutes.projectDetailScreen);
+                                        // // Navigate to project details
                                       },
                                       child: CustomContainer(
                                         borderColor: AppColors.primaryColor,

@@ -39,11 +39,12 @@ const String kUpdateCustomMsg = "/reminders/custom_message";
 const String kDeleteCustomMsg = "/reminders/custom_message";
 // const String kSavingToMain = "/balances/saving_to_main";
 
-// // notification
-// const String kSendToken = "/notifications/device";
+// Subscriptions 
+const String kSubscriptionsPackages = "/subscriptions/packages";
+const String kCheckOut = "/subscriptions/checkout";
+const String kCurrentSubscription = "/subscriptions/current";
 
 // // for transder to user
-// const String kCheckUserByID = "/users/info/";
 
 // // statics
 // const String kStats = "/reports/stats";
