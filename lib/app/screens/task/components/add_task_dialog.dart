@@ -5,7 +5,6 @@ import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/core/widgets/custom_text_field.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
 import 'package:admin/app/responsive.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/project/controller/project_controller.dart';
 import 'package:admin/app/screens/task/controller/task_controller.dart';
 import 'package:admin/app/screens/task/model/task_model.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ import 'package:get/get.dart';
 
 class AddTaskDialog extends StatelessWidget {
   final controller = Get.put(TaskController());
-  final projectController = Get.put(ProjectController());
   final bool isEdit;
   final TasksModelData? editTask;
   final formkey = GlobalKey<FormState>();
@@ -149,94 +147,97 @@ class AddTaskDialog extends StatelessWidget {
     );
   }
 
-  Widget projectDropdownField({context}) {
-    // Ensure project list is not null and remove duplicate project names
-    List<Map<String, dynamic>> uniqueProjects = projectController.projectList
-        .map((e) => {"id": e.id.toString(), "name": e.name.toString()})
-        .toSet()
-        .toList();
+Widget projectDropdownField({context}) {
+  // Ensure project list is not null and remove duplicate project names
+  List<Map<String, dynamic>> uniqueProjects = controller.projectController.projectList
+      .map((e) => {"id": e.id.toString(), "name": e.name.toString()})
+      .toSet()
+      .toList();
 
-    // Default selected ID
+  bool isProjectListEmpty = uniqueProjects.isEmpty;
 
-    return Obx(
-      () => DropdownButtonFormField<String>(
-        hint: Text("Choose Project",
-            textAlign: TextAlign.start,
-            style: AppTextstyle.text14.copyWith(
-                overflow: TextOverflow.ellipsis,
-                fontSize: FontSizeManager.getFontSize(context, 13),
-                color: AppColors.whiteColor)),
-        style: AppTextstyle.text10.copyWith(
-          color: AppColors.whiteColor,
+  return  DropdownButtonFormField<String>(
+      hint: Text(
+        isProjectListEmpty ? "No Project Found" : "Choose Project",
+        textAlign: TextAlign.start,
+        style: AppTextstyle.text14.copyWith(
+          overflow: TextOverflow.ellipsis,
           fontSize: FontSizeManager.getFontSize(context, 13),
-        ),
-        value: controller.selectedProjectId.value.isEmpty
-            ? null
-            : controller.selectedProjectId.value, // Ensure value is valid
-        isExpanded: true,
-        items: uniqueProjects.isNotEmpty
-            ? uniqueProjects.map<DropdownMenuItem<String>>((project) {
-                return DropdownMenuItem<String>(
-                  value: project["id"], // Store ID as value
-                  child: Text(
-                    project["name"], // Show name in dropdown
-                    style: AppTextstyle.text10.copyWith(
-                      color: AppColors.whiteColor,
-                      fontSize: FontSizeManager.getFontSize(context, 13),
-                    ),
-                  ),
-                );
-              }).toList()
-            : [], // Provide an empty list when no projects exist
-        onChanged: (String? selectedId) {
-          if (selectedId != null) {
-            controller.selectedProjectId.value = selectedId;
-            print(
-                "Selected Project ID: ${controller.selectedProjectId.value}"); // ID for API
-          }
-        },
-        dropdownColor: AppColors.primaryColor,
-        decoration: InputDecoration(
-          fillColor: AppColors.secondaryColor,
-          filled: true,
-          enabled: true,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.r),
-            borderSide: BorderSide(
-              width: 1,
-              color: AppColors.secondaryColor,
-            ),
-          ),
-          errorStyle: AppTextstyle.text12.copyWith(color: Colors.red),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.r),
-            borderSide: BorderSide(
-              width: 1,
-              color: AppColors.errorColor,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.r),
-            borderSide: const BorderSide(
-              width: 1,
-              color: Colors.red,
-            ),
-          ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.r),
-            borderSide: BorderSide(
-              width: 1,
-              color: AppColors.secondaryColor,
-            ),
-          ),
-          isCollapsed: Responsive.isMobile(context) ? true : null,
-          hintText: "Choose Project",
-          hintStyle: AppTextstyle.text14.copyWith(
-              color: AppColors.hintColor,
-              fontSize: FontSizeManager.getFontSize(context, 12)),
+          color: AppColors.whiteColor,
         ),
       ),
-    );
-  }
-}
+      style: AppTextstyle.text10.copyWith(
+        color: AppColors.whiteColor,
+        fontSize: FontSizeManager.getFontSize(context, 13),
+      ),
+      value: isProjectListEmpty || controller.selectedProjectId.value.isEmpty
+          ? null
+          : controller.selectedProjectId.value,
+      isExpanded: true,
+      items: isProjectListEmpty
+          ? []
+          : uniqueProjects.map<DropdownMenuItem<String>>((project) {
+              return DropdownMenuItem<String>(
+                value: project["id"],
+                child: Text(
+                  project["name"],
+                  style: AppTextstyle.text10.copyWith(
+                    color: AppColors.whiteColor,
+                    fontSize: FontSizeManager.getFontSize(context, 13),
+                  ),
+                ),
+              );
+            }).toList(),
+      onChanged: isProjectListEmpty
+          ? null
+          : (String? selectedId) {
+              if (selectedId != null) {
+                controller.selectedProjectId.value = selectedId;
+                print("Selected Project ID: ${controller.selectedProjectId.value}");
+              }
+            },
+      dropdownColor: AppColors.primaryColor,
+      decoration: InputDecoration(
+        fillColor: AppColors.secondaryColor,
+        filled: true,
+        enabled: true,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(
+            width: 1,
+            color: AppColors.secondaryColor,
+          ),
+        ),
+        errorStyle: AppTextstyle.text12.copyWith(color: Colors.red),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(
+            width: 1,
+            color: AppColors.errorColor,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: const BorderSide(
+            width: 1,
+            color: Colors.red,
+          ),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.r),
+          borderSide: BorderSide(
+            width: 1,
+            color: AppColors.secondaryColor,
+          ),
+        ),
+        isCollapsed: Responsive.isMobile(context) ? true : null,
+        hintText: isProjectListEmpty ? "No Project Found" : "Choose Project",
+        hintStyle: AppTextstyle.text14.copyWith(
+          color: AppColors.hintColor,
+          fontSize: FontSizeManager.getFontSize(context, 12),
+        ),
+      
+    ),
+  );
+}}

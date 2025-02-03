@@ -100,18 +100,6 @@ class AddProjectDailog extends StatelessWidget {
               validator: (v) => v?.isEmpty ?? true ? "Date is required" : null,
             ),
             height10,
-            SmallButton(
-              name: "Add Task",
-              width: 100,
-              textColor: AppColors.whiteColor,
-              backcolor: AppColors.backColor,
-              onclick: () {
-                if (formkey.currentState!.validate()) {
-                  // Perform registration logic
-                  controller.createProject();
-                }
-              },
-            ),
             InnerPadding(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,

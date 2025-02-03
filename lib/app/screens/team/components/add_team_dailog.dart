@@ -1,11 +1,10 @@
-import 'package:admin/app/core/extention/extenton.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/core/widgets/custom_text_field.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/team/controller/team_controller.dart';
+import 'package:admin/app/screens/team/controller/team_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,32 +26,36 @@ class AddTeamDailog extends StatelessWidget {
               SizedBox(
                 width: 200.w,
               ),
-              Text("Add New Team Member",
+              Text("Add New Team",
                   style: AppTextstyle.text10.copyWith(
                       fontSize: FontSizeManager.getFontSize(context, 14),
                       color: AppColors.textColor,
                       fontWeight: FontWeight.bold)),
               height14,
               CustomTextfeild(
-                  title: "Email",
-                  hinttext: "Enter Email",
+                  title: "Name",
+                  hinttext: "Enter Name",
                   iconPath: Icons.person,
-                  controller: controller.emailController,
-                  validator: (v) => v?.validEmail()),
+                  controller: controller.nameController,
+                  validator: (v) {
+                    if (v == null && v!.isEmpty) {
+                      return "Team Required";
+                    }
+                    return null;
+                  }),
               height12,
-              Obx(
-                () => CustomTextfeild(
-                  // title: "Role",
-                  hinttext: "Choose role",
-                  dropdownItems: ["Admin", "Worker", "Manager"],
-                  onDropdownChanged: (v) {
-                    controller.selectedItem.value = v!;
-                  },
-                  selectedItem: controller.selectedItem.value,
-                  validator: (v) =>
-                      v?.isEmpty ?? true ? "Role is required" : null,
-                ),
-              ),
+              CustomTextfeild(
+                  title: "Description",
+                  hinttext: "Enter description",
+                  iconPath: Icons.description,
+                  controller: controller.descController,
+                  validator: (v) {
+                    if (v == null && v!.isEmpty) {
+                      return "Description Required";
+                    }
+                    return null;
+                  }),
+              height12,
               InnerPadding(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,7 +67,7 @@ class AddTeamDailog extends StatelessWidget {
                         backcolor: AppColors.primaryColor,
                         onclick: () {
                           if (formkey.currentState!.validate()) {
-                   
+                            controller.addTeam();
                           }
                         },
                       ),

@@ -361,9 +361,4 @@ class AddCustomMessageDialog extends StatelessWidget {
   }
 }
 
-final List<String> _statuses = [
-  "Pending",
-  "In_Progress",
-  "Completed",
-  "Cancelled"
-];
+

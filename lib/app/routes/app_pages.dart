@@ -6,7 +6,7 @@ import 'package:admin/app/screens/project_details/view/project_details_screen.da
 import 'package:admin/app/screens/reset_password/view/reset_password_page.dart';
 import 'package:admin/app/screens/root/guard/root_guard.dart';
 import 'package:admin/app/screens/sign_up/view/sign_up_page.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/team/view/team_screen.dart';
+import 'package:admin/app/screens/team/view/team_screen.dart';
 
 import 'package:get/get.dart';
 

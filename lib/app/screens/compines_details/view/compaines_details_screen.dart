@@ -6,7 +6,7 @@ import 'package:admin/app/screens/compines_details/controller/compaines_datails_
 import 'package:admin/app/screens/company_users/view/company_user_screen.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/project/view/project_screen.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/setting/view/setting_screen.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/team/view/team_screen.dart';
+import 'package:admin/app/screens/team/view/team_screen.dart';
 import 'package:admin/app/screens/custom_messages/view/custom_messages_screen.dart';
 import 'package:admin/app/screens/subscription/view/subscription_screen.dart';
 import 'package:admin/app/screens/task/view/task_screen.dart';
@@ -67,8 +67,7 @@ class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
                             case companyTaps.Custom_Messages:
                               return CustomMessagesScreen();
 
-                            default:
-                              return Container();
+                            
                           }
                         },
                       ),

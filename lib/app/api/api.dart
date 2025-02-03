@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
+import 'package:admin/app/routes/app_routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
@@ -75,22 +76,22 @@ class ApiClient {
 
       http.Response response;
       switch (method) {
-        case 'POST':
-          response =
-              await http.post(uri, headers: headers, body: jsonEncode(body));
-          break;
-        case 'PUT':
-          response =
-              await http.put(uri, headers: headers, body: jsonEncode(body));
-          break;
-        case 'GET':
-          response = await http.get(uri, headers: headers);
-        case 'DELETE':
-          response =
-              await http.delete(uri, headers: headers, body: jsonEncode(body));
-        default:
-          response = await http.get(uri, headers: headers);
-      }
+  case 'POST':
+    response = await http.post(uri, headers: headers, body: jsonEncode(body));
+    break; // ✅ Add break
+  case 'PUT':
+    response = await http.put(uri, headers: headers, body: jsonEncode(body));
+    break; // ✅ Add break
+  case 'GET':
+    response = await http.get(uri, headers: headers);
+    break; // ✅ Add break (fix missing break)
+  case 'DELETE':
+    response = await http.delete(uri, headers: headers, body: jsonEncode(body));
+    break; // ✅ Add break
+  default:
+    response = await http.get(uri, headers: headers);
+    break; // ✅ Add break
+}
 
       // Handling the response
       if (response.statusCode == 200) {
@@ -103,8 +104,11 @@ class ApiClient {
         await AppPreferences.removeProjectRoute();
         await AppPreferences.removeDeviceToken();
         await AppPreferences.removeCompanyId();
+        await AppPreferences.removeSetCompanyData();
+        await AppPreferences.removeCustomMsgId();
+        await AppPreferences.removeUserName();
         // Get.put(LogoutController()).deleteReferralCookie();
-        // Get.offAllNamed(AppRoutes.login);
+        Get.offAllNamed(AppRoutes.login);
       } else {
         var errorMessage = response.reasonPhrase ?? "Unexpected Error Occur";
         final responseBody = jsonDecode(response.body) ?? response.reasonPhrase;

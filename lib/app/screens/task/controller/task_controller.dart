@@ -1,6 +1,8 @@
 import 'package:admin/app/api/api_preference.dart';
+import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
+import 'package:admin/app/screens/compines_details/nested_screens/project/controller/project_controller.dart';
 import 'package:admin/app/screens/task/model/task_model.dart';
 import 'package:admin/app/screens/task/respository/task_repo.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,7 @@ class TaskController extends GetxController {
   final endDateController = TextEditingController();
   var selectedProjectId = "".obs;
 
+  final projectController = Get.put(ProjectController());
   final _startDate = Rx<DateTime?>(null);
   final _endDate = Rx<DateTime?>(null);
 
@@ -113,40 +116,46 @@ class TaskController extends GetxController {
   }
 
   void createTask() async {
-    final companyId = await AppPreferences.getCompanyId;
-    final projectId = selectedProjectId.value;
-    try {
-      final Map<String, dynamic> body = {
-        "name": nameController.text.trim(),
-        "description": descController.text.trim(),
-        "projectId": int.parse(projectId),
-        "companyId": int.parse(companyId),
-        "assignedUser": null,
-        "assignedTeam": null,
-        "dueDate": endDateController.text.trim(),
-        "startDate": startDateController.text.trim(),
-        "priority": 1
-      };
+    if (selectedProjectId.value.isEmpty) {
+      CustomSnackBar.show(
+          message: "Project Required !\nCreate you project first",
+          backColor: AppColors.errorColor);
+    } else {
+      final companyId = await AppPreferences.getCompanyId;
+      final projectId = selectedProjectId.value;
+      try {
+        final Map<String, dynamic> body = {
+          "name": nameController.text.trim(),
+          "description": descController.text.trim(),
+          "projectId": int.parse(projectId),
+          "companyId": int.parse(companyId),
+          "assignedUser": null,
+          "assignedTeam": null,
+          "dueDate": endDateController.text.trim(),
+          "startDate": startDateController.text.trim(),
+          "priority": 1
+        };
 
-      CustomLoading.show();
-      final response = await taskRepo.createTask(
-        body: body,
-      );
+        CustomLoading.show();
+        final response = await taskRepo.createTask(
+          body: body,
+        );
 
-      if (response != null) {
-        // Agar response successful hai, toh success message show karo
-        CustomSnackBar.show(message: "Task Created Successfully");
-        await getTasks();
-        Get.back();
-        clear();
+        if (response != null) {
+          // Agar response successful hai, toh success message show karo
+          CustomSnackBar.show(message: "Task Created Successfully");
+          await getTasks();
+          Get.back();
+          clear();
 
+          CustomLoading.hide();
+        }
+      } catch (e) {
+        Get.log("Error in create project $e");
+      } finally {
         CustomLoading.hide();
+        // clear();
       }
-    } catch (e) {
-      Get.log("Error in create project $e");
-    } finally {
-      CustomLoading.hide();
-      // clear();
     }
   }
 

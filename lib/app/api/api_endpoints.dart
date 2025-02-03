@@ -51,9 +51,9 @@ const String kCreateTask = "/tasks";
 
 // const String kListCoins = "/coins/";
 
-// // investment
-// const String kInvestmentPackages = "/investment_packages/";
-// const String kPurchasePackage = "/investment_packages/purchase";
+// team
+const String kTeams = "/worker-teams/";
+const String kAddWorker = "/worker-teams";
 // const String kInvestmentHistory = "/investment_packages/history";
 // const String kGuardianPackages = "/saving_plans/guardian/list";
 // const String kFreedomPackages = "/saving_plans/freedom/list";

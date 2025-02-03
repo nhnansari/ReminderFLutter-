@@ -44,8 +44,7 @@ class ProjectDetailsScreen extends GetView<ProjectDetailsController> {
                             case projectDetailsTaps.Settings:
                               return Container();
 
-                            default:
-                              return Container();
+                          
                           }
                         },
                       ),
