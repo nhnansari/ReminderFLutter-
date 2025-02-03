@@ -5,7 +5,7 @@ import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/core/widgets/custom_text_field.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/company_users/controller/company_user_controller.dart';
+import 'package:admin/app/screens/company_users/controller/company_user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

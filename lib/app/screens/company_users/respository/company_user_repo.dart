@@ -1,14 +1,14 @@
-
 import 'package:admin/app/api/api.dart';
 import 'package:admin/app/api/api_endpoints.dart';
 
 class CompanyUserRepo extends ApiClient {
   CompanyUserRepo() : super();
 
-  Future<dynamic> getCompanyUser() async {
+  Future<dynamic> getCompanyUser({required String parameter}) async {
     try {
       return await apiClientRequest(
-        endPoint: kInvitedUsers,
+        endPoint: kCompanyWorkers,
+        parameter: parameter,
         body: [],
         method: "GET",
       );
@@ -16,11 +16,11 @@ class CompanyUserRepo extends ApiClient {
       Exception(error);
     }
   }
-  Future<dynamic> addCompanyUser({required  Map<String,dynamic> body}) async {
+
+  Future<dynamic> addCompanyUser({required Map<String, dynamic> body}) async {
     try {
       return await apiClientRequest(
         endPoint: kAddCompanyUser,
-   
         body: body,
         method: "POST",
       );
@@ -28,13 +28,14 @@ class CompanyUserRepo extends ApiClient {
       Exception(error);
     }
   }
-  Future<dynamic> deleteCompanyUser({required  Map<String,dynamic> body}) async {
+
+  Future<dynamic> deleteCompanyUser(
+      {required Map<String, dynamic> body}) async {
     try {
       return await apiClientRequest(
         endPoint: kDeleteCompanyUser,
-   
         body: body,
-        method: "POST",
+        method: "DELETE",
       );
     } catch (error) {
       Exception(error);

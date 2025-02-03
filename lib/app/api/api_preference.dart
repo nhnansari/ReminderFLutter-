@@ -5,7 +5,7 @@ const String userName = "userName";
 const String _setCompanyData = "setCompanyData";
 const String companyId = "companyId";
 const String setProjectDetails = "setProjectDetails";
-const String userEmail = "userEmail";
+const String projectId = "projectId";
 const String userLoginTokken = "userLoginTokken";
 const String Otp = "Otp";
 const String VarifySession = "VarifySession";
@@ -85,13 +85,13 @@ class AppPreferences {
 
   // set user email for signup otp varify
 
-  static setUserEmail(String value) => GetStorage().write(userEmail, value);
+  static setProjectId( value) => GetStorage().write(projectId, value);
 
   /// Get user email for signup otp varify
-  static get getUserEmail => GetStorage().read<String>(userEmail);
+  static get getProjectId => GetStorage().read(projectId);
 
   /// Remove user email for signup otp varify
-  static removeUserEmail() => GetStorage().remove(userEmail);
+  static removeProjectId() => GetStorage().remove(projectId);
 
   // set reset password secret for reset password otp varify and reset password
   static setOtp(String value) =>

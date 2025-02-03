@@ -55,7 +55,7 @@ class LoginController extends GetxController {
 
         // Check for MFA requirement
         await AppPreferences.setApiToken(token);
-        await AppPreferences.setUserEmail(response['user']['email']);
+     
         await AppPreferences.setUserName(response['user']['fullName']);
         Get.log("Login Token: $token");
 

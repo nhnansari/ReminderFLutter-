@@ -132,7 +132,7 @@ class CompainesDetailsHeader extends StatelessWidget {
                         await AppPreferences.removeDeviceToken();
 
                         await AppPreferences.removeSetCompanyData();
-                        await AppPreferences.removeUserEmail();
+                        await AppPreferences.removeProjectId();
                         await AppPreferences.removeCompanyId();
                         Get.offAllNamed(AppRoutes.login);
                         // Handle logout logic

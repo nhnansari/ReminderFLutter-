@@ -1,3 +1,4 @@
+import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
@@ -92,9 +93,12 @@ class ProjectScreen extends GetView<ProjectController> {
                                     final project =
                                         controller.projectList[index];
                                     return InkWell(
-                                      onTap: () {
-                                        // AppPreferences.setProjectDetail(
-                                        //     project.toJson());
+                                      onTap: () async {
+                                        await AppPreferences.setProjectId(
+                                            project.id);
+
+                                        await AppPreferences.setProjectDetail(
+                                            project.toJson());
                                         // Get.toNamed(
                                         //     AppRoutes.projectDetailScreen);
                                         // // Navigate to project details

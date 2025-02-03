@@ -46,8 +46,8 @@ const String kCurrentSubscription = "/subscriptions/current";
 
 // // for transder to user
 
-// // statics
-// const String kStats = "/reports/stats";
+// // task 
+const String kCreateTask = "/tasks";
 
 // const String kListCoins = "/coins/";
 

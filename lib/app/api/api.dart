@@ -99,7 +99,7 @@ class ApiClient {
         return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
         await AppPreferences.removeApiToken();
-        await AppPreferences.removeUserEmail();
+        await AppPreferences.removeProjectId();
         await AppPreferences.removeProjectRoute();
         await AppPreferences.removeDeviceToken();
         await AppPreferences.removeCompanyId();
