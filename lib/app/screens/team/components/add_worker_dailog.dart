@@ -52,8 +52,7 @@ class AddWorkerDailog extends StatelessWidget {
                             controller.addWorker(
                               teamId: teamData.id.toString(),
                               workerId: controller.selectedWorkerID.value,
-                            )
-                            ;
+                            );
                           }
                         },
                       ),
@@ -83,8 +82,8 @@ class AddWorkerDailog extends StatelessWidget {
     // Ensure project list is not null and remove duplicate project names
     List<Map<String, dynamic>> workers = controller
         .workerController.companyUsers
-        .map(
-            (e) => {"id": e.id.toString(), "name": e.user!.fullName.toString()})
+        .map((e) =>
+            {"id": e.user!.id.toString(), "name": e.user!.fullName.toString()})
         .toSet()
         .toList();
 

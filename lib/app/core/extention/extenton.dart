@@ -33,8 +33,8 @@ extension Validations on String {
 
   String? validPassword() {
     if (trim().isNotEmpty) {
-      if (trim().length < 6) {
-        return "Password is to short (minimum length is 6)";
+      if (trim().length < 8) {
+        return "Password is to short (minimum length is 8)";
       } else if (!RegExp(r'[A-Z]').hasMatch(trim()) ||
           !RegExp(r'[0-9]').hasMatch(trim())) {
         return 'Password must contain:\n- at least one uppercase letter\n- at least one lowercase letter\n- at least one numeric character';

@@ -1,53 +1,48 @@
-
 import 'package:admin/app/core/utils/app_colors.dart';
+import 'package:admin/app/screens/dashboard/controller/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 
 class CloudStorageInfo {
-  final String? svgSrc, title, totalStorage;
-  final int? numOfFiles, percentage;
+  final String title, Total;
+  final IconData iconPath;
+
   final Color? color;
 
   CloudStorageInfo({
-    this.svgSrc,
-    this.title,
-    this.totalStorage,
-    this.numOfFiles,
-    this.percentage,
+    required this.Total,
+    required this.iconPath,
+    required this.title,
     this.color,
   });
 }
 
 List demoMyFiles = [
   CloudStorageInfo(
-    title: "Documents",
-    numOfFiles: 1328,
-    svgSrc: "assets/icons/Documents.svg",
-    totalStorage: "1.9GB",
-    color: AppColors.primaryColor,
-    percentage: 35,
-  ),
+      title: "Total Projects",
+      color: AppColors.primaryColor,
+      iconPath: Icons.notes,
+      Total: DashboardController()
+          .projectController
+          .projectList
+          .length
+          .toString()),
   CloudStorageInfo(
-    title: "Google Drive",
-    numOfFiles: 1328,
-    svgSrc: "assets/icons/google_drive.svg",
-    totalStorage: "2.9GB",
-    color: Color(0xFFFFA113),
-    percentage: 35,
-  ),
+      title: "Total Task",
+      color: AppColors.primaryColor,
+      iconPath: Icons.task_outlined,
+      Total: DashboardController().taskController.tasksList.length.toString()),
   CloudStorageInfo(
-    title: "One Drive",
-    numOfFiles: 1328,
-    svgSrc: "assets/icons/one_drive.svg",
-    totalStorage: "1GB",
-    color: Color(0xFFA4CDFF),
-    percentage: 10,
-  ),
+      title: "Total Reminders",
+      color: AppColors.primaryColor,
+      iconPath: Icons.notification_important_outlined,
+      Total: "34"),
   CloudStorageInfo(
-    title: "Documents",
-    numOfFiles: 5328,
-    svgSrc: "assets/icons/drop_box.svg",
-    totalStorage: "7.3GB",
-    color: Color(0xFF007EE5),
-    percentage: 78,
-  ),
+      title: "Total Projects",
+      color: AppColors.primaryColor,
+      iconPath: Icons.notes,
+      Total: DashboardController()
+          .projectController
+          .projectList
+          .length
+          .toString()),
 ];

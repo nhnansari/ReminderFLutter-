@@ -10,6 +10,8 @@ const String kVarifyOtp = "/auth/verify_token";
 const String kCompanies = "/companies/list";
 const String kRegisterCompanies = "/companies/register";
 
+// invITATION 
+const String kInvitation = "/worker/accept-invitation";
 // comapny Users
 
 const String kAddCompanyUser = "/companies/invite-member";
@@ -52,7 +54,7 @@ const String kCreateTask = "/tasks";
 // const String kListCoins = "/coins/";
 
 // team
-const String kTeams = "/worker-teams/";
+const String kTeams = "/worker-teams";
 const String kAddWorker = "/worker-teams";
 // const String kInvestmentHistory = "/investment_packages/history";
 // const String kGuardianPackages = "/saving_plans/guardian/list";

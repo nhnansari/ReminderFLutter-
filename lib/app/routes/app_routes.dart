@@ -10,7 +10,7 @@ class AppRoutes {
   static const String resetPassword = "/resetPassword";
   static const String compainesDetails = "/compainesDetails";
   static const String team = "/team";
-  // static const String desposit = "/desposit";
+  static const String invitationVarification = "/invitationVerification";
   // static const String withdraw = "/withdraw";
   // static const String investment = "/investment";
   // static const String transaction = "/transaction";

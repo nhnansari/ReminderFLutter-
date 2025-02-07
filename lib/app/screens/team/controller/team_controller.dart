@@ -116,53 +116,50 @@ class TeamController extends GetxController {
     }
   }
 
-  // void updateMsg(teamId) async {
-  //   final companyId = await AppPreferences.getCompanyId;
-  //   final projectId = selectedProjectId.value;
-  //   final parameter = "/$teamId";
-  //   try {
-  //     final Map<String, dynamic> body = {
-  //       "name": nameController.text.trim(),
-  //       "description": descController.text.trim(),
-  //       "projectId": int.parse(projectId),
-  //       "companyId": int.parse(companyId),
-  //       "assignedUser": null,
-  //       "assignedTeam": null,
-  //       "dueDate": endDateController.text.trim(),
-  //       "startDate": startDateController.text.trim(),
-  //       "priority": 1
-  //     };
+  void updateTeam({teamId}) async {
+    final companyId = await AppPreferences.getCompanyId;
 
-  //     CustomLoading.show();
-  //     final response = await teamRepo.updateteam(
-  //       parameter: parameter,
-  //       body: body,
-  //     );
+    try {
+      final Map<String, dynamic> body = {
+        "name": nameController.text.trim(),
+        "description": descController.text.trim(),
+        "companyId": int.parse(companyId)
+      };
 
-  //     if (response != null) {
-  //       // Agar response successful hai, toh success message show karo
-  //       CustomSnackBar.show(message: response["message"]);
-  //       await getTeams();
-  //       Get.back();
+      CustomLoading.show();
+      final response = await teamRepo.updateTeam(
+        parameter: "/$teamId",
+        body: body,
+      );
 
-  //       CustomLoading.hide();
-  //     }
-  //   } catch (e) {
-  //     Get.log("Error in update team $e");
-  //   } finally {
-  //     CustomLoading.hide();
-  //     // clear();
-  //   }
-  // }
+      if (response != null) {
+        // Agar response successful hai, toh success message show karo
+        CustomSnackBar.show(message: response["message"]);
+        await getTeams();
+        Get.back();
+
+        CustomLoading.hide();
+      }
+    } catch (e) {
+      Get.log("Error in update team $e");
+    } finally {
+      CustomLoading.hide();
+      // clear();
+    }
+  }
 
   void deleteteam(teamId) async {
     try {
       final companyID = await AppPreferences.getCompanyId;
 
-      final parameter = "/$teamId?companyId=$companyID";
+      final parameter = "/$teamId";
+      final body = {
+        "companyId": int.parse(companyID),
+      };
 
       CustomLoading.show();
       final response = await teamRepo.deleteTeam(
+        body: body,
         parameter: parameter,
       );
 

@@ -76,59 +76,83 @@ class ApiClient {
 
       http.Response response;
       switch (method) {
-  case 'POST':
-    response = await http.post(uri, headers: headers, body: jsonEncode(body));
-    break; // ✅ Add break
-  case 'PUT':
-    response = await http.put(uri, headers: headers, body: jsonEncode(body));
-    break; // ✅ Add break
-  case 'GET':
-    response = await http.get(uri, headers: headers);
-    break; // ✅ Add break (fix missing break)
-  case 'DELETE':
-    response = await http.delete(uri, headers: headers, body: jsonEncode(body));
-    break; // ✅ Add break
-  default:
-    response = await http.get(uri, headers: headers);
-    break; // ✅ Add break
-}
+        case 'POST':
+          response =
+              await http.post(uri, headers: headers, body: jsonEncode(body));
+          break; // ✅ Add break
+        case 'PUT':
+          response =
+              await http.put(uri, headers: headers, body: jsonEncode(body));
+          break; // ✅ Add break
+        case 'GET':
+          response = await http.get(uri, headers: headers);
+          break; // ✅ Add break (fix missing break)
+        case 'DELETE':
+          response =
+              await http.delete(uri, headers: headers, body: jsonEncode(body));
+          break; // ✅ Add break
+        default:
+          response = await http.get(uri, headers: headers);
+          break; // ✅ Add break
+      }
 
       // Handling the response
       if (response.statusCode == 200) {
-        Get.log("$endPoint response[$method]: ${response.body}");
+    Get.log("$endPoint response[$method]: ${response.body}");
+    return jsonDecode(response.body);
+  } 
+  else if (response.statusCode == 401) {
+    // Unauthorized: Clear session and redirect to login
+    await AppPreferences.removeApiToken();
+    await AppPreferences.removeProjectId();
+    await AppPreferences.removeProjectRoute();
+    await AppPreferences.removeDeviceToken();
+    await AppPreferences.removeCompanyId();
+    await AppPreferences.removeSetCompanyData();
+    await AppPreferences.removeCustomMsgId();
+    await AppPreferences.removeUserName();
+    
+    Get.offAllNamed(AppRoutes.login);
+    CustomSnackBar.show(message: "Session expired. Please log in again.");
+  } 
+  else if (response.statusCode == 403) {
+    // Forbidden: User doesn't have permission
+    CustomSnackBar.show(message: "Access Denied. Please contact support.");
+  } 
+  else if (response.statusCode == 404) {
+    // Not Found: API endpoint incorrect or resource not found
+    CustomSnackBar.show(message: "Requested resource not found.");
+  } 
+  else if (response.statusCode == 500) {
+    // Internal Server Error: Issue on server-side
+    CustomSnackBar.show(message: "Server error occurred. Please try again later.");
+  } 
+  else {
+    // Handle unexpected errors with or without JSON response
+    Get.log("$endPoint response[$method]: ${response.body}");
+    
+    String errorMessage = response.reasonPhrase ?? "An unexpected error occurred";
 
-        return jsonDecode(response.body);
-      } else if (response.statusCode == 401) {
-        await AppPreferences.removeApiToken();
-        await AppPreferences.removeProjectId();
-        await AppPreferences.removeProjectRoute();
-        await AppPreferences.removeDeviceToken();
-        await AppPreferences.removeCompanyId();
-        await AppPreferences.removeSetCompanyData();
-        await AppPreferences.removeCustomMsgId();
-        await AppPreferences.removeUserName();
-        // Get.put(LogoutController()).deleteReferralCookie();
-        Get.offAllNamed(AppRoutes.login);
-      } else {
-        var errorMessage = response.reasonPhrase ?? "Unexpected Error Occur";
-        final responseBody = jsonDecode(response.body) ?? response.reasonPhrase;
-        errorMessage = responseBody['message'] ?? errorMessage;
-
-        Get.log("Error: $errorMessage");
-        CustomSnackBar.show(message: errorMessage);
-        // throw Exception(errorMessage);
+    try {
+      final responseBody = jsonDecode(response.body);
+      if (responseBody is Map<String, dynamic> && responseBody.containsKey('message')) {
+        errorMessage = responseBody['message'];
       }
     } catch (e) {
-      // Exception handling
-      Get.log("Api Client exception occur : $e");
-      CustomLoading.hide();
-
-      CustomSnackBar.show(message: e.toString());
-
-      rethrow;
-    } finally {
-      CustomLoading.hide();
+      Get.log("Failed to parse JSON error response: $e");
     }
+
+    Get.log("Error: $errorMessage");
+    CustomSnackBar.show(message: errorMessage);
+  }
+} catch (e) {
+  // Handle API call exceptions (network issues, timeouts, etc.)
+  Get.log("API Client Exception: $e");
+  CustomSnackBar.show(message: "A network error occurred. Please check your connection.");
+  rethrow;
+} finally {
+  CustomLoading.hide();
+}
   }
 
   // Future<dynamic> apiClientRequestWithFile({

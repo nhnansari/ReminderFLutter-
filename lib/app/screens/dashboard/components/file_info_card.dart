@@ -1,77 +1,63 @@
 import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/models/MyFiles.dart';
+import 'package:admin/app/core/utils/app_textstyle.dart';
+import 'package:admin/app/core/widgets/Custom_container.dart';
+import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class FileInfoCard extends StatelessWidget {
-  const FileInfoCard({
+  final String title, Total;
+  final IconData iconPath;
+  FileInfoCard({
     Key? key,
-    required this.info,
+    required this.title,
+    required this.Total,
+    required this.iconPath,
   }) : super(key: key);
-
-  final CloudStorageInfo info;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: EdgeInsets.all(16 * 0.75),
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  color: info.color!.withOpacity(0.1),
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+    return CustomContainer(
+      backColor: AppColors.whiteColor,
+      borderColor: AppColors.backColor,
+      child: InnerPadding(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Container(
+                    height: 40,
+                    width: 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryColor,
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: Icon(
+                      iconPath,
+                      color: AppColors.whiteColor,
+                    )),
+                Text(
+                  "  ${title}",
+                  style: AppTextstyle.text10.copyWith(
+                      fontSize: FontSizeManager.getFontSize(context, 14),
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textColor),
                 ),
-                child: SvgPicture.asset(
-                  info.svgSrc!,
-                  colorFilter: ColorFilter.mode(
-                      info.color ?? Colors.black, BlendMode.srcIn),
+              ],
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  Total,
+                  style: AppTextstyle.text10.copyWith(
+                      fontSize: FontSizeManager.getFontSize(context, 30),
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.secondaryColor),
                 ),
               ),
-              Icon(Icons.more_vert, color: Colors.white54)
-            ],
-          ),
-          Text(
-            info.title!,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          ProgressLine(
-            color: info.color,
-            percentage: info.percentage,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "${info.numOfFiles} Files",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: Colors.white70),
-              ),
-              Text(
-                info.totalStorage!,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: Colors.white),
-              ),
-            ],
-          )
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -104,7 +90,7 @@ class ProgressLine extends StatelessWidget {
             width: constraints.maxWidth * (percentage! / 100),
             height: 5,
             decoration: BoxDecoration(
-              color: color ??  AppColors.primaryColor,
+              color: color ?? AppColors.primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
           ),

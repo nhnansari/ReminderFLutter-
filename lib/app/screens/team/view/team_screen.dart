@@ -35,7 +35,7 @@ class TeamScreen extends GetView<TeamController> {
                                     color: AppColors.textColor,
                                     fontWeight: FontWeight.bold)),
                             SmallButton(
-                                name: "Add New",
+                                name: "Add Team",
                                 textColor: AppColors.whiteColor,
                                 backcolor: AppColors.secondaryColor,
                                 onclick: () {
@@ -126,6 +126,19 @@ class TeamScreen extends GetView<TeamController> {
                                                         ),
                                                         Spacer(),
                                                         IconButton(
+                                                          onPressed: () async {
+                                                            Get.dialog(AddWorkerDailog(
+                                                                teamData: controller
+                                                                        .teams[
+                                                                    index]));
+                                                          },
+                                                          icon: Icon(
+                                                              Icons
+                                                                  .add_circle_outline_rounded,
+                                                              color: AppColors
+                                                                  .secondaryColor),
+                                                        ),
+                                                        IconButton(
                                                           onPressed: () {
                                                             controller
                                                                 .deleteteam(
@@ -138,42 +151,30 @@ class TeamScreen extends GetView<TeamController> {
                                                         ),
                                                         IconButton(
                                                           onPressed: () async {
-                                                            // showDialog(
-                                                            //   context: context,
-                                                            //   builder: (context) {
-                                                            //     return AddTaskDialog(
-                                                            //       editTask: task,
-                                                            //       isEdit: true,
-                                                            //     );
-                                                            //   },
-                                                            // );
+                                                            controller
+                                                                    .descController
+                                                                    .text =
+                                                                controller
+                                                                    .teams[
+                                                                        index]
+                                                                    .description
+                                                                    .toString();
+                                                            controller
+                                                                    .nameController
+                                                                    .text =
+                                                                controller
+                                                                    .teams[
+                                                                        index]
+                                                                    .name
+                                                                    .toString();
+                                                            Get.dialog(AddTeamDailog(
+                                                                teamData: controller
+                                                                        .teams[
+                                                                    index]));
                                                           },
                                                           icon: Icon(Icons.edit,
                                                               color: AppColors
                                                                   .secondaryColor),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    height10,
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        SmallButton(
-                                                          name: "Add Member",
-                                                          textColor: AppColors
-                                                              .whiteColor,
-                                                          backcolor: AppColors
-                                                              .secondaryColor,
-                                                          onclick: () {
-                                                            Get.dialog(
-                                                                AddWorkerDailog(
-                                                              teamData:
-                                                                  controller
-                                                                          .teams[
-                                                                      index],
-                                                            ));
-                                                          },
                                                         ),
                                                       ],
                                                     ),

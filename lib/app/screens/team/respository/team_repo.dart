@@ -57,12 +57,12 @@ class TeamRepo extends ApiClient {
       Exception(error);
     }
   }
-   Future<dynamic> deleteTeam({required  String parameter}) async {
+   Future<dynamic> deleteTeam({required  String parameter ,required  Map<String,dynamic> body  }) async {
     try {
       return await apiClientRequest(
         endPoint: kTeams,
    
-        body: [],
+        body: body,
         parameter: parameter,
         method: "DELETE",
       );

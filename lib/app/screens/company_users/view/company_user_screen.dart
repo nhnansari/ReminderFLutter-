@@ -111,7 +111,7 @@ class CompanyUserScreen extends GetView<CompanyUserController> {
                                         children: [
                                           CustomTable(
                                             id: controller
-                                                .companyUsers[index].id
+                                                .companyUsers[index].user!.id
                                                 .toString(),
                                             name: controller.companyUsers[index]
                                                 .user!.fullName
@@ -137,12 +137,6 @@ class CompanyUserScreen extends GetView<CompanyUserController> {
                                                   icon: Icon(Icons.delete,
                                                       color:
                                                           AppColors.errorColor),
-                                                ),
-                                                IconButton(
-                                                  onPressed: () async {},
-                                                  icon: Icon(Icons.edit,
-                                                      color: AppColors
-                                                          .secondaryColor),
                                                 ),
                                               ],
                                             )),

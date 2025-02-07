@@ -5,14 +5,16 @@ import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/core/widgets/custom_text_field.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
 import 'package:admin/app/screens/team/controller/team_controller.dart';
+import 'package:admin/app/screens/team/model/team_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AddTeamDailog extends StatelessWidget {
   final controller = Get.put(TeamController());
+  final TeamData? teamData;
   final formkey = GlobalKey<FormState>();
-  AddTeamDailog({super.key});
+  AddTeamDailog({super.key, this.teamData});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class AddTeamDailog extends StatelessWidget {
               SizedBox(
                 width: 200.w,
               ),
-              Text("Add New Team",
+              Text(teamData == null ? "Add New Team" : "Update Team",
                   style: AppTextstyle.text10.copyWith(
                       fontSize: FontSizeManager.getFontSize(context, 14),
                       color: AppColors.textColor,
@@ -62,12 +64,14 @@ class AddTeamDailog extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SmallButton(
-                        name: "Add",
+                        name: teamData == null ? "Add" : "Update",
                         textColor: AppColors.whiteColor,
                         backcolor: AppColors.primaryColor,
                         onclick: () {
                           if (formkey.currentState!.validate()) {
-                            controller.addTeam();
+                            teamData == null
+                                ? controller.addTeam()
+                                : controller.updateTeam(teamId: teamData!.id);
                           }
                         },
                       ),
