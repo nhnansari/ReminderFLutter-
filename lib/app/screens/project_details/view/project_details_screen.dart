@@ -25,7 +25,7 @@ class ProjectDetailsScreen extends GetView<ProjectDetailsController> {
                 body: SafeArea(
                     child: Column(
                   children: [
-                    MainTaps(),
+                    // MainTaps(),
                     height10,
                     Expanded(
                       child: PageView.builder(

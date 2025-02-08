@@ -87,22 +87,22 @@ class CustomMessagesScreen extends GetView<CustomMessagesController> {
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              Text(
-                                                                  controller
-                                                                      .customsMsgs[
-                                                                          index]
-                                                                      .message
-                                                                      .toString(),
-                                                                  style: AppTextstyle.text10.copyWith(
-                                                                      fontSize: FontSizeManager.getFontSize(
-                                                                          context,
-                                                                          13),
-                                                                      color: AppColors
-                                                                          .textColor,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold)),
-                                                              Spacer(),
+                                                              Expanded(
+                                                                child: Text(
+                                                                    controller
+                                                                        .customsMsgs[
+                                                                            index]
+                                                                        .message
+                                                                        .toString(),
+                                                                    style: AppTextstyle.text10.copyWith(
+                                                                        fontSize: FontSizeManager.getFontSize(
+                                                                            context,
+                                                                            13),
+                                                                        color: AppColors
+                                                                            .textColor,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                              ),
                                                               IconButton(
                                                                   onPressed:
                                                                       () {

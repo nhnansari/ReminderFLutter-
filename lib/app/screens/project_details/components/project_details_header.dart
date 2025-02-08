@@ -134,8 +134,7 @@ class ProjectDetailsHeader extends StatelessWidget {
                         await AppPreferences.removeProjectDetail();
 
                         await AppPreferences.removeCompaniesCurrentRoute();
-                        await AppPreferences.removeProjectRoute();
-                        await AppPreferences.removeDeviceToken();
+                
 
                         await AppPreferences.removeSetCompanyData();
                         await AppPreferences.removeProjectId();

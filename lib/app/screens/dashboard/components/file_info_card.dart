@@ -25,21 +25,14 @@ class FileInfoCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: AppColors.secondaryColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Icon(
-                      iconPath,
-                      color: AppColors.whiteColor,
-                    )),
+                Icon(
+                  iconPath,
+                  color: AppColors.secondaryColor,
+                ),
                 Text(
-                  "  ${title}",
+                  " ${title}",
                   style: AppTextstyle.text10.copyWith(
-                      fontSize: FontSizeManager.getFontSize(context, 14),
+                      fontSize: FontSizeManager.getFontSize(context, 13),
                       fontWeight: FontWeight.bold,
                       color: AppColors.textColor),
                 ),

@@ -2,12 +2,14 @@ import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
 import 'package:admin/app/screens/company_users/controller/company_user_controller.dart';
+import 'package:admin/app/screens/custom_messages/controller/custom_messages_controller.dart';
+import 'package:admin/app/screens/team/controller/team_controller.dart';
 import 'package:admin/app/screens/team/model/team_model.dart';
 import 'package:admin/app/screens/team/respository/team_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TeamController extends GetxController {
+class ReminderController extends GetxController {
   @override
   void onInit() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -17,16 +19,17 @@ class TeamController extends GetxController {
     super.onInit();
   }
 
-  final nameController = TextEditingController();
-  final descController = TextEditingController();
-
-  final workerController = Get.put(CompanyUserController());
   TeamRepo teamRepo = TeamRepo();
   final isWorker = "".obs;
   TeamModel teamModel = TeamModel();
   var teams = <TeamData>[].obs;
 
-  var selectedWorkerID = ''.obs;
+  final teamController = Get.put(TeamController());
+  final companyWorkerController = Get.put(CompanyUserController());
+  final msgController = Get.put(CustomMessagesController());
+  var selectedUserId = "".obs;
+  var selectedMsgId = "".obs;
+  var selectedTeamId = "".obs;
 
   Future<void> getTeams() async {
     try {
@@ -49,20 +52,11 @@ class TeamController extends GetxController {
     }
   }
 
-  void clear() {
-    nameController.clear();
-    descController.clear();
-  }
-
   void addTeam() async {
-    final companyId = await AppPreferences.getCompanyId;
+    // final companyId = await AppPreferences.getCompanyId;
 
     try {
-      final Map<String, dynamic> body = {
-        "name": nameController.text.trim(),
-        "description": descController.text.trim(),
-        "companyId": int.parse(companyId)
-      };
+      final Map<String, dynamic> body = {};
 
       CustomLoading.show();
       final response = await teamRepo.addTeam(
@@ -74,7 +68,6 @@ class TeamController extends GetxController {
         CustomSnackBar.show(message: "team Created Successfully");
         await getTeams();
         Get.back();
-        clear();
 
         CustomLoading.hide();
       }
@@ -122,14 +115,10 @@ class TeamController extends GetxController {
   }
 
   void updateTeam({teamId}) async {
-    final companyId = await AppPreferences.getCompanyId;
+    // final companyId = await AppPreferences.getCompanyId;
 
     try {
-      final Map<String, dynamic> body = {
-        "name": nameController.text.trim(),
-        "description": descController.text.trim(),
-        "companyId": int.parse(companyId)
-      };
+      final Map<String, dynamic> body = {};
 
       CustomLoading.show();
       final response = await teamRepo.updateTeam(

@@ -12,21 +12,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
 
-String preprocessJson(String source) {
-  // Regex to match numbers larger than 9007199254740991
-  final regex = RegExp(r'(?<!")\b\d{16,}\b(?!")');
-  return source.replaceAllMapped(regex, (match) => '"${match.group(0)}"');
-}
 
-dynamic jsonDecodeWithBigInt(String source) {
-  final preprocessed = preprocessJson(source);
-  return jsonDecode(preprocessed, reviver: (key, value) {
-    if ((key == 'id' || key == 'external_tx_id') && value is String) {
-      return BigInt.parse(value);
-    }
-    return value;
-  });
-}
 
 String prepareUrl(String baseUrl, String endpoint) {
   // Remove trailing slash from base URL if it exists
@@ -105,8 +91,8 @@ class ApiClient {
     // Unauthorized: Clear session and redirect to login
     await AppPreferences.removeApiToken();
     await AppPreferences.removeProjectId();
-    await AppPreferences.removeProjectRoute();
-    await AppPreferences.removeDeviceToken();
+    // await AppPreferences.removeProjectRoute();
+    // await AppPreferences.removeDeviceToken();
     await AppPreferences.removeCompanyId();
     await AppPreferences.removeSetCompanyData();
     await AppPreferences.removeCustomMsgId();

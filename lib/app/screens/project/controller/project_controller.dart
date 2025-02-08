@@ -1,8 +1,8 @@
 import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/project/model/project_model.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/project/respository/project_repo.dart';
+import 'package:admin/app/screens/project/model/project_model.dart';
+import 'package:admin/app/screens/project/respository/project_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +12,8 @@ class ProjectController extends GetxController {
   void onInit() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getProjects();
+      isWorker.value = await AppPreferences.getserRole;
+      
     });
     super.onInit();
   }
@@ -20,6 +22,7 @@ class ProjectController extends GetxController {
   final descController = TextEditingController();
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
+  final isWorker = "".obs;
 
   final _startDate = Rx<DateTime?>(null);
   final _endDate = Rx<DateTime?>(null);
@@ -54,6 +57,7 @@ class ProjectController extends GetxController {
     try {
       final companyId = await AppPreferences.getCompanyId;
       final parameter = "?companyId=$companyId";
+      print("$companyId  $parameter");
       CustomLoading.show();
       final response = await projectRepo.getProjects(parameter: parameter);
 
@@ -111,7 +115,8 @@ class ProjectController extends GetxController {
         "description": descController.text.trim(),
         "companyId": companyId,
         "startDate": startDateController.text.trim(),
-        "endDate": endDateController.text.trim()
+        "endDate": endDateController.text.trim(),
+        "status": "In Progress"
       };
 
       CustomLoading.show();
@@ -134,5 +139,72 @@ class ProjectController extends GetxController {
       CustomLoading.hide();
       // clear();
     }
+  }
+
+  void updateProject(ProjectListData index) {
+    nameController.text = index.name ?? ""; // Handle null safely
+    descController.text = index.description ?? "";
+    startDateController.text = index.createdAt?.split("T")[0] ?? "";
+    endDateController.text = index.endDate?.split("T")[0] ?? "";
+  }
+
+  void editProject(projectId) async {
+    final companyId = await AppPreferences.getCompanyId;
+
+    final parameter = "/$projectId";
+    try {
+      final Map<String, dynamic> body = {
+        "name": nameController.text.trim(),
+        "description": descController.text.trim(),
+        "companyId": companyId,
+        "startDate": startDateController.text.trim(),
+        "endDate": endDateController.text.trim(),
+        "status": "In Progress"
+      };
+
+      CustomLoading.show();
+      final response = await projectRepo.updateProject(
+        paramter: parameter,
+        body: body,
+      );
+
+      if (response != null) {
+        // Agar response successful hai, toh success message show karo
+        CustomSnackBar.show(message: response["message"]);
+        await getProjects();
+        Get.back();
+
+        CustomLoading.hide();
+      }
+    } catch (e) {
+      Get.log("Error in edit project $e");
+    } finally {
+      CustomLoading.hide();
+      // clear();
+    }
+  }
+
+  void deleteProject(projectId) async {
+    try {
+      final companyId = await AppPreferences.getCompanyId;
+      final parameter = "/$projectId?companyId=$companyId";
+
+      CustomLoading.show();
+      final response = await projectRepo.deleteProject(
+        parameter: parameter,
+      );
+
+      if (response != null) {
+        // Agar response successful hai, toh success message show karo
+        CustomSnackBar.show(message: response["message"]);
+        await getProjects();
+
+        CustomLoading.hide();
+      }
+    } catch (e) {
+      Get.log("Error in delete project $e");
+    } finally {
+      CustomLoading.hide();
+    } // clear();
   }
 }

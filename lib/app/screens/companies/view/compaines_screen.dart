@@ -1,6 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:admin/app/api/api_preference.dart';
+
 import 'package:admin/app/core/assets/app_images.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
@@ -9,7 +9,6 @@ import 'package:admin/app/core/widgets/Custom_container.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
 import 'package:admin/app/responsive.dart';
-import 'package:admin/app/routes/app_routes.dart';
 import 'package:admin/app/screens/companies/components/add_dailog.dart';
 import 'package:admin/app/screens/companies/controller/companies_controller.dart';
 import 'package:admin/app/screens/dashboard/components/header.dart';
@@ -108,11 +107,9 @@ class CompainesScreen extends GetView<CompaniesController> {
                                       final company =
                                           controller.companies.value[index];
                                       return InkWell(
-                                        onTap: () async{
-                                      await    AppPreferences.setSetCompanyData(
-                                              company.toJson());
-                                          Get.toNamed(
-                                              AppRoutes.compainesDetails);
+                                        onTap: () {
+                                        
+                                          controller.getMyRole(company);
                                         },
                                         child: CustomContainer(
                                           boxConstraints:

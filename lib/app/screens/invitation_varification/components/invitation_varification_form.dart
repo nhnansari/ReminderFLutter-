@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class InvitationVarificationForm extends StatelessWidget {
   final controller = Get.put(InvitationVarificationController());
+  final loginFormKey = GlobalKey<FormState>();
 
   InvitationVarificationForm({
     super.key,
@@ -17,32 +18,33 @@ class InvitationVarificationForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        height20,
-        Text(
-          "Invitaion",
-          style: AppTextstyle.text22.copyWith(
-              fontSize: FontSizeManager.getFontSize(context, 20),
-              color: AppColors.textColor,
-              fontWeight: FontWeight.w600),
-        ),
-        height20,
-        CustomTextfeild(
-          title: "Email",
-          titleColor: AppColors.textColor,
-          hinttext: "Enter Email",
-          iconPath: Icons.email,
-          controller: controller.emailcontroller,
-          validator: (v) => v?.validEmail(),
-        ),
-        height20,
-        Obx(
-          () => CustomTextfeild(
+    return Form(
+      key: loginFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          height20,
+          Text(
+            "Invitaion",
+            style: AppTextstyle.text22.copyWith(
+                fontSize: FontSizeManager.getFontSize(context, 20),
+                color: AppColors.textColor,
+                fontWeight: FontWeight.w600),
+          ),
+          height20,
+          CustomTextfeild(
+            title: "Email",
             titleColor: AppColors.textColor,
-            obscureText: controller.obscure.value,
+            hinttext: "Enter Email",
+            iconPath: Icons.email,
+            controller: controller.emailcontroller,
+            validator: (v) => v?.validEmail(),
+          ),
+          height10,
+          CustomTextfeild(
+            titleColor: AppColors.textColor,
             controller: controller.otpController,
+            iconPath: Icons.numbers,
             title: "Code",
             hinttext: "Enter Otp Code",
             validator: (v) {
@@ -54,50 +56,53 @@ class InvitationVarificationForm extends StatelessWidget {
               return null;
             },
           ),
-        ),
-        height10,
 
-        CustomButton(
-          ontap: () {
-            controller.acceptInvitation();
-          },
-          text: "Accept",
-          backColor: AppColors.secondaryColor,
-          textColor: AppColors.whiteColor,
-        ),
-        height16,
+          height10,
 
-        // height16,
-        // if (!Responsive.issmallscreen(context)) ...[
-        //   InkWell(
-        //     onTap: onForgetPassowrd,
-        //     child: CustomRichText(
-        //       text1: "Forgot Password? ",
-        //       text2: " Password",
-        //       style1: AppTextstyle.text14.copyWith(
-        //           color: AppColors.primaryColor,
-        //           fontWeight: FontWeight.w500),
-        //       style2: AppTextstyle.text14.copyWith(
-        //           color: AppColors.secondaryColor,
-        //           fontWeight: FontWeight.w600),
-        //     ),
-        //   ),
-        //   height16,
-        //   InkWell(
-        //     onTap: onVarify,
-        //     child: CustomRichText(
-        //       text1: "Did not Verify? ",
-        //       text2: " Resend Email OTP",
-        //       style1: AppTextstyle.text14.copyWith(
-        //           color: AppColors.primaryColor,
-        //           fontWeight: FontWeight.w500),
-        //       style2: AppTextstyle.text14.copyWith(
-        //           color: AppColors.secondaryColor,
-        //           fontWeight: FontWeight.w600),
-        //     ),
-        //   ),
-        // ]
-      ],
+          CustomButton(
+            ontap: () {
+              if (loginFormKey.currentState!.validate()) {
+                controller.acceptInvitation();
+              }
+            },
+            text: "Accept",
+            backColor: AppColors.secondaryColor,
+            textColor: AppColors.whiteColor,
+          ),
+          height16,
+
+          // height16,
+          // if (!Responsive.issmallscreen(context)) ...[
+          //   InkWell(
+          //     onTap: onForgetPassowrd,
+          //     child: CustomRichText(
+          //       text1: "Forgot Password? ",
+          //       text2: " Password",
+          //       style1: AppTextstyle.text14.copyWith(
+          //           color: AppColors.primaryColor,
+          //           fontWeight: FontWeight.w500),
+          //       style2: AppTextstyle.text14.copyWith(
+          //           color: AppColors.secondaryColor,
+          //           fontWeight: FontWeight.w600),
+          //     ),
+          //   ),
+          //   height16,
+          //   InkWell(
+          //     onTap: onVarify,
+          //     child: CustomRichText(
+          //       text1: "Did not Verify? ",
+          //       text2: " Resend Email OTP",
+          //       style1: AppTextstyle.text14.copyWith(
+          //           color: AppColors.primaryColor,
+          //           fontWeight: FontWeight.w500),
+          //       style2: AppTextstyle.text14.copyWith(
+          //           color: AppColors.secondaryColor,
+          //           fontWeight: FontWeight.w600),
+          //     ),
+          //   ),
+          // ]
+        ],
+      ),
     );
   }
 }

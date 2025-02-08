@@ -6,13 +6,13 @@ const String _setCompanyData = "setCompanyData";
 const String companyId = "companyId";
 const String setProjectDetails = "setProjectDetails";
 const String projectId = "projectId";
-const String userLoginTokken = "userLoginTokken";
+const String userRole = "setUserRole";
 const String Otp = "Otp";
 const String VarifySession = "VarifySession";
 const String customMsgId = "customMsgId";
-const String deviceToken = "deviceToken";
+// const String deviceToken = "deviceToken";
 
-const String projectRoute = "projectRoute";
+// const String projectRoute = "projectRoute";
 const String currentCompinesRoute = "currentCompinesRoute";
 
 class AppPreferences {
@@ -25,14 +25,14 @@ class AppPreferences {
   /// Remove Api Token
   static removeApiToken() => GetStorage().remove(_apiToken);
 
-// set device token
- static setDeviceToken(String value) => GetStorage().write(deviceToken, value);
+// set serRole
+ static setUserRole( value) => GetStorage().write(userRole, value);
 
-  /// Get Api Token
-  static get getDeviceToken => GetStorage().read<String>(deviceToken);
+  /// Get serRole
+  static get getserRole => GetStorage().read<String>(userRole);
 
-  /// Remove Api Token
-  static removeDeviceToken() => GetStorage().remove(deviceToken);
+  /// Remove serRole
+  static removeserRole() => GetStorage().remove(userRole);
   /// Set userName
   static setUserName(String value) =>
       GetStorage().write(userName, value);
@@ -55,10 +55,10 @@ class AppPreferences {
   static removeSetCompanyData() => GetStorage().remove(_setCompanyData);
 
   // Set CompanyId
-  static setCompanyId(String value) => GetStorage().write(companyId, value);
+  static setCompanyId(int value) => GetStorage().write(companyId, value);
 
   /// Get CompanyId
-  static get getCompanyId => GetStorage().read<String>(companyId);
+  static get getCompanyId => GetStorage().read<int>(companyId);
 
   /// Remove  CompanyId
   static removeCompanyId() => GetStorage().remove(companyId);
@@ -113,14 +113,14 @@ class AppPreferences {
   /// Remove VarifySession for varify app Authentication mfa
   static removeVarifySession() => GetStorage().remove(VarifySession);
 
-  /// Set project Route
-  static setProjectRoute(value) => GetStorage().write(projectRoute, value);
+  // /// Set project Route
+  // static setProjectRoute(value) => GetStorage().write(projectRoute, value);
 
-  /// Get project Route
-  static get getProjectRoute => GetStorage().read<int>(projectRoute);
+  // /// Get project Route
+  // static get getProjectRoute => GetStorage().read<int>(projectRoute);
 
-  /// Remove project Route
-  static removeProjectRoute() => GetStorage().remove(projectRoute);
+  // /// Remove project Route
+  // static removeProjectRoute() => GetStorage().remove(projectRoute);
 
   /// Set currentRoute
   static setCompaniesCurrentRoute(value) => GetStorage().write(currentCompinesRoute, value);

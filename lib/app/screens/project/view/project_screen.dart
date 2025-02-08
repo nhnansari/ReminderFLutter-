@@ -1,0 +1,211 @@
+import 'package:admin/app/core/utils/app_colors.dart';
+import 'package:admin/app/core/utils/app_spaces.dart';
+import 'package:admin/app/core/utils/app_textstyle.dart';
+import 'package:admin/app/core/widgets/Custom_container.dart';
+import 'package:admin/app/core/widgets/InnerPadding.dart';
+import 'package:admin/app/core/widgets/small_buttom.dart';
+import 'package:admin/app/screens/project/components/add_project_dailog.dart';
+import 'package:admin/app/screens/project/controller/project_controller.dart';
+import 'package:admin/app/screens/team/view/team_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class ProjectScreen extends GetView<ProjectController> {
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<ProjectController>(
+      init: ProjectController(),
+      builder: (controller) => Column(
+        children: [
+          Expanded(
+            child: InnerPadding(
+              child: Obx(
+                () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Projects",
+                            style: AppTextstyle.text10.copyWith(
+                                fontSize:
+                                    FontSizeManager.getFontSize(context, 18),
+                                color: AppColors.textColor,
+                                fontWeight: FontWeight.bold)),
+                        controller.isWorker.value == "admin"
+                            ? SmallButton(
+                                name: "Add New",
+                                textColor: AppColors.whiteColor,
+                                backcolor: AppColors.secondaryColor,
+                                onclick: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AddProjectDailog());
+                                })
+                            : SizedBox()
+                      ],
+                    ),
+                    height18,
+                    Expanded(
+                      child: Obx(
+                        () => (controller.projectList.isEmpty)
+                            ? Center(
+                                child: Text(
+                                  "No Projets Found!",
+                                  style: AppTextstyle.text10.copyWith(
+                                    fontSize: FontSizeManager.getFontSize(
+                                        context, 14),
+                                    color: AppColors.backColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              )
+                            : SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                    controller
+                                        .projectList.length, // Null check added
+                                    (index) {
+                                      final projects =
+                                          controller.projectList[index];
+                                      return InkWell(
+                                        onTap: () {},
+                                        child: CustomContainer(
+                                          borderColor: AppColors.backColor,
+                                          margin: EdgeInsets.only(bottom: 10),
+                                          backColor: AppColors.whiteColor,
+                                          child: InnerPadding(
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            projects.name ??
+                                                                "No Name",
+                                                            style: AppTextstyle
+                                                                .text10
+                                                                .copyWith(
+                                                              fontSize:
+                                                                  FontSizeManager
+                                                                      .getFontSize(
+                                                                          context,
+                                                                          15),
+                                                              color: AppColors
+                                                                  .textColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            projects.description ??
+                                                                "No Description",
+                                                            style: AppTextstyle
+                                                                .text10
+                                                                .copyWith(
+                                                              fontSize:
+                                                                  FontSizeManager
+                                                                      .getFontSize(
+                                                                          context,
+                                                                          12),
+                                                              color: AppColors
+                                                                  .textColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    if (controller
+                                                            .isWorker.value ==
+                                                        "admin") ...[
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          controller
+                                                              .deleteProject(
+                                                                  projects.id);
+                                                        },
+                                                        icon: Icon(Icons.delete,
+                                                            color: AppColors
+                                                                .errorColor),
+                                                      ),
+                                                      IconButton(
+                                                        onPressed: () async {
+                                                          controller.updateProject(
+                                                              controller
+                                                                      .projectList[
+                                                                  index]);
+                                                          Get.dialog(AddProjectDailog(
+                                                              projectListData:
+                                                                  controller
+                                                                          .projectList[
+                                                                      index]));
+                                                        },
+                                                        icon: Icon(Icons.edit,
+                                                            color: AppColors
+                                                                .secondaryColor),
+                                                      ),
+                                                    ]
+                                                  ],
+                                                ),
+
+                                                // if(controller
+                                                //         .tasksList[index]
+                                                //         .project != null)...[
+                                                // __row(
+                                                //     context: context,
+                                                //     text: "Project Name: ",
+                                                //     status: controller
+                                                //         .tasksList[index]
+                                                //         .project!
+                                                //         .name
+                                                //          ?? "Loading..."),
+                                                height6,
+                                                row(
+                                                    context: context,
+                                                    text: "Start Date: ",
+                                                    status: projects.createdAt!
+                                                        .split("T")[0]),
+                                                height6,
+                                                row(
+                                                    context: context,
+                                                    text: "End Date: ",
+                                                    status: projects.endDate!
+                                                        .split("T")[0]),
+                                                height6,
+                                                row(
+                                                    context: context,
+                                                    text: "Status: ",
+                                                    status: projects.status ??
+                                                        "Loading..."),
+                                                height6,
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

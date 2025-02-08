@@ -4,7 +4,8 @@ import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/core/widgets/custom_text_field.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/project/controller/project_controller.dart';
+import 'package:admin/app/screens/project/controller/project_controller.dart';
+import 'package:admin/app/screens/project/model/project_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,8 @@ import 'package:get/get.dart';
 class AddProjectDailog extends StatelessWidget {
   final controller = Get.put(ProjectController());
   final formkey = GlobalKey<FormState>();
-  AddProjectDailog({super.key});
+  final ProjectListData? projectListData;
+  AddProjectDailog({super.key, this.projectListData});
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +33,22 @@ class AddProjectDailog extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Add Project",
+                    Text(
+                        projectListData != null
+                            ? "Update Project"
+                            : "Add Project",
                         style: AppTextstyle.text10.copyWith(
                             fontSize: FontSizeManager.getFontSize(context, 14),
                             color: AppColors.textColor,
                             fontWeight: FontWeight.bold)),
-                    Text("Create a new project",
-                        style: AppTextstyle.text10.copyWith(
-                          fontSize: FontSizeManager.getFontSize(context, 12),
-                          color: AppColors.greyColor,
-                        )),
+                    projectListData != null
+                        ? Text("Create a new project",
+                            style: AppTextstyle.text10.copyWith(
+                              fontSize:
+                                  FontSizeManager.getFontSize(context, 12),
+                              color: AppColors.greyColor,
+                            ))
+                        : SizedBox(),
                   ],
                 ),
                 Spacer(),
@@ -105,14 +113,16 @@ class AddProjectDailog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SmallButton(
-                    name: "Add",
+                    name: projectListData != null ? "Update" : "Add",
                     width: 90,
                     textColor: AppColors.whiteColor,
                     backcolor: AppColors.backColor,
                     onclick: () {
                       if (formkey.currentState!.validate()) {
                         // Perform registration logic
-                        controller.createProject();
+                        projectListData != null
+                            ? controller.editProject(projectListData!.id)
+                            : controller.createProject();
                       }
                     },
                   ),

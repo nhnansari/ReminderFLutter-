@@ -20,8 +20,8 @@ const String kCompanyWorkers = "/companies/company-workers";
 const String kInvitedUsers = "/companies/invited-members";
 // const String kMfaVarifyAppAuth = "/user_mfa/verify_authenticator";
 
-// // Project
-// const String kMemberShipPLan = "/memberships/list";
+// // role
+const String kMyRole = "/my_role";
 // const String kCurrentMemberShip = "/memberships/current";
 // const String kPurchaseMembership = "/memberships/purchase";
 // const String kMembershipHistory = "/memberships/history";

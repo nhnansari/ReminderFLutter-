@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
@@ -25,25 +27,29 @@ class TeamScreen extends GetView<TeamController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Team Members",
-                                style: AppTextstyle.text10.copyWith(
-                                    fontSize: FontSizeManager.getFontSize(
-                                        context, 18),
-                                    color: AppColors.textColor,
-                                    fontWeight: FontWeight.bold)),
-                            SmallButton(
-                                name: "Add Team",
-                                textColor: AppColors.whiteColor,
-                                backcolor: AppColors.secondaryColor,
-                                onclick: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => AddTeamDailog());
-                                })
-                          ],
+                        Obx(
+                          () => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Team Members",
+                                  style: AppTextstyle.text10.copyWith(
+                                      fontSize: FontSizeManager.getFontSize(
+                                          context, 18),
+                                      color: AppColors.textColor,
+                                      fontWeight: FontWeight.bold)),
+                              if (controller.isWorker.value == "admin")
+                                SmallButton(
+                                    name: "Add Team",
+                                    textColor: AppColors.whiteColor,
+                                    backcolor: AppColors.secondaryColor,
+                                    onclick: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              AddTeamDailog());
+                                    })
+                            ],
+                          ),
                         ),
                         height18,
                         Expanded(
@@ -78,35 +84,141 @@ class TeamScreen extends GetView<TeamController> {
                                               backColor: AppColors.whiteColor,
                                               child: InnerPadding(
                                                 child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              team.name ??
-                                                                  "No Name",
-                                                              style:
-                                                                  AppTextstyle
-                                                                      .text10
-                                                                      .copyWith(
-                                                                fontSize: FontSizeManager
-                                                                    .getFontSize(
-                                                                        context,
-                                                                        13),
-                                                                color: AppColors
-                                                                    .textColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                        Expanded(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                team.name ??
+                                                                    "No Name",
+                                                                style:
+                                                                    AppTextstyle
+                                                                        .text10
+                                                                        .copyWith(
+                                                                  fontSize: FontSizeManager
+                                                                      .getFontSize(
+                                                                          context,
+                                                                          13),
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              team.description ??
-                                                                  "No Description",
+                                                              Text(
+                                                                team.description ??
+                                                                    "No Description",
+                                                                style:
+                                                                    AppTextstyle
+                                                                        .text10
+                                                                        .copyWith(
+                                                                  fontSize: FontSizeManager
+                                                                      .getFontSize(
+                                                                          context,
+                                                                          12),
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        if (controller.isWorker
+                                                                .value ==
+                                                            "admin") ...[
+                                                          IconButton(
+                                                            onPressed:
+                                                                () async {
+                                                              Get.dialog(AddWorkerDailog(
+                                                                  teamData: controller
+                                                                          .teams[
+                                                                      index]));
+                                                            },
+                                                            icon: Icon(
+                                                                Icons
+                                                                    .add_circle_outline_rounded,
+                                                                color: AppColors
+                                                                    .secondaryColor),
+                                                          ),
+                                                          IconButton(
+                                                            onPressed: () {
+                                                              controller
+                                                                  .deleteteam(
+                                                                      team.id);
+                                                            },
+                                                            icon: Icon(
+                                                                Icons.delete,
+                                                                color: AppColors
+                                                                    .errorColor),
+                                                          ),
+                                                          IconButton(
+                                                            onPressed:
+                                                                () async {
+                                                              controller
+                                                                      .descController
+                                                                      .text =
+                                                                  controller
+                                                                      .teams[
+                                                                          index]
+                                                                      .description
+                                                                      .toString();
+                                                              controller
+                                                                      .nameController
+                                                                      .text =
+                                                                  controller
+                                                                      .teams[
+                                                                          index]
+                                                                      .name
+                                                                      .toString();
+                                                              Get.dialog(AddTeamDailog(
+                                                                  teamData: controller
+                                                                          .teams[
+                                                                      index]));
+                                                            },
+                                                            icon: Icon(
+                                                                Icons.edit,
+                                                                color: AppColors
+                                                                    .secondaryColor),
+                                                          ),
+                                                        ],
+                                                      ],
+                                                    ),
+                                                    height6,
+                                                    Text(
+                                                      "Team Member :",
+                                                      style: AppTextstyle.text10
+                                                          .copyWith(
+                                                        fontSize:
+                                                            FontSizeManager
+                                                                .getFontSize(
+                                                                    context,
+                                                                    13),
+                                                        color: AppColors
+                                                            .secondaryColor,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                    ),
+                                                    // height12,
+                                                    controller
+                                                                .teams
+                                                                .value[index]
+                                                                .members ==
+                                                            null
+                                                        ? Center(
+                                                            child: Text(
+                                                              "No Members Found!",
                                                               style:
                                                                   AppTextstyle
                                                                       .text10
@@ -116,86 +228,32 @@ class TeamScreen extends GetView<TeamController> {
                                                                         context,
                                                                         12),
                                                                 color: AppColors
-                                                                    .textColor,
+                                                                    .greyColor,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                        Spacer(),
-                                                        IconButton(
-                                                          onPressed: () async {
-                                                            Get.dialog(AddWorkerDailog(
-                                                                teamData: controller
-                                                                        .teams[
-                                                                    index]));
-                                                          },
-                                                          icon: Icon(
-                                                              Icons
-                                                                  .add_circle_outline_rounded,
-                                                              color: AppColors
-                                                                  .secondaryColor),
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () {
-                                                            controller
-                                                                .deleteteam(
-                                                                    team.id);
-                                                          },
-                                                          icon: Icon(
-                                                              Icons.delete,
-                                                              color: AppColors
-                                                                  .errorColor),
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () async {
-                                                            controller
-                                                                    .descController
-                                                                    .text =
-                                                                controller
-                                                                    .teams[
-                                                                        index]
-                                                                    .description
-                                                                    .toString();
-                                                            controller
-                                                                    .nameController
-                                                                    .text =
-                                                                controller
-                                                                    .teams[
-                                                                        index]
-                                                                    .name
-                                                                    .toString();
-                                                            Get.dialog(AddTeamDailog(
-                                                                teamData: controller
-                                                                        .teams[
-                                                                    index]));
-                                                          },
-                                                          icon: Icon(Icons.edit,
-                                                              color: AppColors
-                                                                  .secondaryColor),
-                                                        ),
-                                                      ],
-                                                    ),
-
-                                                    // if(controller
-                                                    //         .tasksList[index]
-                                                    //         .project != null)...[
-                                                    // __row(
-                                                    //     context: context,
-                                                    //     text: "Project Name: ",
-                                                    //     status: controller
-                                                    //         .tasksList[index]
-                                                    //         .project!
-                                                    //         .name
-                                                    //          ?? "Loading..."),
-                                                    height6,
-                                                    __row(
-                                                        context: context,
-                                                        text: "Status: ",
-                                                        status: "In_Progress"),
-                                                    height6,
+                                                          )
+                                                        : Column(
+                                                            children:
+                                                                List.generate(
+                                                              controller
+                                                                  .teams[index]
+                                                                  .members!
+                                                                  .length,
+                                                              (index1) => row(
+                                                                  context:
+                                                                      context,
+                                                                  text: "Name",
+                                                                  status: controller
+                                                                      .teams[
+                                                                          index]
+                                                                      .members![
+                                                                          index1]
+                                                                      .fullName),
+                                                            ),
+                                                          ),
                                                   ],
                                                 ),
                                               ),
@@ -216,7 +274,7 @@ class TeamScreen extends GetView<TeamController> {
   }
 }
 
-Widget __row({text, status, context}) {
+Widget row({text, status, context}) {
   return Row(
     children: [
       Text(text,

@@ -2,7 +2,7 @@ import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/project/controller/project_controller.dart';
+import 'package:admin/app/screens/project/controller/project_controller.dart';
 import 'package:admin/app/screens/task/model/task_model.dart';
 import 'package:admin/app/screens/task/respository/task_repo.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,8 @@ class TaskController extends GetxController {
   void onInit() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getTasks();
+      isWorker.value = await AppPreferences.getserRole;
+      
     });
     super.onInit();
   }
@@ -30,7 +32,7 @@ class TaskController extends GetxController {
 
   DateTime? get startDate => _startDate.value;
   DateTime? get endDate => _endDate.value;
-
+final isWorker = "".obs;
   TaskRepo taskRepo = TaskRepo();
   TasksModel tasksModel = TasksModel();
   var tasksList = <TasksModelData>[].obs;
@@ -128,7 +130,7 @@ class TaskController extends GetxController {
           "name": nameController.text.trim(),
           "description": descController.text.trim(),
           "projectId": int.parse(projectId),
-          "companyId": int.parse(companyId),
+          "companyId": companyId,
           "assignedUser": null,
           "assignedTeam": null,
           "dueDate": endDateController.text.trim(),

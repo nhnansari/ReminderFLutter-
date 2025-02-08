@@ -3,6 +3,7 @@ import 'package:admin/app/core/assets/app_images.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
+import 'package:admin/app/core/widgets/taps.dart';
 import 'package:admin/app/responsive.dart';
 import 'package:admin/app/routes/app_routes.dart';
 import 'package:admin/app/screens/compines_details/controller/compaines_datails_controller.dart.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CompainesDetailsHeader extends StatelessWidget {
-  final controller = Get.put(CompainesDetailsController());
+  final controller = Get.put(CompaniesDetailsController());
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   CompainesDetailsHeader({
@@ -86,61 +87,69 @@ class CompainesDetailsHeader extends StatelessWidget {
               padding: EdgeInsets.all(0),
               icon: Icon(Icons.menu),
               onPressed: () {
-                showMenu(
-                  color: AppColors.secondaryColor,
-                  context: context,
-                  position: RelativeRect.fromLTRB(
-                      50.0, 50.0, 0.0, 0.0), // Position of the menu
-                  items: [
-                    PopupMenuItem(
-                        value: 'profile',
-                        child: itemText(text: "Profile", context: context)),
-                    PopupMenuItem(
-                        value: 'subscriptions',
-                        child:
-                            itemText(text: "Subscriptions", context: context)),
-                    PopupMenuItem(
-                        value: 'switch_company',
-                        child:
-                            itemText(text: "Switch Company", context: context)),
-                    PopupMenuItem(
-                        value: 'logout',
-                        child: itemText(text: "Logout", context: context)),
-                  ],
-                ).then((value) async {
-                  // Handle item selection
-                  if (value != null) {
-                    switch (value) {
-                      case 'profile':
-
-                        // Navigate to Profile screen or perform an action
-                        break;
-                      case 'subscriptions':
-
-                        // Navigate to Subscriptions screen or perform an action
-                        break;
-                      case 'switch_company':
-                        Get.offAllNamed(AppRoutes.companies);
-                        // Handle switch company logic
-                        break;
-                      case 'logout':
-                        await AppPreferences.removeApiToken();
-                        await AppPreferences.removeProjectDetail();
-
-                        await AppPreferences.removeCompaniesCurrentRoute();
-                        await AppPreferences.removeProjectRoute();
-                        await AppPreferences.removeDeviceToken();
-
-                        await AppPreferences.removeSetCompanyData();
-                        await AppPreferences.removeProjectId();
-                        await AppPreferences.removeCompanyId();
-                        Get.offAllNamed(AppRoutes.login);
-                        // Handle logout logic
-                        break;
-                    }
-                  }
-                });
-              },
+  showMenu(
+    color: AppColors.secondaryColor,
+    context: context,
+    position: RelativeRect.fromLTRB(50.0, 50.0, 0.0, 0.0), // Position of the menu
+    items: controller.isWorker.value == "admin"
+        ? [
+            PopupMenuItem(
+              value: 'profile',
+              child: itemText(text: "Profile", context: context),
+            ),
+            PopupMenuItem(
+              value: 'subscriptions',
+              child: itemText(text: "Subscriptions", context: context),
+            ),
+            PopupMenuItem(
+              value: 'switch_company',
+              child: itemText(text: "Switch Company", context: context),
+            ),
+            PopupMenuItem(
+              value: 'logout',
+              child: itemText(text: "Logout", context: context),
+            ),
+          ]
+        : [
+            PopupMenuItem(
+              value: 'profile',
+              child: itemText(text: "Profile", context: context),
+            ),
+            PopupMenuItem(
+              value: 'switch_company',
+              child: itemText(text: "Switch Company", context: context),
+            ),
+            PopupMenuItem(
+              value: 'logout',
+              child: itemText(text: "Logout", context: context),
+            ),
+          ],
+  ).then((value) async {
+    if (value != null) {
+      switch (value) {
+        case 'profile':
+          controller.changeIndex(companyAdminTaps.Profile.index);
+          break;
+        case 'subscriptions':
+          controller.changeIndex(companyAdminTaps.Subscriptions.index);
+          break;
+        case 'switch_company':
+          Get.offAllNamed(AppRoutes.companies);
+          break;
+        case 'logout':
+          await AppPreferences.removeApiToken();
+          await AppPreferences.removeProjectDetail();
+          await AppPreferences.removeCompaniesCurrentRoute();
+          await AppPreferences.removeserRole();
+          await AppPreferences.removeSetCompanyData();
+          await AppPreferences.removeProjectId();
+          await AppPreferences.removeCompanyId();
+          Get.offAllNamed(AppRoutes.login);
+          break;
+      }
+    }
+  });
+},
             ),
             // width8,
             // ProfileCard()

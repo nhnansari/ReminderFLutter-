@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
@@ -23,24 +25,24 @@ class Overview extends StatelessWidget {
       {
         "title": "Total Projects",
         "icon": Icons.note,
-        "total": controller.projectController.projectList.length.toString(),
+        "total": controller.total_projects.value.toString(),
       },
       {
         "title": "Total Task",
         "icon": Icons.task_rounded,
-        "total": controller.taskController.tasksList.length.toString(),
+        "total": controller.total_tasks.value.toString()
       },
       {
         "title": "Total Reminder",
         "icon": Icons.notifications,
-        "total": controller.projectController.projectList.length.toString(),
+        "total": controller.total_tasks.value.toString()
       },
       {
         "title": "Total Completed",
         "icon": Icons.check_circle,
-        "total": controller.projectController.projectList.length.toString(),
+        "total": controller.total_tasks.value.toString()
       },
-    ];
+    ].obs;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,22 +56,24 @@ class Overview extends StatelessWidget {
           ),
         ),
         height16,
-        GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              mainAxisExtent: 130.h),
-          itemCount: overviewItems.length,
-          itemBuilder: (context, index) {
-            return FileInfoCard(
-              title: overviewItems[index]["title"] as String,
-              iconPath: overviewItems[index]["icon"] as IconData,
-              Total: overviewItems[index]["total"] as String,
-            );
-          },
+        Obx(
+          () => GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                mainAxisExtent: 130.h),
+            itemCount: overviewItems.value.length,
+            itemBuilder: (context, index) {
+              return FileInfoCard(
+                title: overviewItems.value[index]["title"] as String,
+                iconPath: overviewItems.value[index]["icon"] as IconData,
+                Total: overviewItems.value[index]["total"] as String,
+              );
+            },
+          ),
         ),
       ],
     );

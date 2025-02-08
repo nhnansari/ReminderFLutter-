@@ -28,4 +28,17 @@ class CompaniesRepo extends ApiClient {
       Exception(error);
     }
   }
+
+    Future<dynamic> getMyRole({parameter}) async {
+    try {
+      return await apiClientRequest(
+        endPoint: kMyRole,
+        body: [],
+        parameter: parameter,
+        method: "GET",
+      );
+    } catch (error) {
+      Exception(error);
+    }
+  }
 }

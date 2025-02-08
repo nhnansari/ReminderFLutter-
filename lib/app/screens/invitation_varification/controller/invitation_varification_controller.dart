@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison
 
-
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
 import 'package:admin/app/routes/app_routes.dart';
@@ -12,7 +11,8 @@ class InvitationVarificationController extends GetxController {
   final obscure = true.obs;
 
   final formKey = GlobalKey<FormState>();
-  InvitationVarificationRepository invitationVarificationRepository = InvitationVarificationRepository();
+  InvitationVarificationRepository invitationVarificationRepository =
+      InvitationVarificationRepository();
 
   TextEditingController emailcontroller = TextEditingController();
 
@@ -28,15 +28,17 @@ class InvitationVarificationController extends GetxController {
     otpController.clear();
   }
 
-   @override
+  @override
   void onInit() {
     super.onInit();
     clear();
     _fetchEmailAndCodeFromUrl();
   }
- void _fetchEmailAndCodeFromUrl() {
+
+  void _fetchEmailAndCodeFromUrl() {
     final String expectedRoute = "/join/invitationVarification";
-    final Uri? uri = Get.currentRoute != null ? Uri.tryParse(Get.currentRoute) : null;
+    final Uri? uri =
+        Get.currentRoute != null ? Uri.tryParse(Get.currentRoute) : null;
     if (uri != null && uri.path == expectedRoute) {
       final String? email = uri.queryParameters["email"];
       final String? code = uri.queryParameters["code"];
@@ -48,11 +50,12 @@ class InvitationVarificationController extends GetxController {
       Get.log("Invalid route for invitation verification");
     }
   }
+
   void acceptInvitation() async {
     try {
       final Map<String, dynamic> body = {
         "email": emailcontroller.text.trim(),
-        "verificationCode": otpController.text.trim()
+        "verificationCode": int.parse(otpController.text.trim())
       };
 
       // Show loading indicator
@@ -64,28 +67,18 @@ class InvitationVarificationController extends GetxController {
       );
 
       // Check if response has required data
-      if (response != null 
-         ) {
-      
-
+      if (response != null) {
         // Check for MFA requirement
-       
-
-        
 
         CustomSnackBar.show(message: response["message"]);
         Get.offAllNamed(AppRoutes.compainesDetails);
         clear();
-      
       }
       Get.log((response != null).toString());
     } catch (e) {
       Get.log("Failed to accept invitation ${e.toString()}");
-
-      
     } finally {
       CustomLoading.hide();
     }
   }
-
 }

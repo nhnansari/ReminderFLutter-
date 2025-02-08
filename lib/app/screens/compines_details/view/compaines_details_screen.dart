@@ -4,9 +4,11 @@ import 'package:admin/app/core/widgets/taps.dart';
 import 'package:admin/app/screens/compines_details/components/compaines_details_header.dart';
 import 'package:admin/app/screens/compines_details/controller/compaines_datails_controller.dart.dart';
 import 'package:admin/app/screens/company_users/view/company_user_screen.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/project/view/project_screen.dart';
+import 'package:admin/app/screens/profile/screens/profile_screen.dart';
+import 'package:admin/app/screens/project/view/project_screen.dart';
 import 'package:admin/app/screens/compines_details/nested_screens/setting/view/setting_screen.dart';
 import 'package:admin/app/screens/dashboard/view/dashboard_screen.dart';
+import 'package:admin/app/screens/reminders/view/reminder_screen.dart';
 import 'package:admin/app/screens/team/view/team_screen.dart';
 import 'package:admin/app/screens/custom_messages/view/custom_messages_screen.dart';
 import 'package:admin/app/screens/subscription/view/subscription_screen.dart';
@@ -14,12 +16,12 @@ import 'package:admin/app/screens/task/view/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
+class CompainesDetailsScreen extends GetView<CompaniesDetailsController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CompainesDetailsController>(
-        init: CompainesDetailsController(),
+    return GetBuilder<CompaniesDetailsController>(
+        init: CompaniesDetailsController(),
         builder: (controller) {
           return Title(
             title: "Task App",
@@ -46,28 +48,36 @@ class CompainesDetailsScreen extends GetView<CompainesDetailsController> {
                         onPageChanged: (int index) {
                           controller.changeIndex(index);
                         },
-                        itemCount: companyTaps.values.length,
+                        itemCount: controller.isWorker.value == "admin"
+                            ? companyAdminTaps.values.length
+                            : companyWorkerTaps.values.length,
                         itemBuilder: (context, index) {
-                          switch (companyTaps.values[index]) {
-                            case companyTaps.Employees:
+                          switch (controller.isWorker.value == "admin"
+                              ? companyAdminTaps.values[index]
+                              : companyWorkerTaps.values[index]) {
+                            case companyAdminTaps.Employees:
                               return CompanyUserScreen();
-                            case companyTaps.Projects:
+                            case companyAdminTaps.Projects:
                               return ProjectScreen();
-                            case companyTaps.Team:
+                            case companyAdminTaps.Team:
                               return TeamScreen();
-                            case companyTaps.Settings:
+                            case companyAdminTaps.Settings:
                               return SettingScreen();
-                            case companyTaps.Dashboard:
+                            case companyAdminTaps.Dashboard:
                               return DashboardScreen();
-                            case companyTaps.Reminders:
-                              return Container();
-                            case companyTaps.Subscriptions:
+                            case companyAdminTaps.Reminders:
+                              return ReminderScreen();
+                            case companyAdminTaps.Subscriptions:
                               return SubscriptionScreen();
-                            case companyTaps.Task:
+                            case companyAdminTaps.Task:
                               return TaskScreen();
-                            case companyTaps.Custom_Messages:
+                            case companyAdminTaps.Custom_Messages:
                               return CustomMessagesScreen();
+
+                            case companyAdminTaps.Profile:
+                              return ProfileScreen();
                           }
+                          return null;
                         },
                       ),
                     )

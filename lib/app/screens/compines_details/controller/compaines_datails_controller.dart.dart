@@ -2,59 +2,64 @@ import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/taps.dart';
 import 'package:admin/app/screens/companies/model/companies_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class CompainesDetailsController extends GetxController {
+class CompaniesDetailsController extends GetxController {
   var companiesModel = Company().obs;
+  var isWorker = "".obs;
+  var currentScreen = Rx<dynamic>(companyWorkerTaps.Dashboard); 
 
-  late PageController pageController;
-  late ScrollController scrollController;
+  late final PageController pageController = PageController(initialPage: 0);
+  late final ScrollController scrollController = ScrollController();
 
   @override
   void onInit() {
-    int initialRoute = AppPreferences.getCompaniesCurrentRoute ?? 0;
-
-    if (initialRoute < 0 || initialRoute >= companyTaps.values.length) {
-      initialRoute = 0;
-    }
-
-    pageController = PageController(initialPage: initialRoute);
-    scrollController = ScrollController();
-
-    currentScreen.value = companyTaps.values[initialRoute];
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      getData();
-    });
-
-    ever(currentScreen, (_) {
-      if (pageController.hasClients) {
-        pageController.jumpToPage(currentScreen.value.index);
-      }
-    });
-
     super.onInit();
+
+    // Delay asynchronous initialization until after the first frame is rendered.
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getData();
+      isWorker.value = await AppPreferences.getserRole;
+
+      int initialRoute = AppPreferences.getCompaniesCurrentRoute ?? 0;
+      final tapsList = isWorker.value == "admin"
+          ? companyAdminTaps.values
+          : companyWorkerTaps.values;
+
+      if (initialRoute < 0 || initialRoute >= tapsList.length) {
+        initialRoute = 0;
+      }
+
+      // Update the current screen based on the retrieved initial route.
+      currentScreen.value = tapsList[initialRoute];
+
+      // Jump to the appropriate page using the already initialized controller.
+      if (pageController.hasClients) {
+        pageController.jumpToPage(initialRoute);
+      }
+
+      // Listen for changes in currentScreen and update the page accordingly.
+      ever(currentScreen, (_) {
+        if (pageController.hasClients) {
+          pageController.jumpToPage(currentScreen.value.index);
+        }
+      });
+    });
   }
-
-  final Rx<companyTaps> currentScreen = companyTaps.Projects.obs;
-
   void changeIndex(int index) {
-    currentScreen.value = companyTaps.values[index];
-    // if (pageController.hasClients) {
-    //   pageController.jumpToPage(index); // Ensure this is properly executed
-    // }
-    AppPreferences.setCompaniesCurrentRoute(index);
+    final tapsList = isWorker.value == "admin" ? companyAdminTaps.values : companyWorkerTaps.values;
+    if (index >= 0 && index < tapsList.length) {
+      currentScreen.value = tapsList[index];
+      AppPreferences.setCompaniesCurrentRoute(index);
+    }
   }
 
-  getData() async {
+  Future<void> getData() async {
     final getArgs = await AppPreferences.getSetCompanyData;
-
     if (getArgs != null) {
       companiesModel.value = Company.fromJson(getArgs);
-      await AppPreferences.setCompanyId(companiesModel.value.id.toString());
-      final id = await AppPreferences.getCompanyId;
-      Get.log(id.toString());
+     
+      Get.log(companiesModel.value.id.toString());
       update();
     }
   }

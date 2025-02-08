@@ -2,8 +2,8 @@
 import 'package:admin/app/api/api.dart';
 import 'package:admin/app/api/api_endpoints.dart';
 
-class TeamRepo extends ApiClient {
-  TeamRepo() : super();
+class ReminderRepo extends ApiClient {
+  ReminderRepo() : super();
 
   Future<dynamic> getTeams({required String parameter}) async {
     try {
