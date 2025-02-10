@@ -3,15 +3,15 @@
 import 'package:admin/app/api/api.dart';
 import 'package:admin/app/api/api_endpoints.dart';
 
-class LoginRepository extends ApiClient {
-  LoginRepository() : super();
+class ProfileRepository extends ApiClient {
+  ProfileRepository() : super();
 
-  Future<dynamic> LoginUser({
+  Future<dynamic> updateProfile({
     required Map<String, dynamic> body,
   }) async {
     try {
       return await apiClientRequest(
-        endPoint: kLogin,
+        endPoint: kUpdateProfile,
         body: body,
         method: "POST",
       );
@@ -20,19 +20,18 @@ class LoginRepository extends ApiClient {
     }
   }
 
-  Future<dynamic> ForgetPass({
-    required Map<String, dynamic> body,
-  }) async {
+Future<dynamic> getProfile() async {
     try {
       return await apiClientRequest(
-        endPoint: kForgetPassword,
-        body: body,
-        method: "POST",
+        endPoint: KProfile,
+        body: [],
+        method: "GET",
       );
     } catch (error) {
       Exception(error);
     }
   }
 
+ 
   
 }

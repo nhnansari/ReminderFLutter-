@@ -3,9 +3,9 @@ import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
 import 'package:admin/app/screens/company_users/controller/company_user_controller.dart';
 import 'package:admin/app/screens/custom_messages/controller/custom_messages_controller.dart';
+import 'package:admin/app/screens/reminders/model/reminder_model.dart';
+import 'package:admin/app/screens/reminders/respository/reminder_repo.dart';
 import 'package:admin/app/screens/team/controller/team_controller.dart';
-import 'package:admin/app/screens/team/model/team_model.dart';
-import 'package:admin/app/screens/team/respository/team_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,16 +13,15 @@ class ReminderController extends GetxController {
   @override
   void onInit() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await getTeams();
+      await getMyReminders();
       isWorker.value = await AppPreferences.getserRole;
     });
     super.onInit();
   }
 
-  TeamRepo teamRepo = TeamRepo();
+  final replyController = TextEditingController();
+  ReminderRepo reminderRepo = ReminderRepo();
   final isWorker = "".obs;
-  TeamModel teamModel = TeamModel();
-  var teams = <TeamData>[].obs;
 
   final teamController = Get.put(TeamController());
   final companyWorkerController = Get.put(CompanyUserController());
@@ -30,129 +29,111 @@ class ReminderController extends GetxController {
   var selectedUserId = "".obs;
   var selectedMsgId = "".obs;
   var selectedTeamId = "".obs;
+  final optionIndex = (-1).obs;
 
-  Future<void> getTeams() async {
+  void changeIndex(index) {
+    optionIndex.value = index;
+  }
+
+  ReminderModel reminderModel = ReminderModel();
+  final reminders = <ReminderData>[].obs;
+
+  Future<void> getMyReminders() async {
     try {
       final companyId = await AppPreferences.getCompanyId;
       final parameter = "?companyId=$companyId";
       CustomLoading.show();
-      final response = await teamRepo.getTeams(parameter: parameter);
+      final response = await reminderRepo.getReminders(parameter: parameter);
 
       if (response != null) {
-        teamModel = TeamModel.fromJson(response);
-        teams.value = teamModel.data!;
-
+        reminderModel = ReminderModel.fromJson(response);
+        reminders.clear();
+        reminders.value = reminderModel.data!;
         CustomLoading.hide();
       }
     } catch (e) {
-      Get.log("Error in get team $e");
+      Get.log("Error in get reminder $e");
     } finally {
       CustomLoading.hide();
       // clear();
     }
   }
 
-  void addTeam() async {
-    // final companyId = await AppPreferences.getCompanyId;
-
-    try {
-      final Map<String, dynamic> body = {};
-
-      CustomLoading.show();
-      final response = await teamRepo.addTeam(
-        body: body,
-      );
-
-      if (response != null) {
-        // Agar response successful hai, toh success message show karo
-        CustomSnackBar.show(message: "team Created Successfully");
-        await getTeams();
-        Get.back();
-
-        CustomLoading.hide();
-      }
-    } catch (e) {
-      Get.log("Error in create team $e");
-    } finally {
-      CustomLoading.hide();
-      // clear();
-    }
-  }
-
-  void addWorker({
-    teamId,
-    workerId,
-  }) async {
+  void sendReminder() async {
+    CustomLoading.show();
     final companyId = await AppPreferences.getCompanyId;
-
-    final parameter = "/$teamId/members";
 
     try {
       final Map<String, dynamic> body = {
-        "userId": workerId,
-        "companyId": companyId
+        "companyId": companyId,
+        "userId": int.parse(selectedUserId.value),
+        "teamId": int.parse(selectedTeamId.value),
+        "reminderMessageId": int.parse(selectedMsgId.value),
       };
 
-      CustomLoading.show();
-      final response =
-          await teamRepo.addWorker(body: body, parameter: parameter);
-
-      if (response != null) {
-        // Agar response successful hai, toh success message show karo
-        CustomSnackBar.show(message: response["message"]);
-
-        await getTeams();
-        Get.back();
-
-        CustomLoading.hide();
-      }
-    } catch (e) {
-      Get.log("Error in add worker $e");
-    } finally {
-      CustomLoading.hide();
-      // clear();
-    }
-  }
-
-  void updateTeam({teamId}) async {
-    // final companyId = await AppPreferences.getCompanyId;
-
-    try {
-      final Map<String, dynamic> body = {};
-
-      CustomLoading.show();
-      final response = await teamRepo.updateTeam(
-        parameter: "/$teamId",
+      final response = await reminderRepo.sendReminder(
         body: body,
       );
 
       if (response != null) {
         // Agar response successful hai, toh success message show karo
-        CustomSnackBar.show(message: response["message"]);
-        await getTeams();
+        CustomSnackBar.show(message: "Reminder send Successfully");
         Get.back();
+        await getMyReminders();
 
         CustomLoading.hide();
       }
     } catch (e) {
-      Get.log("Error in update team $e");
+      Get.log("Error in send reminder $e");
     } finally {
       CustomLoading.hide();
       // clear();
     }
   }
 
-  void deleteteam(teamId) async {
+  void replyReminder({optionId, reminderId}) async {
+    CustomLoading.show();
+    final companyId = await AppPreferences.getCompanyId;
+
+    try {
+      final Map<String, dynamic> body = {
+        "reminderId": reminderId,
+        "optionId": optionId,
+        "message": replyController.text.trim(),
+        "companyId": companyId
+      };
+
+      final response = await reminderRepo.replyReminder(
+        body: body,
+      );
+
+      if (response != null) {
+        // Agar response successful hai, toh success message show karo
+        CustomSnackBar.show(message: "Send Successfully");
+        Get.back();
+        await getMyReminders();
+
+        CustomLoading.hide();
+      }
+    } catch (e) {
+      Get.log("Error in reply reminder $e");
+    } finally {
+      CustomLoading.hide();
+      // clear();
+    }
+  }
+
+  void deleteReminder(reminderId) async {
     try {
       final companyID = await AppPreferences.getCompanyId;
 
-      final parameter = "/$teamId";
+      final parameter = "/$reminderId";
       final body = {
-        "companyId": int.parse(companyID),
+        "companyId": companyID,
       };
 
       CustomLoading.show();
-      final response = await teamRepo.deleteTeam(
+      final response = await reminderRepo.deleteReminders(
         body: body,
         parameter: parameter,
       );
@@ -160,12 +141,12 @@ class ReminderController extends GetxController {
       if (response != null) {
         // Agar response successful hai, toh success message show karo
         CustomSnackBar.show(message: response["message"]);
-        await getTeams();
+        await getMyReminders();
 
         CustomLoading.hide();
       }
     } catch (e) {
-      Get.log("Error in delete team $e");
+      Get.log("Error in delete reminder $e");
     } finally {
       CustomLoading.hide();
     } // clear();

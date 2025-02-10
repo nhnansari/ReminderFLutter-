@@ -1,96 +1,96 @@
+import 'package:admin/app/core/widgets/custom_snackbar.dart';
+import 'package:admin/app/core/widgets/loading.dart';
+import 'package:admin/app/screens/profile/model/profile_model.dart';
+import 'package:admin/app/screens/profile/repository/profile_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
-  
   final formKey = GlobalKey<FormState>();
-  // LoginRepository loginRepository = LoginRepository();
+  ProfileRepository profileRepository = ProfileRepository();
 
-  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController oldPasswordController = TextEditingController();
+  final oldPasswordObscure = true.obs;
+  final newPasswordObscure = true.obs;
+  final confirmPasswordObscure = true.obs;
+
+  void setObscure(RxBool obscureField) {
+    obscureField.value = !obscureField.value;
+  }
 
   // MFAModel mfaModel = MFAModel();
-  TextEditingController nameController = TextEditingController();
 
-  
+  final profileModel = ProfileModel().obs;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   void clear() {
-    emailcontroller.clear();
+    oldPasswordController.clear();
     nameController.clear();
+    passwordController.clear();
+    confirmPasswordController.clear();
   }
 
   @override
   void onInit() {
     clear();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getProfile();
+    });
+
     super.onInit();
   }
 
-  void updateProfile({required BuildContext context}) async {
-    // try {
-    //   final Map<String, dynamic> body = {
-    //     "email": emailcontroller.text.trim(),
-    //     "password": passwordcontroller.text.trim()
-    //   };
+  void updateProfile() async {
+    try {
+      final Map<String, dynamic> body = {
+        "name": nameController.text.trim(),
+        "oldPassword": oldPasswordController.text.trim(),
+        "newPassword": passwordController.text.trim(),
+        "confirmPassword": confirmPasswordController.text.trim()
+      };
 
-    //   // Show loading indicator
-    //   CustomLoading.show();
+      // Show loading indicator
+      CustomLoading.show();
 
-    //   // Make login request
-    //   final response = await loginRepository.LoginUser(
-    //     body: body,
-    //   );
+      // Make login request
+      final response = await profileRepository.updateProfile(
+        body: body,
+      );
 
-    //   // Check if response has required data
-    //   if (response != null &&
-    //       response['user'] != null &&
-    //       response['token'] != null) {
-    //     final token = response['token'];
-
-    //     // Check for MFA requirement
-    //     await AppPreferences.setApiToken(token);
-     
-    //     await AppPreferences.setUserName(response['user']['fullName']);
-    //     Get.log("Login Token: $token");
-
-    //     Get.offAllNamed(AppRoutes.companies);
-
-    //     CustomSnackBar.show(message: "Login Successfully");
-    //     clear();
-    //     Get.log((response['user'] != null).toString());
-    //     Get.log((response['user']['token'] != null).toString());
-    //   }
-    //   Get.log((response != null).toString());
-    // } catch (e) {
-    //   Get.log("Failed to Login. Error: ${e.toString()}");
-
-    //   CustomSnackBar.show(message: "An error occured,please try again");
-    // } finally {
-    //   CustomLoading.hide();
-    // }
+      // Check if response has required data
+      if (response != null) {
+        CustomSnackBar.show(message: response["message"]);
+        clear();
+        await getProfile();
+      }
+    } catch (e) {
+      Get.log("Failed to update profile ${e.toString()}");
+    } finally {
+      CustomLoading.hide();
+    }
   }
 
-  // Future<void> getMfaList({ontext}) async {
-  //   try {
-  //     CustomLoading.show();
-  //     final response = await loginRepository.getMFA();
-  //     if (response != null && response['data'] != null) {
-  //       mfaModel = MFAModel.fromJson(response);
-  //       Get.log(mfaModel.data!.method!.length.toString());
-  //       for (var element in mfaModel.data!.method!) {
-  //         if (element.name == "email") {
-  //           if (element.userEnabled == true) {
-  //             Get.offAllNamed(AppRoutes.emailVarification, arguments: true);
-  //           } else {
-  //             Get.offAllNamed(
-  //               AppRoutes.index,
-  //             );
-  //           }
-  //         }
-  //       }
-  //     }
-  //   } catch (e) {
-  //     CustomLoading.hide();
-  //     Get.log("Failed to Get Mfa List. Error: ${e.toString()}");
-  //   } finally {
-  //     CustomLoading.hide();
-  //   }
-  // }
+  Future<void> getProfile() async {
+    try {
+      // Show loading indicator
+      CustomLoading.show();
+
+      // Make login request
+      final response = await profileRepository.getProfile();
+
+      // Check if response has required data
+      if (response != null) {
+        profileModel.value = ProfileModel.fromJson(response);
+        nameController.text = profileModel.value.data!.fullName ??"";
+        update();
+      }
+    } catch (e) {
+      Get.log("Failed to get profile ${e.toString()}");
+    } finally {
+      CustomLoading.hide();
+    }
+  }
 }

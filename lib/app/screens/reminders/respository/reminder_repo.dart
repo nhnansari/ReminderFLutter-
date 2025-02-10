@@ -5,10 +5,10 @@ import 'package:admin/app/api/api_endpoints.dart';
 class ReminderRepo extends ApiClient {
   ReminderRepo() : super();
 
-  Future<dynamic> getTeams({required String parameter}) async {
+  Future<dynamic> getReminders({required String parameter}) async {
     try {
       return await apiClientRequest(
-        endPoint: kTeams,
+        endPoint: kGetWorkerReminder,
         body: [],
         parameter: parameter,
         method: "GET",
@@ -17,22 +17,22 @@ class ReminderRepo extends ApiClient {
       Exception(error);
     }
   }
-   Future<dynamic> getMembers({required String parameter}) async {
+  //  Future<dynamic> getMembers({required String parameter}) async {
+  //   try {
+  //     return await apiClientRequest(
+  //       endPoint: kTeams,
+  //       body: [],
+  //       parameter: parameter,
+  //       method: "GET",
+  //     );
+  //   } catch (error) {
+  //     Exception(error);
+  //   }
+  // }
+  Future<dynamic> sendReminder({required  Map<String,dynamic> body}) async {
     try {
       return await apiClientRequest(
-        endPoint: kTeams,
-        body: [],
-        parameter: parameter,
-        method: "GET",
-      );
-    } catch (error) {
-      Exception(error);
-    }
-  }
-  Future<dynamic> addTeam({required  Map<String,dynamic> body}) async {
-    try {
-      return await apiClientRequest(
-        endPoint: kTeams,
+        endPoint: kReminder,
    
         body: body,
         method: "POST",
@@ -42,11 +42,11 @@ class ReminderRepo extends ApiClient {
     }
   }
 
- Future<dynamic> addWorker({required  Map<String,dynamic> body , parameter}) async {
+ Future<dynamic> replyReminder({required  Map<String,dynamic> body }) async {
     try {
       return await apiClientRequest(
-        endPoint: kAddWorker,
-        parameter: parameter,
+        endPoint: kReplyReminder,
+        
    
         body: body,
         method: "POST",
@@ -57,22 +57,22 @@ class ReminderRepo extends ApiClient {
   }
 
 
-   Future<dynamic> updateTeam({required  Map<String,dynamic> body , required String parameter}) async {
+  //  Future<dynamic> updateTeam({required  Map<String,dynamic> body , required String parameter}) async {
+  //   try {
+  //     return await apiClientRequest(
+  //       endPoint: kTeams,
+  //   parameter: parameter,
+  //       body: body,
+  //       method: "PUT",
+  //     );
+  //   } catch (error) {
+  //     Exception(error);
+  //   }
+  // }
+   Future<dynamic> deleteReminders({required  String parameter ,required  Map<String,dynamic> body  }) async {
     try {
       return await apiClientRequest(
-        endPoint: kTeams,
-    parameter: parameter,
-        body: body,
-        method: "PUT",
-      );
-    } catch (error) {
-      Exception(error);
-    }
-  }
-   Future<dynamic> deleteTeam({required  String parameter ,required  Map<String,dynamic> body  }) async {
-    try {
-      return await apiClientRequest(
-        endPoint: kTeams,
+        endPoint: kReminder,
    
         body: body,
         parameter: parameter,

@@ -87,6 +87,7 @@ class AddCustomMessageDialog extends StatelessWidget {
                   title: "Message",
                   hinttext: "Enter Message",
                   controller: controller.msgController,
+                  iconPath: Icons.message,
                   validator: (value) =>
                       value?.isEmpty ?? true ? "Message is required" : null,
                 ),
@@ -162,6 +163,7 @@ class AddCustomMessageDialog extends StatelessWidget {
                                     CustomTextfeild(
                                       titleColor: AppColors.textColor,
                                       title: "Option",
+                                      iconPath: Icons.subtitles,
                                       hinttext: "Enter Option",
                                       controller: option.option,
                                       validator: (value) =>
@@ -360,5 +362,3 @@ class AddCustomMessageDialog extends StatelessWidget {
     );
   }
 }
-
-

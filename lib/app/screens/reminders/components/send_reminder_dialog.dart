@@ -116,6 +116,7 @@ class SendReminderDialog extends StatelessWidget {
                     backcolor: AppColors.backColor,
                     onclick: () {
                       if (formkey.currentState!.validate()) {
+                        controller.sendReminder();
                         // Perform the reminder submission logic here
                       }
                     },
@@ -215,7 +216,7 @@ class SendReminderDialog extends StatelessWidget {
             color: Colors.red,
           ),
         ),
-        // contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(

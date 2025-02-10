@@ -56,11 +56,13 @@ const String kCreateTask = "/tasks";
 // team
 const String kTeams = "/worker-teams";
 const String kAddWorker = "/worker-teams";
-// const String kInvestmentHistory = "/investment_packages/history";
-// const String kGuardianPackages = "/saving_plans/guardian/list";
-// const String kFreedomPackages = "/saving_plans/freedom/list";
-// const String kGuardianPackagesPurchase = "/saving_plans/guardian/purchase";
-// const String kGuardianPaakgesHistory = "/saving_plans/guardian/history";
+
+// reminder
+const String kReminder = "/reminders";
+const String kUpdateProfile = "/update_profile";
+const String KProfile = "/profile";
+const String kGetWorkerReminder = "/worker/reminders";
+const String kReplyReminder = "/worker/reply_reminder";
 // const String kFreedomPaakgesHistory = "saving_plans/freedom/history";
 // const String kFreedomPackagesPurchase = "/saving_plans/freedom/purchase";
 // const String kInvestmentRelease = "/investment_packages/release";
