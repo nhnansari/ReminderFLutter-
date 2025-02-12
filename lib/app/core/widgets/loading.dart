@@ -34,10 +34,10 @@
 //   }
 // }
 
-
-import 'package:admin/app/core/assets/app_images.dart';
+import 'package:admin/app/core/utils/app_colors.dart';
+import 'package:admin/app/core/utils/app_textstyle.dart';
+import 'package:admin/app/core/widgets/Custom_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CustomLoading {
@@ -48,12 +48,31 @@ class CustomLoading {
     if (!isProgressVisible) {
       Get.dialog(
         Center(
-            child: Image.asset(
-          AppImages.loader,
-          filterQuality: FilterQuality.high,
-          fit: BoxFit.scaleDown,
-          height: 200.h,
-        )),
+            child: CustomContainer(
+                backColor: AppColors.whiteColor,
+                borderRadius: BorderRadius.circular(10),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                        strokeWidth: 4,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        " Loading...",
+                        style: AppTextstyle.text10.copyWith(
+                            color: AppColors.backColor,
+                            fontSize:
+                                FontSizeManager.getFontSize(Get.context!, 12)),
+                      )
+                    ],
+                  ),
+                ))),
         barrierDismissible: isCancellable,
       );
       isProgressVisible = true;

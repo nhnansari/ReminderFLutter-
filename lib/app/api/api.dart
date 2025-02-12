@@ -102,14 +102,17 @@ class ApiClient {
     CustomSnackBar.show(message: "Session expired. Please log in again.");
   } 
   else if (response.statusCode == 403) {
+    Get.log("$endPoint response[$method]: ${response.body}");
     // Forbidden: User doesn't have permission
     CustomSnackBar.show(message: "Access Denied. Please contact support.");
   } 
   else if (response.statusCode == 404) {
+    Get.log("$endPoint response[$method]: ${response.body}");
     // Not Found: API endpoint incorrect or resource not found
     CustomSnackBar.show(message: "Requested resource not found.");
   } 
   else if (response.statusCode == 500) {
+    Get.log("$endPoint response[$method]: ${response.body}");
     // Internal Server Error: Issue on server-side
     CustomSnackBar.show(message: "Server error occurred. Please try again later.");
   } 

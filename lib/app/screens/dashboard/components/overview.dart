@@ -21,29 +21,6 @@ class Overview extends StatelessWidget {
     bool isLarge = Responsive.isDesktop(context);
     int crossAxisCount = isLarge ? 4 : 2;
 
-    final overviewItems = [
-      {
-        "title": "Total Projects",
-        "icon": Icons.note,
-        "total": controller.total_projects.value.toString(),
-      },
-      {
-        "title": "Total Task",
-        "icon": Icons.task_rounded,
-        "total": controller.total_tasks.value.toString()
-      },
-      {
-        "title": "Total Reminder",
-        "icon": Icons.notifications,
-        "total": controller.total_tasks.value.toString()
-      },
-      {
-        "title": "Total Completed",
-        "icon": Icons.check_circle,
-        "total": controller.total_tasks.value.toString()
-      },
-    ].obs;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,24 +33,47 @@ class Overview extends StatelessWidget {
           ),
         ),
         height16,
-        Obx(
-          () => GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                mainAxisExtent: 130.h),
-            itemCount: overviewItems.value.length,
-            itemBuilder: (context, index) {
-              return FileInfoCard(
+        GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              mainAxisExtent: 130.h),
+          itemCount: 4,
+          itemBuilder: (context, index) {
+            final overviewItems = [
+              {
+                "title": "Total Projects",
+                "icon": Icons.note,
+                "total": controller.total_projects.value.toString(),
+              },
+              {
+                "title": "Total Task",
+                "icon": Icons.task_rounded,
+                "total": controller.total_tasks.value.toString()
+              },
+              {
+                "title": "Total Reminder",
+                "icon": Icons.notifications,
+                "total": controller.total_reminders.value.toString()
+              },
+              {
+                "title": "Total Completed",
+                "icon": Icons.check_circle,
+                "total": controller.total_tasks.value.toString()
+              },
+            ].obs;
+
+            return Obx(
+              () => FileInfoCard(
                 title: overviewItems.value[index]["title"] as String,
                 iconPath: overviewItems.value[index]["icon"] as IconData,
                 Total: overviewItems.value[index]["total"] as String,
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ],
     );

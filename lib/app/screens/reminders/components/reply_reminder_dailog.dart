@@ -3,7 +3,7 @@ import 'package:admin/app/core/utils/app_spaces.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:admin/app/core/widgets/Custom_container.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
+// import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/custom_text_field.dart';
 import 'package:admin/app/core/widgets/small_buttom.dart';
 import 'package:admin/app/screens/reminders/controller/reminder_controller.dart';
@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 
 class ReplyReminderDailog extends StatelessWidget {
   final controller = Get.put(ReminderController());
-  final formkey = GlobalKey<FormState>();
+  // final formkey = GlobalKey<FormState>();
   final ReminderData reminderData;
 
   ReplyReminderDailog({Key? key, required this.reminderData}) : super(key: key);
@@ -74,19 +74,10 @@ class ReplyReminderDailog extends StatelessWidget {
               ),
             ),
             height10,
-            Form(
-              key: formkey,
-              child: CustomTextfeild(
-                hinttext: "Reply to reminder",
-                controller: controller.replyController,
-                iconPath: Icons.reply,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a reply';
-                  }
-                  return null;
-                },
-              ),
+            CustomTextfeild(
+              hinttext: "Reply to reminder",
+              controller: controller.replyController,
+              iconPath: Icons.reply,
             ),
             height10,
             Obx(
@@ -141,21 +132,17 @@ class ReplyReminderDailog extends StatelessWidget {
                     textColor: AppColors.whiteColor,
                     backcolor: AppColors.backColor,
                     onclick: () {
-                      if (formkey.currentState!.validate()) {
-                        if (controller.optionIndex.value != -1) {
-                          if (reminderData.reminderMessage!.options != null) {
-                            controller.replyReminder(
-                                reminderId: reminderData.id,
-                                optionId: reminderData.reminderMessage!
-                                    .options![controller.optionIndex.value].id);
-                          } else {
-                            CustomSnackBar.show(message: "No Options Found");
-                          }
-                          // Perform the reminder submission logic here
-                        } else {
-                          CustomSnackBar.show(message: "No Options Selected");
-                        }
-                      }
+                      // if (reminderData.reminderMessage!.options != null) {
+                      controller.replyReminder(
+                          reminderId: reminderData.id,
+                          optionId: controller.optionIndex.value != -1
+                              ? reminderData.reminderMessage!
+                                  .options![controller.optionIndex.value].id
+                              : null);
+                      // } else {
+                      //   CustomSnackBar.show(message: "No Options Found");
+                      // }
+                      // Perform the reminder submission logic here
                     },
                   ),
                   const VerticalDivider(),
