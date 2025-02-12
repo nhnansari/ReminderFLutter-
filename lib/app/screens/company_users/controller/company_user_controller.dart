@@ -15,6 +15,13 @@ class CompanyUserController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    Get.delete<CompanyUserController>();
+    super.onClose();
+  }
+
+
   final emailController = TextEditingController();
   var selectedItem = ''.obs;
   CompanyUserRepo companyUserRepo = CompanyUserRepo();
@@ -24,9 +31,10 @@ class CompanyUserController extends GetxController {
 
   Future<void> getCompanyUser() async {
     try {
+      CustomLoading.show();
       final companyId = await AppPreferences.getCompanyId;
       final parameter = "?companyId=$companyId";
-      CustomLoading.show();
+      
       final response =
           await companyUserRepo.getCompanyUser(parameter: parameter);
 

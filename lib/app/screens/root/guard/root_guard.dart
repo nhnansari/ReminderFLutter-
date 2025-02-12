@@ -11,7 +11,6 @@ class RouteGuard extends GetMiddleware {
 
     // If token exists
     if (getToken != null) {
-      // Redirect from auth pages to dashboard
       final checkData = AppPreferences.getSetCompanyData;
 
       if (route == AppRoutes.login ||
@@ -23,23 +22,24 @@ class RouteGuard extends GetMiddleware {
         }
         return RouteSettings(name: AppRoutes.companies);
       }
-      // Allow access to other routes
-      return null;
+      return null; // Allow access to other routes
     }
 
     // If token does not exist
     if (getToken == null) {
+      // **Allow /invitationVerification route**
+      if (route == AppRoutes.invitationVarification) {
+        return null; // Allow access
+      }
+
       // Redirect non-auth pages to login
       if (route != AppRoutes.login &&
           route != AppRoutes.signUp &&
           route != AppRoutes.resetPassword) {
         return RouteSettings(name: AppRoutes.login);
       }
-      // Allow access to auth pages
-      return null;
     }
 
-    // Default behavior (should not reach here)
     return null;
   }
 }

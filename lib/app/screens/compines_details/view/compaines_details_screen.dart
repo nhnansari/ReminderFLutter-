@@ -6,7 +6,7 @@ import 'package:admin/app/screens/compines_details/controller/compaines_datails_
 import 'package:admin/app/screens/company_users/view/company_user_screen.dart';
 import 'package:admin/app/screens/profile/screens/profile_screen.dart';
 import 'package:admin/app/screens/project/view/project_screen.dart';
-import 'package:admin/app/screens/compines_details/nested_screens/setting/view/setting_screen.dart';
+import 'package:admin/app/screens/setting/view/setting_screen.dart';
 import 'package:admin/app/screens/dashboard/view/dashboard_screen.dart';
 import 'package:admin/app/screens/reminders/view/reminder_screen.dart';
 import 'package:admin/app/screens/team/view/team_screen.dart';

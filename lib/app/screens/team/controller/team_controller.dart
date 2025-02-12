@@ -17,6 +17,12 @@ class TeamController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    Get.delete<CompanyUserController>();
+    super.onClose();
+  }
+
   final nameController = TextEditingController();
   final descController = TextEditingController();
 
