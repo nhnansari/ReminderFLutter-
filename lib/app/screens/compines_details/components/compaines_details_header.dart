@@ -144,6 +144,7 @@ class CompainesDetailsHeader extends StatelessWidget {
           await AppPreferences.removeSetCompanyData();
           await AppPreferences.removeProjectId();
           await AppPreferences.removeCompanyId();
+          await AppPreferences.removeUserName();
           Get.offAllNamed(AppRoutes.login);
           break;
       }

@@ -1,9 +1,12 @@
+import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/controllers/MenuAppController.dart';
 import 'package:admin/app/core/assets/app_images.dart';
 import 'package:admin/app/core/utils/app_colors.dart';
 import 'package:admin/app/core/utils/app_textstyle.dart';
 import 'package:admin/app/core/widgets/InnerPadding.dart';
 import 'package:admin/app/responsive.dart';
+import 'package:admin/app/routes/app_routes.dart';
+import 'package:admin/app/screens/compines_details/components/compaines_details_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -63,12 +66,62 @@ class Header extends StatelessWidget {
             SizedBox(
               width: 8,
             ),
-            Text(
-              "Malik Imran",
-              style: AppTextstyle.text10.copyWith(
-                  fontSize: FontSizeManager.getFontSize(context, 16),
-                  color: AppColors.textColor,
-                  fontWeight: FontWeight.bold),
+            Obx(
+              () => Text(
+                controller.userName.value == ""
+                    ? ""
+                    : controller.userName.value,
+                style: AppTextstyle.text10.copyWith(
+                    fontSize: FontSizeManager.getFontSize(context, 16),
+                    color: AppColors.textColor,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              width: 7,
+            ),
+            IconButton(
+              iconSize: 26,
+              padding: EdgeInsets.all(0),
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                showMenu(
+                  color: AppColors.secondaryColor,
+                  context: context,
+                  position: RelativeRect.fromLTRB(
+                      50.0, 50.0, 0.0, 0.0), // Position of the menu
+                  items: [
+                    PopupMenuItem(
+                      value: 'profile',
+                      child: itemText(text: "Profile", context: context),
+                    ),
+                    PopupMenuItem(
+                      value: 'logout',
+                      child: itemText(text: "Logout", context: context),
+                    ),
+                  ],
+                ).then((value) async {
+                  if (value != null) {
+                    switch (value) {
+                      case 'profile':
+                        Get.toNamed(AppRoutes.profile);
+                        break;
+
+                      case 'logout':
+                        await AppPreferences.removeApiToken();
+                        await AppPreferences.removeProjectDetail();
+                        await AppPreferences.removeCompaniesCurrentRoute();
+                        await AppPreferences.removeserRole();
+                        await AppPreferences.removeSetCompanyData();
+                        await AppPreferences.removeProjectId();
+                        await AppPreferences.removeCompanyId();
+                        await AppPreferences.removeUserName();
+                        Get.offAllNamed(AppRoutes.login);
+                        break;
+                    }
+                  }
+                });
+              },
             ),
 
             // width8,

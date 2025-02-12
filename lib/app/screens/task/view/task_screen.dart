@@ -17,210 +17,219 @@ class TaskScreen extends GetView<TaskController> {
   Widget build(BuildContext context) {
     return GetBuilder<TaskController>(
       init: TaskController(),
-      builder: (controller) => Column(children: [
-        Expanded(
-          child: InnerPadding(
-            child: Obx(
-              () => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Tasks",
-                          style: AppTextstyle.text10.copyWith(
-                              fontSize:
-                                  FontSizeManager.getFontSize(context, 18),
-                              color: AppColors.textColor,
-                              fontWeight: FontWeight.bold)),
-                      controller.isWorker.value == "admin"
-                          ? SmallButton(
-                              name: "Add Task",
-                              textColor: AppColors.whiteColor,
-                              backcolor: AppColors.secondaryColor,
-                              onclick: () {
-                                controller.clear();
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AddTaskDialog());
-                              })
-                          : SizedBox()
-                    ],
-                  ),
-                  height18,
-                  Expanded(
-                    child: Obx(
-                      () => (controller.tasksList.isEmpty)
-                          ? Center(
-                              child: Text(
-                                "No Task Found!",
-                                style: AppTextstyle.text10.copyWith(
-                                  fontSize:
-                                      FontSizeManager.getFontSize(context, 14),
-                                  color: AppColors.backColor,
-                                  fontWeight: FontWeight.normal,
+      builder: (controller) => Title(
+        title: "Task",
+        color: AppColors.textColor,
+        child: Column(children: [
+          Expanded(
+            child: InnerPadding(
+              child: Obx(
+                () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Tasks",
+                            style: AppTextstyle.text10.copyWith(
+                                fontSize:
+                                    FontSizeManager.getFontSize(context, 18),
+                                color: AppColors.textColor,
+                                fontWeight: FontWeight.bold)),
+                        controller.isWorker.value == "admin"
+                            ? SmallButton(
+                                name: "Add Task",
+                                textColor: AppColors.whiteColor,
+                                backcolor: AppColors.secondaryColor,
+                                onclick: () {
+                                  controller.clear();
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AddTaskDialog());
+                                })
+                            : SizedBox()
+                      ],
+                    ),
+                    height18,
+                    Expanded(
+                      child: Obx(
+                        () => (controller.tasksList.isEmpty)
+                            ? Center(
+                                child: Text(
+                                  "No Task Found!",
+                                  style: AppTextstyle.text10.copyWith(
+                                    fontSize: FontSizeManager.getFontSize(
+                                        context, 14),
+                                    color: AppColors.backColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                                 ),
-                              ),
-                            )
-                          : SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(
-                                  controller
-                                      .tasksList.length, // Null check added
-                                  (index) {
-                                    final task = controller.tasksList[index];
-                                    return task == null
-                                        ? SizedBox() // Handle potential null task
-                                        : InkWell(
-                                            onTap: () {},
-                                            child: CustomContainer(
-                                              borderColor: AppColors.backColor,
-                                              margin:
-                                                  EdgeInsets.only(bottom: 10),
-                                              backColor: AppColors.whiteColor,
-                                              child: InnerPadding(
-                                                child: Column(
-                                                  children: [
-                                                    Row(children: [
-                                                      Expanded(
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              task.name ??
-                                                                  "No Name",
-                                                              style:
-                                                                  AppTextstyle
-                                                                      .text10
-                                                                      .copyWith(
-                                                                fontSize: FontSizeManager
-                                                                    .getFontSize(
-                                                                        context,
-                                                                        13),
-                                                                color: AppColors
-                                                                    .textColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                              )
+                            : SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                    controller
+                                        .tasksList.length, // Null check added
+                                    (index) {
+                                      final task = controller.tasksList[index];
+                                      return task == null
+                                          ? SizedBox() // Handle potential null task
+                                          : InkWell(
+                                              onTap: () {},
+                                              child: CustomContainer(
+                                                borderColor:
+                                                    AppColors.backColor,
+                                                margin:
+                                                    EdgeInsets.only(bottom: 10),
+                                                backColor: AppColors.whiteColor,
+                                                child: InnerPadding(
+                                                  child: Column(
+                                                    children: [
+                                                      Row(children: [
+                                                        Expanded(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                task.name ??
+                                                                    "No Name",
+                                                                style:
+                                                                    AppTextstyle
+                                                                        .text10
+                                                                        .copyWith(
+                                                                  fontSize: FontSizeManager
+                                                                      .getFontSize(
+                                                                          context,
+                                                                          13),
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              task.description ??
-                                                                  "No Description",
-                                                              style:
-                                                                  AppTextstyle
-                                                                      .text10
-                                                                      .copyWith(
-                                                                fontSize: FontSizeManager
-                                                                    .getFontSize(
-                                                                        context,
-                                                                        12),
-                                                                color: AppColors
-                                                                    .textColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
+                                                              Text(
+                                                                task.description ??
+                                                                    "No Description",
+                                                                style:
+                                                                    AppTextstyle
+                                                                        .text10
+                                                                        .copyWith(
+                                                                  fontSize: FontSizeManager
+                                                                      .getFontSize(
+                                                                          context,
+                                                                          12),
+                                                                  color: AppColors
+                                                                      .textColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal,
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
+                                                        if (controller.isWorker
+                                                                .value ==
+                                                            "admin") ...[
+                                                          IconButton(
+                                                            onPressed: () {
+                                                              controller
+                                                                  .deleteTask(
+                                                                      task.id);
+                                                            },
+                                                            icon: Icon(
+                                                                Icons.delete,
+                                                                color: AppColors
+                                                                    .errorColor),
+                                                          ),
+                                                          IconButton(
+                                                            onPressed:
+                                                                () async {
+                                                              showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return AddTaskDialog(
+                                                                    editTask:
+                                                                        task,
+                                                                    isEdit:
+                                                                        true,
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                            icon: Icon(
+                                                                Icons.edit,
+                                                                color: AppColors
+                                                                    .secondaryColor),
+                                                          ),
+                                                        ],
+                                                      ]),
+                                                      height10,
                                                       if (controller
-                                                              .isWorker.value ==
-                                                          "admin") ...[
-                                                        IconButton(
-                                                          onPressed: () {
-                                                            controller
-                                                                .deleteTask(
-                                                                    task.id);
-                                                          },
-                                                          icon: Icon(
-                                                              Icons.delete,
-                                                              color: AppColors
-                                                                  .errorColor),
+                                                              .tasksList[index]
+                                                              .project !=
+                                                          null) ...[
+                                                        __row(
+                                                            context: context,
+                                                            text:
+                                                                "Project Name: ",
+                                                            status: controller
+                                                                    .tasksList[
+                                                                        index]
+                                                                    .project!
+                                                                    .name ??
+                                                                "Loading..."),
+                                                        height6,
+                                                        __row(
+                                                            context: context,
+                                                            text: "Status: ",
+                                                            status:
+                                                                "In_Progress"),
+                                                        height6,
+                                                        __row(
+                                                          context: context,
+                                                          text: "Create Date:",
+                                                          status: controller
+                                                              .tasksList[index]
+                                                              .createdAt!
+                                                              .split("T")[0]
+                                                              .toString(),
                                                         ),
-                                                        IconButton(
-                                                          onPressed: () async {
-                                                            showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (context) {
-                                                                return AddTaskDialog(
-                                                                  editTask:
-                                                                      task,
-                                                                  isEdit: true,
-                                                                );
-                                                              },
-                                                            );
-                                                          },
-                                                          icon: Icon(Icons.edit,
-                                                              color: AppColors
-                                                                  .secondaryColor),
+                                                        height6,
+                                                        __row(
+                                                          context: context,
+                                                          text: "End Date:",
+                                                          status: controller
+                                                              .tasksList[index]
+                                                              .dueDate!
+                                                              .split("T")[0]
+                                                              .toString(),
                                                         ),
                                                       ],
-                                                    ]),
-                                                    height10,
-                                                    if (controller
-                                                            .tasksList[index]
-                                                            .project !=
-                                                        null) ...[
-                                                      __row(
-                                                          context: context,
-                                                          text:
-                                                              "Project Name: ",
-                                                          status: controller
-                                                                  .tasksList[
-                                                                      index]
-                                                                  .project!
-                                                                  .name ??
-                                                              "Loading..."),
-                                                      height6,
-                                                      __row(
-                                                          context: context,
-                                                          text: "Status: ",
-                                                          status:
-                                                              "In_Progress"),
-                                                      height6,
-                                                      __row(
-                                                        context: context,
-                                                        text: "Create Date:",
-                                                        status: controller
-                                                            .tasksList[index]
-                                                            .createdAt!
-                                                            .split("T")[0]
-                                                            .toString(),
-                                                      ),
-                                                      height6,
-                                                      __row(
-                                                        context: context,
-                                                        text: "End Date:",
-                                                        status: controller
-                                                            .tasksList[index]
-                                                            .dueDate!
-                                                            .split("T")[0]
-                                                            .toString(),
-                                                      ),
                                                     ],
-                                                  ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                  },
+                                            );
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }

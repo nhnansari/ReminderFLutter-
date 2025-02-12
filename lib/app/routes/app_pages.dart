@@ -3,6 +3,7 @@ import 'package:admin/app/screens/companies/view/compaines_screen.dart';
 import 'package:admin/app/screens/compines_details/view/compaines_details_screen.dart';
 import 'package:admin/app/screens/invitation_varification/screens/invitation_varification_screen.dart';
 import 'package:admin/app/screens/login/view/login_page.dart';
+import 'package:admin/app/screens/profile/screens/profile_screen.dart';
 import 'package:admin/app/screens/project_details/view/project_details_screen.dart';
 import 'package:admin/app/screens/reset_password/view/reset_password_page.dart';
 import 'package:admin/app/screens/root/guard/root_guard.dart';
@@ -40,6 +41,10 @@ class AppPages extends AppRoutes {
         GetPage(
         name: AppRoutes.invitationVarification,
         page: () => InvitationVarificationScreen(),
+        middlewares: [RouteGuard()]),
+         GetPage(
+        name: AppRoutes.profile,
+        page: () => ProfileScreen(),
         middlewares: [RouteGuard()]),
     GetPage(
         name: AppRoutes.compainesDetails,

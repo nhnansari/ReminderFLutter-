@@ -18,7 +18,7 @@ class AppRoutes {
   // static const String achievement = "/achievement";
   // static const String moneytransfer = "/moneytransfer";
   // static const String roiTOCash = "/roiTOCash";
-  // static const String profile = "/profile";
+  static const String profile = "/profile";
   // static const String faSecurity = "/faSecurity";
   // static const String network = "/network";
   // static const String affiliateToCash = "/affiliateToCash";
