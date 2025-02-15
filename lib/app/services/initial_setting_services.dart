@@ -48,8 +48,8 @@ class InitialSettingServices extends GetxService {
       useMaterial3: true,
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: UI.parseColor(lightTheme.accentColor!),
-        selectionColor: UI.parseColor(lightTheme.accentColor!),
-        selectionHandleColor: UI.parseColor(lightTheme.accentColor!),
+        selectionColor: UI.parseColor(lightTheme.primaryColor!),
+        selectionHandleColor: UI.parseColor(lightTheme.primaryColor!),
       ),
       primaryColor: UI.parseColor(lightTheme.primaryColor!),
       primaryColorDark: UI.parseColor(lightTheme.primaryDarkColor!),

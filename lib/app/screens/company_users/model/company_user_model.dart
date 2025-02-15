@@ -9,14 +9,14 @@ class CompanyUserModel {
     if (json['data'] != null) {
       data = <CompanyUserData>[];
       json['data'].forEach((v) {
-        data!.add(new CompanyUserData.fromJson(v));
+        data!.add(CompanyUserData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
+    final Map<String, dynamic> data = {};
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -29,43 +29,48 @@ class CompanyUserData {
   int? companyId;
   int? userId;
   String? roleId;
+  String? role;
   bool? isActive;
   String? createdAt;
   String? updatedAt;
   User? user;
 
-  CompanyUserData(
-      {this.id,
-      this.companyId,
-      this.userId,
-      this.roleId,
-      this.isActive,
-      this.createdAt,
-      this.updatedAt,
-      this.user});
+  CompanyUserData({
+    this.id,
+    this.companyId,
+    this.userId,
+    this.roleId,
+    this.role,
+    this.isActive,
+    this.createdAt,
+    this.updatedAt,
+    this.user,
+  });
 
   CompanyUserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     companyId = json['companyId'];
     userId = json['userId'];
     roleId = json['roleId'];
+    role = json['role'];
     isActive = json['isActive'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['companyId'] = this.companyId;
-    data['userId'] = this.userId;
-    data['roleId'] = this.roleId;
-    data['isActive'] = this.isActive;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['companyId'] = companyId;
+    data['userId'] = userId;
+    data['roleId'] = roleId;
+    data['role'] = role;
+    data['isActive'] = isActive;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
@@ -84,18 +89,19 @@ class User {
   String? createdAt;
   String? updatedAt;
 
-  User(
-      {this.id,
-      this.fullName,
-      this.email,
-      this.stripeCustomerId,
-      this.subscriptionId,
-      this.subscriptionStatus,
-      this.stripeSessionId,
-      this.emailVerified,
-      this.verificationCode,
-      this.createdAt,
-      this.updatedAt});
+  User({
+    this.id,
+    this.fullName,
+    this.email,
+    this.stripeCustomerId,
+    this.subscriptionId,
+    this.subscriptionStatus,
+    this.stripeSessionId,
+    this.emailVerified,
+    this.verificationCode,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -112,18 +118,18 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['fullName'] = this.fullName;
-    data['email'] = this.email;
-    data['stripeCustomerId'] = this.stripeCustomerId;
-    data['subscriptionId'] = this.subscriptionId;
-    data['subscriptionStatus'] = this.subscriptionStatus;
-    data['stripeSessionId'] = this.stripeSessionId;
-    data['emailVerified'] = this.emailVerified;
-    data['verificationCode'] = this.verificationCode;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['fullName'] = fullName;
+    data['email'] = email;
+    data['stripeCustomerId'] = stripeCustomerId;
+    data['subscriptionId'] = subscriptionId;
+    data['subscriptionStatus'] = subscriptionStatus;
+    data['stripeSessionId'] = stripeSessionId;
+    data['emailVerified'] = emailVerified;
+    data['verificationCode'] = verificationCode;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }

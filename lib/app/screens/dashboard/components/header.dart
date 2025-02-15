@@ -116,7 +116,7 @@ class Header extends StatelessWidget {
                         await AppPreferences.removeProjectId();
                         await AppPreferences.removeCompanyId();
                         await AppPreferences.removeUserName();
-                        Get.offAllNamed(AppRoutes.login);
+                        Get.offNamedUntil(AppRoutes.login, (route) => false);
                         break;
                     }
                   }

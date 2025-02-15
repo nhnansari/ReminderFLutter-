@@ -1,7 +1,10 @@
+
+
 import 'package:admin/app/api/api_preference.dart';
 import 'package:admin/app/core/widgets/custom_snackbar.dart';
 import 'package:admin/app/core/widgets/loading.dart';
 import 'package:admin/app/screens/company_users/model/company_user_model.dart';
+import 'package:admin/app/screens/company_users/model/invited_user_model.dart';
 import 'package:admin/app/screens/company_users/respository/company_user_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +24,15 @@ class CompanyUserController extends GetxController {
     super.onClose();
   }
 
+  final headertext = 0.obs;
+  void chnageIndex(index) async {
+    headertext.value = index;
+    if (index == 0) {
+      await getCompanyUser();
+    } else {
+      await getInvitedUser();
+    }
+  }
 
   final emailController = TextEditingController();
   var selectedItem = ''.obs;
@@ -28,13 +40,16 @@ class CompanyUserController extends GetxController {
 
   CompanyUserModel companyUserModel = CompanyUserModel();
   var companyUsers = <CompanyUserData>[].obs;
+  InvitedUsersModel invitedUsersModel = InvitedUsersModel();
+  var invitedUsers = <InvitedUsersData>[].obs;
+  
 
   Future<void> getCompanyUser() async {
     try {
       CustomLoading.show();
       final companyId = await AppPreferences.getCompanyId;
       final parameter = "?companyId=$companyId";
-      
+
       final response =
           await companyUserRepo.getCompanyUser(parameter: parameter);
 
@@ -47,6 +62,30 @@ class CompanyUserController extends GetxController {
       }
     } catch (e) {
       Get.log("Error in get company User $e");
+    } finally {
+      CustomLoading.hide();
+      // clear();
+    }
+  }
+
+  Future<void> getInvitedUser() async {
+    try {
+      CustomLoading.show();
+      final companyId = await AppPreferences.getCompanyId;
+      final parameter = "?companyId=$companyId";
+
+      final response =
+          await companyUserRepo.getInvitedUser(parameter: parameter);
+
+      if (response != null) {
+        invitedUsersModel = InvitedUsersModel.fromJson(response);
+        invitedUsers.value = invitedUsersModel.data!;
+        CustomLoading.hide();
+
+        // Agar response successful hai, toh success message show karo
+      }
+    } catch (e) {
+      Get.log("Error in get invited User $e");
     } finally {
       CustomLoading.hide();
       // clear();
@@ -88,11 +127,9 @@ class CompanyUserController extends GetxController {
       final companyID = await AppPreferences.getCompanyId;
 
       final body = {"companyId": companyID, "userId": userId};
-     
 
       CustomLoading.show();
-      final response =
-          await companyUserRepo.deleteCompanyUser(body: body);
+      final response = await companyUserRepo.deleteCompanyUser(body: body);
 
       if (response != null) {
         // Agar response successful hai, toh success message show karo
@@ -103,6 +140,30 @@ class CompanyUserController extends GetxController {
       }
     } catch (e) {
       Get.log("Error in delete task $e");
+    } finally {
+      CustomLoading.hide();
+    } // clear();
+  }
+
+  void cancelInvitation(invitationId) async {
+    try {
+      final companyID = await AppPreferences.getCompanyId;
+
+      final body = {"companyId": companyID, "invitationId": invitationId};
+
+      CustomLoading.show();
+      final response = await companyUserRepo.deleteInvitedUser(body: body);
+
+      if (response != null) {
+        // Agar response successful hai, toh success message show karo
+        CustomSnackBar.show(message: response["message"]);
+        await getInvitedUser();
+        await getCompanyUser();
+
+        CustomLoading.hide();
+      }
+    } catch (e) {
+      Get.log("Error in delete inviation $e");
     } finally {
       CustomLoading.hide();
     } // clear();

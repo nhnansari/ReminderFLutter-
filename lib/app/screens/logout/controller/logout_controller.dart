@@ -1,4 +1,3 @@
-
 import 'package:admin/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +13,6 @@ class LogoutController extends GetxController {
     // await AppPreferences.removeSetCompanyData();
     // await AppPreferences.removeUserEmail();
     // await AppPreferences.removeUserId();
-    Get.offAllNamed(AppRoutes.login);
+    Get.offNamedUntil(AppRoutes.login, (route) => false);
   }
 }

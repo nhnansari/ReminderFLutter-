@@ -75,16 +75,23 @@ class CompainesScreen extends GetView<CompaniesController> {
                                         ),
                                       ),
                                       height10,
-                                      SmallButton(
-                                          name: "Add New",
-                                          textColor: AppColors.whiteColor,
-                                          backcolor: AppColors.secondaryColor,
-                                          onclick: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    AddDailog());
-                                          })
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SmallButton(
+                                              name: "Add New",
+                                              textColor: AppColors.whiteColor,
+                                              backcolor:
+                                                  AppColors.secondaryColor,
+                                              onclick: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        AddDailog());
+                                              }),
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),

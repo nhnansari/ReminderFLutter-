@@ -8,34 +8,33 @@ class RouteGuard extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     var getToken = AppPreferences.getApiToken;
+    Uri uri = Uri.parse(route ?? ""); // Extract path only
+    print("Redirect triggered for route: ${uri.path}");
+    print("Current Token: $getToken");
 
-    // If token exists
     if (getToken != null) {
       final checkData = AppPreferences.getSetCompanyData;
-
-      if (route == AppRoutes.login ||
-          route == AppRoutes.initial ||
-          route == AppRoutes.signUp ||
-          route == AppRoutes.resetPassword) {
+      if (uri.path == AppRoutes.login ||
+          uri.path == AppRoutes.initial ||
+          uri.path == AppRoutes.signUp ||
+          uri.path == AppRoutes.resetPassword) {
         if (checkData != null) {
           return RouteSettings(name: AppRoutes.compainesDetails);
         }
         return RouteSettings(name: AppRoutes.companies);
       }
-      return null; // Allow access to other routes
+      return null; // Allow access
     }
 
-    // If token does not exist
     if (getToken == null) {
-      // **Allow /invitationVerification route**
-      if (route == AppRoutes.invitationVarification) {
-        return null; // Allow access
+      if (uri.path == AppRoutes.invitationVarification) {
+        print("Allowing invitation verification route");
+        return null; // ✅ Allow this route
       }
-
-      // Redirect non-auth pages to login
-      if (route != AppRoutes.login &&
-          route != AppRoutes.signUp &&
-          route != AppRoutes.resetPassword) {
+      if (uri.path != AppRoutes.login &&
+          uri.path != AppRoutes.signUp &&
+          uri.path != AppRoutes.resetPassword) {
+        print("Redirecting to Login");
         return RouteSettings(name: AppRoutes.login);
       }
     }
@@ -44,12 +43,12 @@ class RouteGuard extends GetMiddleware {
   }
 }
 
-RouteSettings checkUser() {
-  var getToken = AppPreferences.getApiToken;
+// RouteSettings checkUser() {
+//   var getToken = AppPreferences.getApiToken;
 
-  if (getToken == null) {
-    return RouteSettings(name: AppRoutes.login);
-  } else {
-    return RouteSettings(name: AppRoutes.companies);
-  }
-}
+//   if (getToken == null) {
+//     return RouteSettings(name: AppRoutes.login);
+//   } else {
+//     return RouteSettings(name: AppRoutes.companies);
+//   }
+// }

@@ -17,18 +17,18 @@ class ReminderRepo extends ApiClient {
       Exception(error);
     }
   }
-  //  Future<dynamic> getMembers({required String parameter}) async {
-  //   try {
-  //     return await apiClientRequest(
-  //       endPoint: kTeams,
-  //       body: [],
-  //       parameter: parameter,
-  //       method: "GET",
-  //     );
-  //   } catch (error) {
-  //     Exception(error);
-  //   }
-  // }
+   Future<dynamic> getReminderReply({required String parameter}) async {
+    try {
+      return await apiClientRequest(
+        endPoint: kCompnayReminders,
+        body: [],
+        parameter: parameter,
+        method: "GET",
+      );
+    } catch (error) {
+      Exception(error);
+    }
+  }
   Future<dynamic> sendReminder({required  Map<String,dynamic> body}) async {
     try {
       return await apiClientRequest(

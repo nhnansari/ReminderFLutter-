@@ -64,7 +64,7 @@ class ResetPasswordForm extends StatelessWidget {
                 text1: "Login",
                 text2: "Create an account",
                 onText1: () {
-                  Get.offAllNamed(AppRoutes.login);
+                  Get.offNamedUntil(AppRoutes.login, (route) => false);
                 },
                 onText2: () {
                   Get.offAllNamed(AppRoutes.signUp);

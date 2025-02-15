@@ -12,8 +12,6 @@ import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
 
-
-
 String prepareUrl(String baseUrl, String endpoint) {
   // Remove trailing slash from base URL if it exists
   if (baseUrl.endsWith('/')) {
@@ -84,64 +82,63 @@ class ApiClient {
 
       // Handling the response
       if (response.statusCode == 200) {
-    Get.log("$endPoint response[$method]: ${response.body}");
-    return jsonDecode(response.body);
-  } 
-  else if (response.statusCode == 401) {
-    // Unauthorized: Clear session and redirect to login
-    await AppPreferences.removeApiToken();
-    await AppPreferences.removeProjectId();
-    // await AppPreferences.removeProjectRoute();
-    // await AppPreferences.removeDeviceToken();
-    await AppPreferences.removeCompanyId();
-    await AppPreferences.removeSetCompanyData();
-    await AppPreferences.removeCustomMsgId();
-    await AppPreferences.removeUserName();
-    
-    Get.offAllNamed(AppRoutes.login);
-    CustomSnackBar.show(message: "Session expired. Please log in again.");
-  } 
-  else if (response.statusCode == 403) {
-    Get.log("$endPoint response[$method]: ${response.body}");
-    // Forbidden: User doesn't have permission
-    CustomSnackBar.show(message: "Access Denied. Please contact support.");
-  } 
-  else if (response.statusCode == 404) {
-    Get.log("$endPoint response[$method]: ${response.body}");
-    // Not Found: API endpoint incorrect or resource not found
-    CustomSnackBar.show(message: "Requested resource not found.");
-  } 
-  else if (response.statusCode == 500) {
-    Get.log("$endPoint response[$method]: ${response.body}");
-    // Internal Server Error: Issue on server-side
-    CustomSnackBar.show(message: "Server error occurred. Please try again later.");
-  } 
-  else {
-    // Handle unexpected errors with or without JSON response
-    Get.log("$endPoint response[$method]: ${response.body}");
-    
-    String errorMessage = response.reasonPhrase ?? "An unexpected error occurred";
+        Get.log("$endPoint response[$method]: ${response.body}");
+        return jsonDecode(response.body);
+      } else if (response.statusCode == 401) {
+        // Unauthorized: Clear session and redirect to login
+        await AppPreferences.removeApiToken();
+        await AppPreferences.removeProjectId();
+        // await AppPreferences.removeProjectRoute();
+        // await AppPreferences.removeDeviceToken();
+        await AppPreferences.removeCompanyId();
+        await AppPreferences.removeSetCompanyData();
+        await AppPreferences.removeCustomMsgId();
+        await AppPreferences.removeUserName();
 
-    try {
-      final responseBody = jsonDecode(response.body);
-      if (responseBody is Map<String, dynamic> && responseBody.containsKey('message')) {
-        errorMessage = responseBody['message'];
+        Get.offNamedUntil(AppRoutes.login, (route) => false);
+        CustomSnackBar.show(message: "Session expired. Please log in again.");
+      } else if (response.statusCode == 403) {
+        Get.log("$endPoint response[$method]: ${response.body}");
+        // Forbidden: User doesn't have permission
+        CustomSnackBar.show(message: "Access Denied. Please contact support.");
+      } else if (response.statusCode == 404) {
+        Get.log("$endPoint response[$method]: ${response.body}");
+        // Not Found: API endpoint incorrect or resource not found
+        CustomSnackBar.show(message: "Requested resource not found.");
+      } else if (response.statusCode == 500) {
+        Get.log("$endPoint response[$method]: ${response.body}");
+        // Internal Server Error: Issue on server-side
+        CustomSnackBar.show(
+            message: "Server error occurred. Please try again later.");
+      } else {
+        // Handle unexpected errors with or without JSON response
+        Get.log("$endPoint response[$method]: ${response.body}");
+
+        String errorMessage =
+            response.reasonPhrase ?? "An unexpected error occurred";
+
+        try {
+          final responseBody = jsonDecode(response.body);
+          if (responseBody is Map<String, dynamic> &&
+              responseBody.containsKey('message')) {
+            errorMessage = responseBody['message'];
+          }
+        } catch (e) {
+          Get.log("Failed to parse JSON error response: $e");
+        }
+
+        Get.log("Error: $errorMessage");
+        CustomSnackBar.show(message: errorMessage);
       }
     } catch (e) {
-      Get.log("Failed to parse JSON error response: $e");
+      // Handle API call exceptions (network issues, timeouts, etc.)
+      Get.log("API Client Exception: $e");
+      CustomSnackBar.show(
+          message: "A network error occurred. Please check your connection.");
+      rethrow;
+    } finally {
+      CustomLoading.hide();
     }
-
-    Get.log("Error: $errorMessage");
-    CustomSnackBar.show(message: errorMessage);
-  }
-} catch (e) {
-  // Handle API call exceptions (network issues, timeouts, etc.)
-  Get.log("API Client Exception: $e");
-  CustomSnackBar.show(message: "A network error occurred. Please check your connection.");
-  rethrow;
-} finally {
-  CustomLoading.hide();
-}
   }
 
   // Future<dynamic> apiClientRequestWithFile({

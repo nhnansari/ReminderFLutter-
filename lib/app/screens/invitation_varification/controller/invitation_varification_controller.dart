@@ -36,7 +36,7 @@ class InvitationVarificationController extends GetxController {
   }
 
   void _fetchEmailAndCodeFromUrl() {
-    final String expectedRoute = "/join/invitationVarification";
+    final String expectedRoute = "/invitationVerification";
     final Uri? uri =
         Get.currentRoute != null ? Uri.tryParse(Get.currentRoute) : null;
     if (uri != null && uri.path == expectedRoute) {

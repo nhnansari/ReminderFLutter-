@@ -134,12 +134,11 @@ class ProjectDetailsHeader extends StatelessWidget {
                         await AppPreferences.removeProjectDetail();
 
                         await AppPreferences.removeCompaniesCurrentRoute();
-                
 
                         await AppPreferences.removeSetCompanyData();
                         await AppPreferences.removeProjectId();
                         await AppPreferences.removeCompanyId();
-                        Get.offAllNamed(AppRoutes.login);
+                        Get.offNamedUntil(AppRoutes.login, (route) => false);
                         // Handle logout logic
                         break;
                     }

@@ -106,7 +106,7 @@ class ResetPasswordController extends GetxController {
         CustomLoading.hide();
         // Agar response successful hai, toh success message show karo
         CustomSnackBar.show(message: response['message']);
-        Get.offAllNamed(AppRoutes.login);
+        Get.offNamedUntil(AppRoutes.login, (route) => false);
       }
     } catch (e) {
       CustomLoading.hide();

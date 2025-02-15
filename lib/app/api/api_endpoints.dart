@@ -10,7 +10,7 @@ const String kVarifyOtp = "/auth/verify_token";
 const String kCompanies = "/companies/list";
 const String kRegisterCompanies = "/companies/register";
 
-// invITATION 
+// invITATION
 const String kInvitation = "/worker/accept-invitation";
 // comapny Users
 
@@ -18,11 +18,12 @@ const String kAddCompanyUser = "/companies/invite-member";
 const String kDeleteCompanyUser = "/companies/remove-worker";
 const String kCompanyWorkers = "/companies/company-workers";
 const String kInvitedUsers = "/companies/invited-members";
-// const String kMfaVarifyAppAuth = "/user_mfa/verify_authenticator";
+const String kGetInvitedUsers = "/companies/invited-members";
+const String kCancelInvitation = "/companies/cancel-invitation";
 
 // // role
 const String kMyRole = "/my_role";
-// const String kCurrentMemberShip = "/memberships/current";
+
 // const String kPurchaseMembership = "/memberships/purchase";
 // const String kMembershipHistory = "/memberships/history";
 
@@ -41,14 +42,14 @@ const String kUpdateCustomMsg = "/reminders/custom_message";
 const String kDeleteCustomMsg = "/reminders/custom_message";
 // const String kSavingToMain = "/balances/saving_to_main";
 
-// Subscriptions 
+// Subscriptions
 const String kSubscriptionsPackages = "/subscriptions/packages";
 const String kCheckOut = "/subscriptions/checkout";
 const String kCurrentSubscription = "/subscriptions/current";
 
 // // for transder to user
 
-// // task 
+// // task
 const String kCreateTask = "/tasks";
 
 // const String kListCoins = "/coins/";
@@ -63,7 +64,7 @@ const String kUpdateProfile = "/update_profile";
 const String KProfile = "/profile";
 const String kGetWorkerReminder = "/worker/reminders";
 const String kReplyReminder = "/worker/reply_reminder";
-// const String kFreedomPaakgesHistory = "saving_plans/freedom/history";
+const String kCompnayReminders = "/company_reminders";
 // const String kFreedomPackagesPurchase = "/saving_plans/freedom/purchase";
 // const String kInvestmentRelease = "/investment_packages/release";
 // const String kGuardianRelease = "/saving_plans/guardian/release";

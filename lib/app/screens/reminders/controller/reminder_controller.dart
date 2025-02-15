@@ -4,6 +4,7 @@ import 'package:admin/app/core/widgets/loading.dart';
 import 'package:admin/app/screens/company_users/controller/company_user_controller.dart';
 import 'package:admin/app/screens/custom_messages/controller/custom_messages_controller.dart';
 import 'package:admin/app/screens/reminders/model/reminder_model.dart';
+import 'package:admin/app/screens/reminders/model/reminder_reply_model.dart';
 import 'package:admin/app/screens/reminders/respository/reminder_repo.dart';
 import 'package:admin/app/screens/team/controller/team_controller.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,15 @@ class ReminderController extends GetxController {
   var selectedMsgId = "".obs;
   var selectedTeamId = "".obs;
   final optionIndex = (-1).obs;
+  final headertext = 0.obs;
+  void chnageHeaderIndex(index) async {
+    headertext.value = index;
+    if (index == 0) {
+      await getMyReminders();
+    } else {
+      await getCompanyReminders();
+    }
+  }
 
   void changeIndex(index) {
     optionIndex.value = index;
@@ -37,6 +47,11 @@ class ReminderController extends GetxController {
 
   ReminderModel reminderModel = ReminderModel();
   final reminders = <ReminderData>[].obs;
+
+  ReminderReplyModel reminderReplyModel = ReminderReplyModel();
+  final reminderReply = <Data>[].obs;
+
+  final currentPage = 1.obs;
 
   Future<void> getMyReminders() async {
     try {
@@ -53,6 +68,27 @@ class ReminderController extends GetxController {
       }
     } catch (e) {
       Get.log("Error in get reminder $e");
+    } finally {
+      CustomLoading.hide();
+      // clear();
+    }
+  }
+
+  Future<void> getCompanyReminders() async {
+    try {
+      final companyId = await AppPreferences.getCompanyId;
+      final parameter = "?companyId=$companyId&page=${currentPage.value}";
+      CustomLoading.show();
+      final response = await reminderRepo.getReminderReply(parameter: parameter);
+
+      if (response != null) {
+        reminderReplyModel = ReminderReplyModel.fromJson(response);
+        reminderReply.clear();
+        reminderReply.value = reminderReplyModel.data!.data!;
+        CustomLoading.hide();
+      }
+    } catch (e) {
+      Get.log("Error in get company reminders $e");
     } finally {
       CustomLoading.hide();
       // clear();
