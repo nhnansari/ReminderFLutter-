@@ -1,8 +1,8 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:admin/app/screens/project/controller/project_controller.dart';
-import 'package:admin/app/screens/reminders/controller/reminder_controller.dart';
-import 'package:admin/app/screens/task/controller/task_controller.dart';
+import '../../project/controller/project_controller.dart';
+import '../../reminders/controller/reminder_controller.dart';
+import '../../task/controller/task_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

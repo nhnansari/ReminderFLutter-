@@ -1,7 +1,7 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/Custom_container.dart';
+import '../../../core/widgets/InnerPadding.dart';
 import 'package:flutter/material.dart';
 
 class FileInfoCard extends StatelessWidget {

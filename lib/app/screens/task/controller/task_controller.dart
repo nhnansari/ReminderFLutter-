@@ -1,10 +1,12 @@
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/project/controller/project_controller.dart';
-import 'package:admin/app/screens/task/model/task_model.dart';
-import 'package:admin/app/screens/task/respository/task_repo.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../../../core/widgets/taps.dart';
+import '../../compines_details/controller/compaines_datails_controller.dart.dart';
+import '../../project/controller/project_controller.dart';
+import '../model/task_model.dart';
+import '../respository/task_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +17,6 @@ class TaskController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getTasks();
       isWorker.value = await AppPreferences.getserRole;
-      
     });
     super.onInit();
   }
@@ -27,12 +28,13 @@ class TaskController extends GetxController {
   var selectedProjectId = "".obs;
 
   final projectController = Get.put(ProjectController());
+  final companiesDetialsControler = Get.put(CompaniesDetailsController());
   final _startDate = Rx<DateTime?>(null);
   final _endDate = Rx<DateTime?>(null);
 
   DateTime? get startDate => _startDate.value;
   DateTime? get endDate => _endDate.value;
-final isWorker = "".obs;
+  final isWorker = "".obs;
   TaskRepo taskRepo = TaskRepo();
   TasksModel tasksModel = TasksModel();
   var tasksList = <TasksModelData>[].obs;
@@ -122,6 +124,8 @@ final isWorker = "".obs;
       CustomSnackBar.show(
           message: "Project Required !\nCreate you project first",
           backColor: AppColors.errorColor);
+      Get.back();
+      companiesDetialsControler.changeIndex(companyAdminTaps.Projects.index);
     } else {
       final companyId = await AppPreferences.getCompanyId;
       final projectId = selectedProjectId.value;
@@ -170,7 +174,7 @@ final isWorker = "".obs;
         "name": nameController.text.trim(),
         "description": descController.text.trim(),
         "projectId": int.parse(projectId),
-        "companyId": int.parse(companyId),
+        "companyId": companyId,
         "assignedUser": null,
         "assignedTeam": null,
         "dueDate": endDateController.text.trim(),

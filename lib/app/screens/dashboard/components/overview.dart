@@ -1,10 +1,10 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/responsive.dart';
-import 'package:admin/app/screens/dashboard/controller/dashboard_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../responsive.dart';
+import '../controller/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

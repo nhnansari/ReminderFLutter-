@@ -1,8 +1,8 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/logout/controller/logout_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/small_buttom.dart';
+import '../controller/logout_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

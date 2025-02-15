@@ -1,6 +1,6 @@
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/taps.dart';
-import 'package:admin/app/screens/companies/model/companies_model.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/widgets/taps.dart';
+import '../../companies/model/companies_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

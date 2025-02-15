@@ -1,7 +1,7 @@
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/screens/sign_up/repository/signup_repository.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../../../routes/app_routes.dart';
+import '../repository/signup_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

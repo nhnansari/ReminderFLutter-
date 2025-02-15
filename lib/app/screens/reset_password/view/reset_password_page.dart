@@ -1,5 +1,5 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/screens/reset_password/view/screens/reset_password_screen.dart';
+import '../../../core/utils/app_colors.dart';
+import 'screens/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordPage extends StatelessWidget {

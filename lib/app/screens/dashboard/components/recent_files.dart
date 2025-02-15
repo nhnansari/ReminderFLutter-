@@ -1,5 +1,5 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/models/RecentFile.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../models/RecentFile.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

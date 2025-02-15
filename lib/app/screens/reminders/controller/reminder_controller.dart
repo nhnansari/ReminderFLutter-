@@ -1,12 +1,12 @@
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/company_users/controller/company_user_controller.dart';
-import 'package:admin/app/screens/custom_messages/controller/custom_messages_controller.dart';
-import 'package:admin/app/screens/reminders/model/reminder_model.dart';
-import 'package:admin/app/screens/reminders/model/reminder_reply_model.dart';
-import 'package:admin/app/screens/reminders/respository/reminder_repo.dart';
-import 'package:admin/app/screens/team/controller/team_controller.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../../company_users/controller/company_user_controller.dart';
+import '../../custom_messages/controller/custom_messages_controller.dart';
+import '../model/reminder_model.dart';
+import '../model/reminder_reply_model.dart';
+import '../respository/reminder_repo.dart';
+import '../../team/controller/team_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -53,6 +53,31 @@ class ReminderController extends GetxController {
 
   final currentPage = 1.obs;
 
+  //used for Pagination
+  final totalPages = 0.obs;
+
+  void nextPage() async {
+    if (currentPage < totalPages.value) {
+      currentPage.value++;
+
+      await getCompanyReminders();
+    }
+  }
+
+  void priviousPage() async {
+    if (currentPage > 0) {
+      currentPage.value--;
+
+      await getCompanyReminders();
+    }
+  }
+
+  void gotoPage(int index) async {
+    currentPage.value = index;
+
+    await getCompanyReminders();
+  }
+
   Future<void> getMyReminders() async {
     try {
       final companyId = await AppPreferences.getCompanyId;
@@ -79,12 +104,17 @@ class ReminderController extends GetxController {
       final companyId = await AppPreferences.getCompanyId;
       final parameter = "?companyId=$companyId&page=${currentPage.value}";
       CustomLoading.show();
-      final response = await reminderRepo.getReminderReply(parameter: parameter);
+      final response =
+          await reminderRepo.getReminderReply(parameter: parameter);
 
       if (response != null) {
         reminderReplyModel = ReminderReplyModel.fromJson(response);
         reminderReply.clear();
         reminderReply.value = reminderReplyModel.data!.data!;
+        currentPage.value = reminderReplyModel.data!.meta!.currentPage!;
+        totalPages.value =(reminderReplyModel.data!.meta!.total! / reminderReplyModel.data!.meta!.perPage!).ceil()
+        
+         ;
         CustomLoading.hide();
       }
     } catch (e) {
@@ -100,10 +130,18 @@ class ReminderController extends GetxController {
     final companyId = await AppPreferences.getCompanyId;
 
     try {
+      if (selectedMsgId.value.isEmpty) {
+        CustomSnackBar.show(message: "Please select message");
+        return;
+      }
       final Map<String, dynamic> body = {
         "companyId": companyId,
-        "userId": int.parse(selectedUserId.value),
-        "teamId": int.parse(selectedTeamId.value),
+        "userId": selectedUserId.value.isEmpty
+            ? null
+            : int.parse(selectedUserId.value),
+        "teamId": selectedTeamId.value.isEmpty
+            ? null
+            : int.parse(selectedTeamId.value),
         "reminderMessageId": int.parse(selectedMsgId.value),
       };
 

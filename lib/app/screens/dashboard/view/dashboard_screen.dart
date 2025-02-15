@@ -1,6 +1,6 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/screens/dashboard/components/overview.dart';
-import 'package:admin/app/screens/dashboard/controller/dashboard_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../components/overview.dart';
+import '../controller/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

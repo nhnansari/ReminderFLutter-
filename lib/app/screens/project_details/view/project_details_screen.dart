@@ -1,8 +1,8 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/widgets/taps.dart';
-import 'package:admin/app/screens/project_details/components/project_details_header.dart';
-import 'package:admin/app/screens/project_details/controller/project_details_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/widgets/taps.dart';
+import '../components/project_details_header.dart';
+import '../controller/project_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

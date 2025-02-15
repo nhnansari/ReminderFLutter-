@@ -1,11 +1,9 @@
-
-
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/company_users/model/company_user_model.dart';
-import 'package:admin/app/screens/company_users/model/invited_user_model.dart';
-import 'package:admin/app/screens/company_users/respository/company_user_repo.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../model/company_user_model.dart';
+import '../model/invited_user_model.dart';
+import '../respository/company_user_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,9 +22,9 @@ class CompanyUserController extends GetxController {
     super.onClose();
   }
 
-  final headertext = 0.obs;
-  void chnageIndex(index) async {
-    headertext.value = index;
+  var headerText = 0.obs;
+  void changeHeaderIndex( index) async {
+    headerText.value = index;
     if (index == 0) {
       await getCompanyUser();
     } else {
@@ -39,10 +37,9 @@ class CompanyUserController extends GetxController {
   CompanyUserRepo companyUserRepo = CompanyUserRepo();
 
   CompanyUserModel companyUserModel = CompanyUserModel();
-  var companyUsers = <CompanyUserData>[].obs;
+  RxList companyUsers = <CompanyUserData>[].obs;
   InvitedUsersModel invitedUsersModel = InvitedUsersModel();
-  var invitedUsers = <InvitedUsersData>[].obs;
-  
+  RxList invitedUsers = <InvitedUsersData>[].obs;
 
   Future<void> getCompanyUser() async {
     try {
@@ -80,6 +77,7 @@ class CompanyUserController extends GetxController {
       if (response != null) {
         invitedUsersModel = InvitedUsersModel.fromJson(response);
         invitedUsers.value = invitedUsersModel.data!;
+
         CustomLoading.hide();
 
         // Agar response successful hai, toh success message show karo

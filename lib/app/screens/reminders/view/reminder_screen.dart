@@ -1,14 +1,14 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/dotted_divider.dart';
-import 'package:admin/app/core/widgets/responsive_heading.dart';
-import 'package:admin/app/screens/reminders/components/my_reminder.dart';
-import 'package:admin/app/screens/reminders/components/reminder_reply.dart';
-import 'package:admin/app/screens/reminders/controller/reminder_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/InnerPadding.dart';
+import '../../../core/widgets/dotted_divider.dart';
+import '../../../core/widgets/responsive_heading.dart';
+import '../components/my_reminder.dart';
+import '../components/reminder_reply.dart';
+import '../controller/reminder_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

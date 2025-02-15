@@ -1,5 +1,5 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/screens/login/view/screens/login_screen.dart';
+import '../../../core/utils/app_colors.dart';
+import 'screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {

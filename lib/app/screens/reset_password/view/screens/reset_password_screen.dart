@@ -1,8 +1,8 @@
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/auth_header.dart';
-import 'package:admin/app/screens/reset_password/components/reset_password_form.dart';
-import 'package:admin/app/screens/reset_password/controller/reset_password_controller.dart';
+import '../../../../core/utils/app_spaces.dart';
+import '../../../../core/widgets/InnerPadding.dart';
+import '../../../../core/widgets/auth_header.dart';
+import '../../components/reset_password_form.dart';
+import '../../controller/reset_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

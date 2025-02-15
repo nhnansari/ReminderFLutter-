@@ -1,6 +1,6 @@
 
-import 'package:admin/app/api/api.dart';
-import 'package:admin/app/api/api_endpoints.dart';
+import '../../../api/api.dart';
+import '../../../api/api_endpoints.dart';
 
 class TeamRepo extends ApiClient {
   TeamRepo() : super();
@@ -50,6 +50,19 @@ class TeamRepo extends ApiClient {
    
         body: body,
         method: "POST",
+      );
+    } catch (error) {
+      Exception(error);
+    }
+  }
+   Future<dynamic> deleteTeamWorker({required  Map<String,dynamic> body , parameter}) async {
+    try {
+      return await apiClientRequest(
+        endPoint: kAddWorker,
+        parameter: parameter,
+   
+        body: body,
+        method: "DELETE",
       );
     } catch (error) {
       Exception(error);

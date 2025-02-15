@@ -1,12 +1,12 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/project/components/add_project_dailog.dart';
-import 'package:admin/app/screens/project/controller/project_controller.dart';
-import 'package:admin/app/screens/team/view/team_screen.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/Custom_container.dart';
+import '../../../core/widgets/InnerPadding.dart';
+import '../../../core/widgets/small_buttom.dart';
+import '../components/add_project_dailog.dart';
+import '../controller/project_controller.dart';
+import '../../team/view/team_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,5 +1,7 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
+import 'package:reminder_app/app/core/utils/app_spaces.dart';
+
+import '../utils/app_colors.dart';
+import '../utils/app_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +30,10 @@ class CustomTable extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(child: buildHistoryTextColumn(value: id, context: context)),
+          Expanded(
+              flex: -1,
+              child: buildHistoryTextColumn(value: id, context: context)),
+          width10,
           Expanded(
             child: buildHistoryTextColumn(context: context, value: name),
           ),

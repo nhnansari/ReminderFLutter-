@@ -1,9 +1,9 @@
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/custom_messages/model/custom_mesg_model.dart';
-import 'package:admin/app/screens/custom_messages/model/option_model.dart';
-import 'package:admin/app/screens/custom_messages/repository/custom_msg_repo.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../model/custom_mesg_model.dart';
+import '../model/option_model.dart';
+import '../repository/custom_msg_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

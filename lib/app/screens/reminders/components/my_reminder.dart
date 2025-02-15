@@ -1,18 +1,17 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/reminders/components/reply_reminder_dailog.dart';
-import 'package:admin/app/screens/reminders/components/send_reminder_dialog.dart';
-import 'package:admin/app/screens/reminders/controller/reminder_controller.dart';
-import 'package:admin/app/screens/team/view/team_screen.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/Custom_container.dart';
+import '../../../core/widgets/InnerPadding.dart';
+import '../../../core/widgets/small_buttom.dart';
+import 'reply_reminder_dailog.dart';
+import 'send_reminder_dialog.dart';
+import '../controller/reminder_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyReminder extends StatelessWidget {
-  final controller = Get.find<ReminderController>();
+  final controller = Get.put(ReminderController());
   MyReminder({super.key});
 
   @override
@@ -115,11 +114,7 @@ class MyReminder extends StatelessWidget {
                                               ),
                                             ),
                                             IconButton(
-                                              onPressed: () async {
-                                                Get.dialog(ReplyReminderDailog(
-                                                  reminderData: reminder,
-                                                ));
-                                              },
+                                              onPressed: () async {},
                                               icon: Icon(Icons.reply,
                                                   color:
                                                       AppColors.secondaryColor),
@@ -149,7 +144,7 @@ class MyReminder extends StatelessWidget {
                                             fontWeight: FontWeight.normal,
                                           ),
                                         ),
-                                        // height12,
+                                        height12,
                                         reminder.reminderMessage == null
                                             ? Center(
                                                 child: Text(
@@ -185,29 +180,93 @@ class MyReminder extends StatelessWidget {
                                                       ),
                                                     ),
                                                   )
-                                                : Column(
-                                                    children: List.generate(
-                                                      reminder.reminderMessage!
-                                                          .options!.length,
-                                                      (index1) => Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                bottom: 5),
-                                                        child: row(
-                                                            context: context,
-                                                            text: reminder
-                                                                .reminderMessage!
-                                                                .options![
-                                                                    index1]
-                                                                .option,
-                                                            status: reminder
-                                                                .reminderMessage!
-                                                                .options![
-                                                                    index1]
-                                                                .nature),
+                                                : Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Wrap(
+                                                            children:
+                                                                List.generate(
+                                                          reminder
+                                                              .reminderMessage!
+                                                              .options!
+                                                              .length,
+                                                          (index) => InkWell(
+                                                            onTap: () {
+                                                              controller
+                                                                  .changeIndex(
+                                                                      index);
+                                                            },
+                                                            child:
+                                                                CustomContainer(
+                                                                    margin: EdgeInsets.only(
+                                                                        right:
+                                                                            5,
+                                                                        bottom:
+                                                                            9),
+                                                                    backColor: controller.optionIndex.value ==
+                                                                            index
+                                                                        ? AppColors
+                                                                            .primaryColor
+                                                                        : AppColors
+                                                                            .whiteColor,
+                                                                    borderColor: controller.optionIndex.value ==
+                                                                            index
+                                                                        ? AppColors
+                                                                            .primaryColor
+                                                                        : AppColors
+                                                                            .secondaryColor,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            100),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          horizontal:
+                                                                              8,
+                                                                          vertical:
+                                                                              5),
+                                                                      child:
+                                                                          Text(
+                                                                        reminder
+                                                                            .reminderMessage!
+                                                                            .options![index]
+                                                                            .option
+                                                                            .toString(),
+                                                                        style: AppTextstyle
+                                                                            .text10
+                                                                            .copyWith(
+                                                                          fontSize: FontSizeManager.getFontSize(
+                                                                              context,
+                                                                              12),
+                                                                          color: controller.optionIndex.value == index
+                                                                              ? AppColors.whiteColor
+                                                                              : AppColors.textColor,
+                                                                        ),
+                                                                      ),
+                                                                    )),
+                                                          ),
+                                                        )),
                                                       ),
-                                                    ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      SmallButton(
+                                                        name: "Custom Reply",
+                                                        textColor: AppColors
+                                                            .secondaryColor,
+                                                        backcolor: AppColors
+                                                            .whiteColor,
+                                                        borderColor: AppColors
+                                                            .primaryColor,
+                                                        onclick: () {
+                                                          Get.dialog(
+                                                              ReplyReminderDailog(
+                                                            reminderData:
+                                                                reminder,
+                                                          ));
+                                                        },
+                                                      )
+                                                    ],
                                                   ),
                                       ],
                                     ),

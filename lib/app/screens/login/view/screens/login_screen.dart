@@ -1,8 +1,8 @@
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/auth_header.dart';
-import 'package:admin/app/screens/login/components/form.dart';
-import 'package:admin/app/screens/login/controller/login_controller.dart';
+import '../../../../core/utils/app_spaces.dart';
+import '../../../../core/widgets/InnerPadding.dart';
+import '../../../../core/widgets/auth_header.dart';
+import '../../components/form.dart';
+import '../../controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

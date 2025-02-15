@@ -1,11 +1,11 @@
-import 'package:admin/app/core/assets/app_images.dart';
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
+import '../assets/app_images.dart';
+import '../utils/app_colors.dart';
+import '../utils/app_textstyle.dart';
 
-import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/responsive.dart';
-import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/screens/compines_details/components/compaines_details_header.dart';
+import 'small_buttom.dart';
+import '../../responsive.dart';
+import '../../routes/app_routes.dart';
+import '../../screens/compines_details/components/compaines_details_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

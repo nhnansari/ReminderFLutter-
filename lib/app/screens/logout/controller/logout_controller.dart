@@ -1,4 +1,4 @@
-import 'package:admin/app/routes/app_routes.dart';
+import '../../../routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class LogoutController extends GetxController {

@@ -1,11 +1,11 @@
-import 'package:admin/app/core/extention/extenton.dart';
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/custom_button.dart';
-import 'package:admin/app/core/widgets/custom_text_field.dart';
-import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/screens/login/controller/login_controller.dart';
+import '../../../core/extention/extenton.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/custom_button.dart';
+import '../../../core/widgets/custom_text_field.dart';
+import '../../../routes/app_routes.dart';
+import '../controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

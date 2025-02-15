@@ -1,10 +1,10 @@
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/subscription/model/current_subscription_model.dart';
-import 'package:admin/app/screens/subscription/model/subscription_model.dart';
-import 'package:admin/app/screens/subscription/repository/subscription_repo.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../model/current_subscription_model.dart';
+import '../model/subscription_model.dart';
+import '../repository/subscription_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -1,4 +1,4 @@
-import 'package:admin/app/api/api_preference.dart';
+import '../api/api_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

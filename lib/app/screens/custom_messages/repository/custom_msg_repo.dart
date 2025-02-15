@@ -1,7 +1,7 @@
 
 
-import 'package:admin/app/api/api.dart';
-import 'package:admin/app/api/api_endpoints.dart';
+import '../../../api/api.dart';
+import '../../../api/api_endpoints.dart';
 
 class CustomMsgRepo extends ApiClient {
   CustomMsgRepo() : super();

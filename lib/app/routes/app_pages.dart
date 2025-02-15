@@ -1,14 +1,14 @@
-import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/screens/companies/view/compaines_screen.dart';
-import 'package:admin/app/screens/compines_details/view/compaines_details_screen.dart';
-import 'package:admin/app/screens/invitation_varification/screens/invitation_varification_screen.dart';
-import 'package:admin/app/screens/login/view/login_page.dart';
-import 'package:admin/app/screens/profile/screens/profile_screen.dart';
-import 'package:admin/app/screens/project_details/view/project_details_screen.dart';
-import 'package:admin/app/screens/reset_password/view/reset_password_page.dart';
-import 'package:admin/app/screens/root/guard/root_guard.dart';
-import 'package:admin/app/screens/sign_up/view/sign_up_page.dart';
-import 'package:admin/app/screens/team/view/team_screen.dart';
+import 'app_routes.dart';
+import '../screens/companies/view/compaines_screen.dart';
+import '../screens/compines_details/view/compaines_details_screen.dart';
+import '../screens/invitation_varification/screens/invitation_varification_screen.dart';
+import '../screens/login/view/login_page.dart';
+import '../screens/profile/screens/profile_screen.dart';
+import '../screens/project_details/view/project_details_screen.dart';
+import '../screens/reset_password/view/reset_password_page.dart';
+import '../screens/root/guard/root_guard.dart';
+import '../screens/sign_up/view/sign_up_page.dart';
+import '../screens/team/view/team_screen.dart';
 
 import 'package:get/get.dart';
 

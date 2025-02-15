@@ -1,15 +1,15 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/dotted_divider.dart';
-import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/team/components/add_team_dailog.dart';
-import 'package:admin/app/screens/team/components/add_worker_dailog.dart';
-import 'package:admin/app/screens/team/controller/team_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/Custom_container.dart';
+import '../../../core/widgets/InnerPadding.dart';
+import '../../../core/widgets/dotted_divider.dart';
+import '../../../core/widgets/small_buttom.dart';
+import '../components/add_team_dailog.dart';
+import '../components/add_worker_dailog.dart';
+import '../controller/team_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -242,16 +242,36 @@ class TeamScreen extends GetView<TeamController> {
                                                                   .teams[index]
                                                                   .members!
                                                                   .length,
-                                                              (index1) => row(
-                                                                  context:
-                                                                      context,
-                                                                  text: "Name",
-                                                                  status: controller
-                                                                      .teams[
-                                                                          index]
-                                                                      .members![
-                                                                          index1]
-                                                                      .fullName),
+                                                              (index1) => Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                    child: row(
+                                                                        context:
+                                                                            context,
+                                                                        text:
+                                                                            "Name",
+                                                                        status: controller
+                                                                            .teams[index]
+                                                                            .members![index1]
+                                                                            .fullName),
+                                                                  ),
+                                                                  IconButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        controller.deleteTeamWorker(
+                                                                            teamId:
+                                                                                team.id,
+                                                                            workerId: controller.teams[index].members![index1].id);
+                                                                      },
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .delete,
+                                                                        color: AppColors
+                                                                            .errorColor,
+                                                                      ))
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                   ],

@@ -1,7 +1,7 @@
 // import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/taps.dart';
-import 'package:admin/app/screens/project/model/project_model.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/widgets/taps.dart';
+import '../../project/model/project_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 

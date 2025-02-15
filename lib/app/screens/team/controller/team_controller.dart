@@ -1,9 +1,9 @@
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/company_users/controller/company_user_controller.dart';
-import 'package:admin/app/screens/team/model/team_model.dart';
-import 'package:admin/app/screens/team/respository/team_repo.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../../company_users/controller/company_user_controller.dart';
+import '../model/team_model.dart';
+import '../respository/team_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -121,6 +121,40 @@ class TeamController extends GetxController {
       }
     } catch (e) {
       Get.log("Error in add worker $e");
+    } finally {
+      CustomLoading.hide();
+      // clear();
+    }
+  }
+   void deleteTeamWorker({
+    teamId,
+    workerId,
+  }) async {
+    final companyId = await AppPreferences.getCompanyId;
+
+    final parameter = "/$teamId/members";
+
+    try {
+      final Map<String, dynamic> body = {
+        "userId": workerId,
+        "companyId": companyId
+      };
+
+      CustomLoading.show();
+      final response =
+          await teamRepo.deleteTeam(body: body, parameter: parameter);
+
+      if (response != null) {
+        // Agar response successful hai, toh success message show karo
+        CustomSnackBar.show(message: response["message"]);
+
+        await getTeams();
+        Get.back();
+
+        CustomLoading.hide();
+      }
+    } catch (e) {
+      Get.log("Error in delete team worker $e");
     } finally {
       CustomLoading.hide();
       // clear();

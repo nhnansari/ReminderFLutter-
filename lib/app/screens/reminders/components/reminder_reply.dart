@@ -1,14 +1,15 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/screens/reminders/controller/reminder_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/Custom_container.dart';
+import '../../../core/widgets/InnerPadding.dart';
+import '../../../core/widgets/pagination.dart';
+import '../controller/reminder_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ReminderReply extends StatelessWidget {
-  final controller = Get.find<ReminderController>();
+  final controller = Get.put(ReminderController());
   ReminderReply({super.key});
 
   @override
@@ -87,33 +88,36 @@ class ReminderReply extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Worker",
-                                                style: AppTextstyle.text10
-                                                    .copyWith(
-                                                  fontSize: FontSizeManager
-                                                      .getFontSize(context, 14),
-                                                  color: AppColors.textColor,
-                                                  fontWeight: FontWeight.bold,
+                                          if (reminder.workers != null)
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Worker",
+                                                  style: AppTextstyle.text10
+                                                      .copyWith(
+                                                    fontSize: FontSizeManager
+                                                        .getFontSize(
+                                                            context, 14),
+                                                    color: AppColors.textColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                reminder.workers!.fullName ??
-                                                    "No Name",
-                                                style: AppTextstyle.text10
-                                                    .copyWith(
-                                                  fontSize: FontSizeManager
-                                                      .getFontSize(context, 12),
-                                                  color: AppColors.greyColor,
-                                                  fontWeight: FontWeight.bold,
+                                                Text(
+                                                  reminder.workers!.fullName ??
+                                                      "No Name",
+                                                  style: AppTextstyle.text10
+                                                      .copyWith(
+                                                    fontSize: FontSizeManager
+                                                        .getFontSize(
+                                                            context, 12),
+                                                    color: AppColors.greyColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          )
+                                              ],
+                                            )
                                         ],
                                       ),
                                       height6,
@@ -288,6 +292,23 @@ class ReminderReply extends StatelessWidget {
                         ),
                       ),
               ),
+            ),
+            Obx(
+              () => controller.reminderReply.isEmpty
+                  ? const SizedBox()
+                  : Pagination(
+                      currentPage: controller.currentPage.value,
+                      goToPage: (index) {
+                        controller.gotoPage(index);
+                      },
+                      onNext: () {
+                        controller.nextPage();
+                      },
+                      onPrevious: () {
+                        controller.priviousPage();
+                      },
+                      totalPages: controller.totalPages.value,
+                    ),
             ),
           ],
         ),

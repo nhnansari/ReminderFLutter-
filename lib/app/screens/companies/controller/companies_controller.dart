@@ -1,10 +1,10 @@
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/screens/companies/model/companies_model.dart';
-import 'package:admin/app/screens/companies/model/my_role_model.dart';
-import 'package:admin/app/screens/companies/respository/companies_repo.dart';
+import '../../../api/api_preference.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../../../routes/app_routes.dart';
+import '../model/companies_model.dart';
+import '../model/my_role_model.dart';
+import '../respository/companies_repo.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 

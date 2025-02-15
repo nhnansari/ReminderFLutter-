@@ -1,5 +1,5 @@
-import 'package:admin/app/core/utils/ui.dart';
-import 'package:admin/app/services/initial_setting_services.dart';
+import 'ui.dart';
+import '../../services/initial_setting_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

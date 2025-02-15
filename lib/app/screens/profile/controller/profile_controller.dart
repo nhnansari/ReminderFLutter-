@@ -1,7 +1,7 @@
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/screens/profile/model/profile_model.dart';
-import 'package:admin/app/screens/profile/repository/profile_repository.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../model/profile_model.dart';
+import '../repository/profile_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +17,7 @@ class ProfileController extends GetxController {
   void setObscure(RxBool obscureField) {
     obscureField.value = !obscureField.value;
   }
+  final isBackButtonShow = false.obs;
 
   // MFAModel mfaModel = MFAModel();
 
@@ -38,6 +39,10 @@ class ProfileController extends GetxController {
     clear();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getProfile();
+      final args = Get.arguments;
+      if(args != null){
+        isBackButtonShow.value = args;
+      }
     });
 
     super.onInit();

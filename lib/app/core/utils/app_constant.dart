@@ -1,4 +1,4 @@
-import 'package:admin/app/services/initial_setting_services.dart';
+import '../../services/initial_setting_services.dart';
 import 'package:get/get.dart';
 
 String kAppName = Get.find<InitialSettingServices>().settingmodel.appName!;

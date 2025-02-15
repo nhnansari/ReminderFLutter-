@@ -1,9 +1,9 @@
 import "dart:convert" as convert;
 
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_constant.dart';
-import 'package:admin/app/core/utils/ui.dart';
-import 'package:admin/app/initial_model/initial_setting_model.dart';
+import '../core/utils/app_colors.dart';
+import '../core/utils/app_constant.dart';
+import '../core/utils/ui.dart';
+import '../initial_model/initial_setting_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

@@ -1,14 +1,14 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/dotted_divider.dart';
-import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/screens/task/components/add_task_dialog.dart';
-import 'package:admin/app/screens/task/controller/task_controller.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/Custom_container.dart';
+import '../../../core/widgets/InnerPadding.dart';
+import '../../../core/widgets/dotted_divider.dart';
+import '../../../core/widgets/small_buttom.dart';
+import '../components/add_task_dialog.dart';
+import '../controller/task_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,7 +1,7 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/screens/compines_details/controller/compaines_datails_controller.dart.dart';
+import '../utils/app_colors.dart';
+import '../utils/app_spaces.dart';
+import '../utils/app_textstyle.dart';
+import '../../screens/compines_details/controller/compaines_datails_controller.dart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

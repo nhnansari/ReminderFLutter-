@@ -1,7 +1,7 @@
-import 'package:admin/app/core/utils/app_constant.dart';
-import 'package:admin/app/routes/app_pages.dart';
-import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/services/initial_setting_services.dart';
+import 'app/core/utils/app_constant.dart';
+import 'app/routes/app_pages.dart';
+import 'app/routes/app_routes.dart';
+import 'app/services/initial_setting_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

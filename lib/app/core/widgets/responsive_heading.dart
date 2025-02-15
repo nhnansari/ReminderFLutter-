@@ -1,7 +1,7 @@
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
+import '../utils/app_colors.dart';
+import '../utils/app_spaces.dart';
+import '../utils/app_textstyle.dart';
+import 'Custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -80,7 +80,7 @@ Widget _column({text, textColor, dividerColor, ontap, context}) {
         SizedBox(
           height: 4,
         ),
-        Container(color: dividerColor, height: 2, width: (text.length * 12))
+        Container(color: dividerColor, height: 2, width: (text.length * 12.0))
       ],
     ),
   );

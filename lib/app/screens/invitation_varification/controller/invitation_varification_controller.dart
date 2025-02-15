@@ -1,9 +1,9 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/routes/app_routes.dart';
-import 'package:admin/app/screens/invitation_varification/repository/invitation_varification_repository.dart';
+import '../../../core/widgets/custom_snackbar.dart';
+import '../../../core/widgets/loading.dart';
+import '../../../routes/app_routes.dart';
+import '../repository/invitation_varification_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

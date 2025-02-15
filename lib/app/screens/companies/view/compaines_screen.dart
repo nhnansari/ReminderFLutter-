@@ -1,16 +1,16 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:admin/app/core/assets/app_images.dart';
-import 'package:admin/app/core/utils/app_colors.dart';
-import 'package:admin/app/core/utils/app_spaces.dart';
-import 'package:admin/app/core/utils/app_textstyle.dart';
-import 'package:admin/app/core/widgets/Custom_container.dart';
-import 'package:admin/app/core/widgets/InnerPadding.dart';
-import 'package:admin/app/core/widgets/small_buttom.dart';
-import 'package:admin/app/responsive.dart';
-import 'package:admin/app/screens/companies/components/add_dailog.dart';
-import 'package:admin/app/screens/companies/controller/companies_controller.dart';
-import 'package:admin/app/screens/dashboard/components/header.dart';
+import '../../../core/assets/app_images.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_spaces.dart';
+import '../../../core/utils/app_textstyle.dart';
+import '../../../core/widgets/Custom_container.dart';
+import '../../../core/widgets/InnerPadding.dart';
+import '../../../core/widgets/small_buttom.dart';
+import '../../../responsive.dart';
+import '../components/add_dailog.dart';
+import '../controller/companies_controller.dart';
+import '../../dashboard/components/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

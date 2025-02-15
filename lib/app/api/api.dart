@@ -2,10 +2,10 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:admin/app/api/api_preference.dart';
-import 'package:admin/app/core/widgets/custom_snackbar.dart';
-import 'package:admin/app/core/widgets/loading.dart';
-import 'package:admin/app/routes/app_routes.dart';
+import 'api_preference.dart';
+import '../core/widgets/custom_snackbar.dart';
+import '../core/widgets/loading.dart';
+import '../routes/app_routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
