@@ -1,3 +1,8 @@
+import 'dart:math';
+
+import 'package:http/http.dart';
+import 'package:reminder_app/app/screens/subscription/controller/sunscription_controller.dart';
+
 import '../../../api/api_preference.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../../../core/widgets/loading.dart';
@@ -23,6 +28,7 @@ class CompaniesController extends GetxController {
   RxList<Company> companies = <Company>[].obs;
 
   final nameController = TextEditingController();
+  final subscriptionCotroller = Get.put(SubscriptionController());
   final subDomainController = TextEditingController();
   final urlController = TextEditingController();
 
@@ -73,23 +79,30 @@ class CompaniesController extends GetxController {
 
   void registerCompany() async {
     try {
-      final Map<String, dynamic> body = {
-        "name": nameController.text.trim(),
-        "logo": ""
-      };
+      if (subscriptionCotroller.currentSubscriptionModel.value.data != null) {
+        final Map<String, dynamic> body = {
+          "name": nameController.text.trim(),
+          "logo": ""
+        };
 
-      CustomLoading.show();
-      final response = await companiesRepo.registerCompany(
-        body: body,
-      );
+        CustomLoading.show();
+        final response = await companiesRepo.registerCompany(
+          body: body,
+        );
 
-      if (response != null) {
-        // Agar response successful hai, toh success message show karo
-        CustomSnackBar.show(message: "Company Register Successfully");
-        await getCompanies();
-        Get.back();
+        if (response != null) {
+          // Agar response successful hai, toh success message show karo
+          CustomSnackBar.show(message: "Company Register Successfully");
+          await getCompanies();
+          Get.back();
 
-        CustomLoading.hide();
+          CustomLoading.hide();
+        }
+      } else {
+        CustomSnackBar.show(
+            message:
+                "You don't have any subscription, please purchase the subscription");
+        Get.toNamed(AppRoutes.subscriptions);
       }
     } catch (e) {
       Get.log("Error in register company $e");
