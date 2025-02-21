@@ -37,9 +37,9 @@ class CompanyUserController extends GetxController {
   CompanyUserRepo companyUserRepo = CompanyUserRepo();
 
   CompanyUserModel companyUserModel = CompanyUserModel();
-  RxList companyUsers = <CompanyUserData>[].obs;
+  final companyUsers = <CompanyUserData>[].obs;
   InvitedUsersModel invitedUsersModel = InvitedUsersModel();
-  RxList invitedUsers = <InvitedUsersData>[].obs;
+  final invitedUsers = <InvitedUsersData>[].obs;
 
   Future<void> getCompanyUser() async {
     try {

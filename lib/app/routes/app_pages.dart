@@ -1,3 +1,5 @@
+import 'package:reminder_app/app/screens/subscription/view/subscription_screen.dart';
+
 import 'app_routes.dart';
 import '../screens/companies/view/compaines_screen.dart';
 import '../screens/compines_details/view/compaines_details_screen.dart';
@@ -45,6 +47,10 @@ class AppPages extends AppRoutes {
          GetPage(
         name: AppRoutes.profile,
         page: () => ProfileScreen(),
+        middlewares: [RouteGuard()]),
+        GetPage(
+        name: AppRoutes.subscriptions,
+        page: () => SubscriptionScreen(),
         middlewares: [RouteGuard()]),
     GetPage(
         name: AppRoutes.compainesDetails,

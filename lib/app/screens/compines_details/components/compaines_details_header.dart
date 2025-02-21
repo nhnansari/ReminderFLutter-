@@ -92,8 +92,8 @@ class CompainesDetailsHeader extends StatelessWidget {
                   context: context,
                   position: RelativeRect.fromLTRB(
                       50.0, 50.0, 0.0, 0.0), // Position of the menu
-                  items: controller.isWorker.value == "admin"
-                      ? [
+                  items: 
+                       [
                           PopupMenuItem(
                             value: 'profile',
                             child: itemText(text: "Profile", context: context),
@@ -113,21 +113,7 @@ class CompainesDetailsHeader extends StatelessWidget {
                             child: itemText(text: "Logout", context: context),
                           ),
                         ]
-                      : [
-                          PopupMenuItem(
-                            value: 'profile',
-                            child: itemText(text: "Profile", context: context),
-                          ),
-                          PopupMenuItem(
-                            value: 'switch_company',
-                            child: itemText(
-                                text: "Switch Company", context: context),
-                          ),
-                          PopupMenuItem(
-                            value: 'logout',
-                            child: itemText(text: "Logout", context: context),
-                          ),
-                        ],
+                     
                 ).then((value) async {
                   if (value != null) {
                     switch (value) {
@@ -135,8 +121,8 @@ class CompainesDetailsHeader extends StatelessWidget {
                         controller.changeIndex(companyAdminTaps.Profile.index);
                         break;
                       case 'subscriptions':
-                        controller
-                            .changeIndex(companyAdminTaps.Subscriptions.index);
+                         Get.toNamed(AppRoutes.subscriptions);
+                        
                         break;
                       case 'switch_company':
                         Get.offAllNamed(AppRoutes.companies);

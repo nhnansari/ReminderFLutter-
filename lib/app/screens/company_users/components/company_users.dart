@@ -19,74 +19,75 @@ class CompanyUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: InnerPadding(
-        child: Obx(() => Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Employees",
-                      style: AppTextstyle.text10.copyWith(
-                          fontSize: FontSizeManager.getFontSize(context, 18),
-                          color: AppColors.textColor,
-                          fontWeight: FontWeight.bold)),
-                  SmallButton(
-                      name: "Add Employee",
-                      textColor: AppColors.whiteColor,
-                      backcolor: AppColors.secondaryColor,
-                      onclick: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AddCompanyUserDailog());
-                      })
-                ],
-              ),
-              height18,
-              Row(
-                children: [
-                  Expanded(
-                    flex: -1,
-                    child: buildHistoryTextColumn(
-                        value: "#",
-                        context: context,
-                        fontWeight: FontWeight.bold,
-                        fonsize: 14),
-                  ),
-                  width10,
-                  Expanded(
-                    child: buildHistoryTextColumn(
-                        context: context,
-                        value: "Name",
-                        fontWeight: FontWeight.bold,
-                        fonsize: 14),
-                  ),
-                  Expanded(
-                    child: buildHistoryTextColumn(
-                        value: "Email",
-                        context: context,
-                        fontWeight: FontWeight.bold,
-                        fonsize: 14),
-                  ),
-                  Expanded(
-                    child: buildHistoryTextColumn(
-                        value: "Role",
-                        context: context,
-                        fontWeight: FontWeight.bold,
-                        fonsize: 14),
-                  ),
-                  Expanded(
-                    child: buildHistoryTextColumn(
-                        value: "Action",
-                        context: context,
-                        fontWeight: FontWeight.bold,
-                        fonsize: 14),
-                  ),
-                ],
-              ),
-              height6,
-              Divider(
-                color: AppColors.primaryColor,
-              ),
-              controller.companyUsers.isEmpty
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Employees",
+                    style: AppTextstyle.text10.copyWith(
+                        fontSize: FontSizeManager.getFontSize(context, 18),
+                        color: AppColors.textColor,
+                        fontWeight: FontWeight.bold)),
+                SmallButton(
+                    name: "Add Employee",
+                    textColor: AppColors.whiteColor,
+                    backcolor: AppColors.secondaryColor,
+                    onclick: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AddCompanyUserDailog());
+                    })
+              ],
+            ),
+            height18,
+            Row(
+              children: [
+                Expanded(
+                  flex: -1,
+                  child: buildHistoryTextColumn(
+                      value: "#",
+                      context: context,
+                      fontWeight: FontWeight.bold,
+                      fonsize: 14),
+                ),
+                width10,
+                Expanded(
+                  child: buildHistoryTextColumn(
+                      context: context,
+                      value: "Name",
+                      fontWeight: FontWeight.bold,
+                      fonsize: 14),
+                ),
+                Expanded(
+                  child: buildHistoryTextColumn(
+                      value: "Email",
+                      context: context,
+                      fontWeight: FontWeight.bold,
+                      fonsize: 14),
+                ),
+                Expanded(
+                  child: buildHistoryTextColumn(
+                      value: "Role",
+                      context: context,
+                      fontWeight: FontWeight.bold,
+                      fonsize: 14),
+                ),
+                Expanded(
+                  child: buildHistoryTextColumn(
+                      value: "Action",
+                      context: context,
+                      fontWeight: FontWeight.bold,
+                      fonsize: 14),
+                ),
+              ],
+            ),
+            height6,
+            Divider(
+              color: AppColors.primaryColor,
+            ),
+            Obx(
+              () => controller.companyUsers.value.isEmpty
                   ? Center(
                       child: Text(
                         "No Company Users Found!",
@@ -96,52 +97,50 @@ class CompanyUsers extends StatelessWidget {
                             color: AppColors.greyColor),
                       ),
                     )
-                  :  Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: List.generate(
-                              controller.companyUsers.length,
-                              (index) => Column(
-                                children: [
-                                  CustomTable(
-                                    id: (index + 1).toString(),
-                                    name: controller
-                                        .companyUsers[index].user!.fullName
-                                        .toString(),
-                                    email: controller
-                                        .companyUsers[index].user!.email
-                                        .toString(),
-                                    role: controller.companyUsers[index].role!,
-                                    onTap: () {},
-                                    additemRow: Expanded(
-                                        child: Row(
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            controller.deleteCompanyUser(
-                                                controller.companyUsers[index]
-                                                    .user!.id);
-                                          },
-                                          icon: Icon(Icons.delete,
-                                              color: AppColors.errorColor),
-                                        ),
-                                      ],
-                                    )),
-                                  ),
-                                  if (index < controller.companyUsers.length - 1)
-                                    Container(
-                                      height: 1,
-                                      color: AppColors.secondaryColor
-                                          .withOpacity(0.35),
+                  : Expanded(
+                      child: SingleChildScrollView(
+                      child: Column(
+                        children: List.generate(
+                          controller.companyUsers.length,
+                          (index) => Column(
+                            children: [
+                              CustomTable(
+                                id: (index + 1).toString(),
+                                name: controller
+                                    .companyUsers[index].user!.fullName
+                                    .toString(),
+                                email: controller
+                                    .companyUsers[index].user!.email
+                                    .toString(),
+                                role: controller.companyUsers[index].role!,
+                                onTap: () {},
+                                additemRow: Expanded(
+                                    child: Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        controller.deleteCompanyUser(controller
+                                            .companyUsers[index].user!.id);
+                                      },
+                                      icon: Icon(Icons.delete,
+                                          color: AppColors.errorColor),
                                     ),
-                                ],
+                                  ],
+                                )),
                               ),
-                            ),
+                              if (index < controller.companyUsers.length - 1)
+                                Container(
+                                  height: 1,
+                                  color: AppColors.secondaryColor
+                                      .withOpacity(0.35),
+                                ),
+                            ],
                           ),
-
-                      )),
-            ],
-          ),
+                        ),
+                      ),
+                    )),
+            ),
+          ],
         ),
       ),
     );

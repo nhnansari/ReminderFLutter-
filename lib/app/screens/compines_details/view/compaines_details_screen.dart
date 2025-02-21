@@ -11,7 +11,6 @@ import '../../dashboard/view/dashboard_screen.dart';
 import '../../reminders/view/reminder_screen.dart';
 import '../../team/view/team_screen.dart';
 import '../../custom_messages/view/custom_messages_screen.dart';
-import '../../subscription/view/subscription_screen.dart';
 import '../../task/view/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,8 +66,7 @@ class CompainesDetailsScreen extends GetView<CompaniesDetailsController> {
                               return DashboardScreen();
                             case companyAdminTaps.Reminders:
                               return ReminderScreen();
-                            case companyAdminTaps.Subscriptions:
-                              return SubscriptionScreen();
+                           
                             case companyAdminTaps.Task:
                               return TaskScreen();
                             case companyAdminTaps.Custom_Messages:

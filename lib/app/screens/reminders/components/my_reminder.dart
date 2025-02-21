@@ -113,12 +113,6 @@ class MyReminder extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
-                                            IconButton(
-                                              onPressed: () async {},
-                                              icon: Icon(Icons.reply,
-                                                  color:
-                                                      AppColors.secondaryColor),
-                                            ),
                                             if (controller.isWorker.value ==
                                                 "admin") ...[
                                               IconButton(
@@ -190,12 +184,8 @@ class MyReminder extends StatelessWidget {
                                                               .reminderMessage!
                                                               .options!
                                                               .length,
-                                                          (index) => InkWell(
-                                                            onTap: () {
-                                                              controller
-                                                                  .changeIndex(
-                                                                      index);
-                                                            },
+                                                          (index1) => InkWell(
+                                                            onTap: () {},
                                                             child:
                                                                 CustomContainer(
                                                                     margin: EdgeInsets.only(
@@ -203,18 +193,12 @@ class MyReminder extends StatelessWidget {
                                                                             5,
                                                                         bottom:
                                                                             9),
-                                                                    backColor: controller.optionIndex.value ==
-                                                                            index
-                                                                        ? AppColors
-                                                                            .primaryColor
-                                                                        : AppColors
+                                                                    backColor:
+                                                                        AppColors
                                                                             .whiteColor,
-                                                                    borderColor: controller.optionIndex.value ==
-                                                                            index
-                                                                        ? AppColors
-                                                                            .primaryColor
-                                                                        : AppColors
-                                                                            .secondaryColor,
+                                                                    borderColor:
+                                                                        AppColors
+                                                                            .primaryColor,
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             100),
@@ -229,7 +213,7 @@ class MyReminder extends StatelessWidget {
                                                                           Text(
                                                                         reminder
                                                                             .reminderMessage!
-                                                                            .options![index]
+                                                                            .options![index1]
                                                                             .option
                                                                             .toString(),
                                                                         style: AppTextstyle
@@ -238,9 +222,8 @@ class MyReminder extends StatelessWidget {
                                                                           fontSize: FontSizeManager.getFontSize(
                                                                               context,
                                                                               12),
-                                                                          color: controller.optionIndex.value == index
-                                                                              ? AppColors.whiteColor
-                                                                              : AppColors.textColor,
+                                                                          color:
+                                                                              AppColors.textColor,
                                                                         ),
                                                                       ),
                                                                     )),
@@ -251,7 +234,7 @@ class MyReminder extends StatelessWidget {
                                                         width: 10,
                                                       ),
                                                       SmallButton(
-                                                        name: "Custom Reply",
+                                                        name: "Reply",
                                                         textColor: AppColors
                                                             .secondaryColor,
                                                         backcolor: AppColors

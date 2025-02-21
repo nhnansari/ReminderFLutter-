@@ -65,10 +65,8 @@ class CustomLoading {
                       ),
                       Text(
                         " Loading...",
-                        style: AppTextstyle.text12.copyWith(
-                            color: AppColors.backColor,
-                            fontSize:
-                                FontSizeManager.getFontSize(Get.context!, 12)),
+                        style: AppTextstyle.text12
+                            .copyWith(color: AppColors.backColor, fontSize: 12),
                       )
                     ],
                   ),

@@ -11,7 +11,7 @@ class AppRoutes {
   static const String compainesDetails = "/compainesDetails";
   static const String team = "/team";
   static const String invitationVarification = "/invitationVerification";
-  // static const String withdraw = "/withdraw";
+  static const String subscriptions = "/subscriptions";
   // static const String investment = "/investment";
   // static const String transaction = "/transaction";
   // static const String membership = "/membership";

@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_spaces.dart';
 import '../../../core/utils/app_textstyle.dart';
@@ -70,6 +72,7 @@ class TeamScreen extends GetView<TeamController> {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: List.generate(
                                         controller
                                             .teams.length, // Null check added
@@ -235,42 +238,52 @@ class TeamScreen extends GetView<TeamController> {
                                                               ),
                                                             ),
                                                           )
-                                                        : Column(
-                                                            children:
-                                                                List.generate(
-                                                              controller
-                                                                  .teams[index]
-                                                                  .members!
-                                                                  .length,
-                                                              (index1) => Row(
-                                                                children: [
-                                                                  Expanded(
-                                                                    child: row(
-                                                                        context:
-                                                                            context,
-                                                                        text:
-                                                                            "Name",
-                                                                        status: controller
-                                                                            .teams[index]
-                                                                            .members![index1]
-                                                                            .fullName),
+                                                        : Container(
+                                                            constraints:
+                                                                BoxConstraints(
+                                                                    maxHeight:
+                                                                        100.h),
+                                                            child:
+                                                                SingleChildScrollView(
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                children: List
+                                                                    .generate(
+                                                                  controller
+                                                                      .teams[
+                                                                          index]
+                                                                      .members!
+                                                                      .length,
+                                                                  (index1) =>
+                                                                      Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child: row(
+                                                                            context:
+                                                                                context,
+                                                                            text:
+                                                                                "Name",
+                                                                            status:
+                                                                                controller.teams[index].members![index1].fullName),
+                                                                      ),
+                                                                      IconButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            controller.deleteTeamWorker(
+                                                                                teamId: team.id,
+                                                                                workerId: controller.teams[index].members![index1].id);
+                                                                          },
+                                                                          icon:
+                                                                              Icon(
+                                                                            Icons.delete,
+                                                                            color:
+                                                                                AppColors.errorColor,
+                                                                          ))
+                                                                    ],
                                                                   ),
-                                                                  IconButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        controller.deleteTeamWorker(
-                                                                            teamId:
-                                                                                team.id,
-                                                                            workerId: controller.teams[index].members![index1].id);
-                                                                      },
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .delete,
-                                                                        color: AppColors
-                                                                            .errorColor,
-                                                                      ))
-                                                                ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),

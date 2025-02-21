@@ -17,8 +17,7 @@ class InvitedUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: InnerPadding(
-        child: Obx(
-          ()=> Column(
+        child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Invited Employees",
@@ -66,79 +65,81 @@ class InvitedUsers extends StatelessWidget {
               Divider(
                 color: AppColors.primaryColor,
               ),
-              controller.invitedUsers.isEmpty
-                  ? Center(
-                      child: Text(
-                        "No Invited  Users Found!",
-                        style: TextStyle(
-                            fontSize: FontSizeManager.getFontSize(context, 12),
-                            fontWeight: FontWeight.normal,
-                            color: AppColors.greyColor),
-                      ),
-                    )
-                  : Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: List.generate(
-                            controller.invitedUsers.length,
-                            (index) => Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex:-1,
+              Obx(
+                ()=> controller.invitedUsers.value.isEmpty
+                    ? Center(
+                        child: Text(
+                          "No Invited  Users Found!",
+                          style: TextStyle(
+                              fontSize: FontSizeManager.getFontSize(context, 12),
+                              fontWeight: FontWeight.normal,
+                              color: AppColors.greyColor),
+                        ),
+                      )
+                    : Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: List.generate(
+                              controller.invitedUsers.length,
+                              (index) => Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex:-1,
+                                          child: buildHistoryTextColumn(
+                                              value: (index + 1).toString(),
+                                              context: context)),
+                                      width10,
+                                      Expanded(
+                                        flex: 2,
                                         child: buildHistoryTextColumn(
-                                            value: (index + 1).toString(),
-                                            context: context)),
-                                    width10,
-                                    Expanded(
-                                      flex: 2,
-                                      child: buildHistoryTextColumn(
-                                          value: controller
-                                              .invitedUsers[index].email
-                                              .toString(),
-                                          context: context),
-                                    ),
-                                    Expanded(
-                                      child: buildHistoryTextColumn(
-                                          value: controller
-                                                  .invitedUsers[index].role ??
-                                              "No Role",
-                                          context: context),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {
-                                              controller.cancelInvitation(
-                                                  controller
-                                                      .invitedUsers[index].id);
-                                            },
-                                            icon: Icon(Icons.cancel,
-                                                color: AppColors.errorColor),
-                                          ),
-                                        ],
+                                            value: controller
+                                                .invitedUsers[index].email
+                                                .toString(),
+                                            context: context),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                height6,
-                                if (index < controller.invitedUsers.length - 1)
-                                  Container(
-                                    height: 1,
-                                    color: AppColors.secondaryColor
-                                        .withOpacity(0.35),
+                                      Expanded(
+                                        child: buildHistoryTextColumn(
+                                            value: controller
+                                                    .invitedUsers[index].role ??
+                                                "No Role",
+                                            context: context),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                controller.cancelInvitation(
+                                                    controller
+                                                        .invitedUsers[index].id);
+                                              },
+                                              icon: Icon(Icons.cancel,
+                                                  color: AppColors.errorColor),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
-                              ],
+                                  height6,
+                                  if (index < controller.invitedUsers.length - 1)
+                                    Container(
+                                      height: 1,
+                                      color: AppColors.secondaryColor
+                                          .withOpacity(0.35),
+                                    ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    )
+              )
             ],
           ),
-        ),
+        
       ),
     );
   }

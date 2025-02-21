@@ -240,48 +240,58 @@ class ReminderReply extends StatelessWidget {
                                             )
                                           : Wrap(
                                               children: List.generate(
-                                                reminder.replies!.length,
-                                                (index2) => Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 5, bottom: 5),
-                                                  child: CustomContainer(
-                                                    backColor:
-                                                        AppColors.whiteColor,
-                                                    borderColor:
-                                                        AppColors.backColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 10,
-                                                          vertical: 7),
-                                                      child: Text(
-                                                        reminder
-                                                                .replies![
-                                                                    index2]
-                                                                .reply ??
-                                                            "No Reply", // <-- Avoid null
-                                                        style: AppTextstyle
-                                                            .text10
-                                                            .copyWith(
-                                                          fontSize:
-                                                              FontSizeManager
-                                                                  .getFontSize(
-                                                                      context,
-                                                                      12),
-                                                          color: AppColors
-                                                              .textColor,
-                                                          fontWeight:
-                                                              FontWeight.normal,
+                                                  reminder.replies!.length,
+                                                  (index2) {
+                                                if (reminder.replies![index2]
+                                                        .reply !=
+                                                    null) {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 5,
+                                                            bottom: 5),
+                                                    child: CustomContainer(
+                                                      backColor:
+                                                          AppColors.whiteColor,
+                                                      borderColor:
+                                                          AppColors.backColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 10,
+                                                                vertical: 7),
+                                                        child: Text(
+                                                          reminder
+                                                                  .replies![
+                                                                      index2]
+                                                                  .reply ??
+                                                              "", // <-- Avoid null
+                                                          style: AppTextstyle
+                                                              .text10
+                                                              .copyWith(
+                                                            fontSize:
+                                                                FontSizeManager
+                                                                    .getFontSize(
+                                                                        context,
+                                                                        12),
+                                                            color: AppColors
+                                                                .textColor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
+                                                  );
+                                                } else {
+                                                  return const SizedBox();
+                                                }
+                                              }),
                                             ),
                                     ],
                                   ),

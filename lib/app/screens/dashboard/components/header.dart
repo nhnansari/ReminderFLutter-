@@ -88,6 +88,10 @@ class Header extends StatelessWidget {
                       child: itemText(text: "Profile", context: context),
                     ),
                     PopupMenuItem(
+                      value: 'subscriptions',
+                      child: itemText(text: "Subscriptions", context: context),
+                    ),
+                    PopupMenuItem(
                       value: 'logout',
                       child: itemText(text: "Logout", context: context),
                     ),
@@ -96,9 +100,12 @@ class Header extends StatelessWidget {
                   if (value != null) {
                     switch (value) {
                       case 'profile':
-                        Get.toNamed(AppRoutes.profile , arguments: true);
+                        Get.toNamed(AppRoutes.profile, arguments: true);
                         break;
+                      case 'subscriptions':
+                        Get.toNamed(AppRoutes.subscriptions);
 
+                        break;
                       case 'logout':
                         await AppPreferences.removeApiToken();
                         await AppPreferences.removeProjectDetail();
