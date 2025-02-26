@@ -65,8 +65,7 @@ class InvitedUsers extends StatelessWidget {
               Divider(
                 color: AppColors.primaryColor,
               ),
-              Obx(
-                ()=> controller.invitedUsers.value.isEmpty
+               controller.invitedUsers.value.isEmpty
                     ? Center(
                         child: Text(
                           "No Invited  Users Found!",
@@ -76,7 +75,8 @@ class InvitedUsers extends StatelessWidget {
                               color: AppColors.greyColor),
                         ),
                       )
-                    : Expanded(
+                    : Obx(
+                ()=>Expanded(
                         child: SingleChildScrollView(
                           child: Column(
                             children: List.generate(

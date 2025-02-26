@@ -86,8 +86,7 @@ class CompanyUsers extends StatelessWidget {
             Divider(
               color: AppColors.primaryColor,
             ),
-            Obx(
-              () => controller.companyUsers.value.isEmpty
+             controller.companyUsers.value.isEmpty
                   ? Center(
                       child: Text(
                         "No Company Users Found!",
@@ -97,7 +96,8 @@ class CompanyUsers extends StatelessWidget {
                             color: AppColors.greyColor),
                       ),
                     )
-                  : Expanded(
+                  :Obx(
+              () => Expanded(
                       child: SingleChildScrollView(
                       child: Column(
                         children: List.generate(
