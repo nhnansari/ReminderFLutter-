@@ -88,41 +88,42 @@ class CompainesDetailsHeader extends StatelessWidget {
               icon: Icon(Icons.menu),
               onPressed: () {
                 showMenu(
-                  color: AppColors.secondaryColor,
-                  context: context,
-                  position: RelativeRect.fromLTRB(
-                      50.0, 50.0, 0.0, 0.0), // Position of the menu
-                  items: 
-                       [
-                          PopupMenuItem(
-                            value: 'profile',
-                            child: itemText(text: "Profile", context: context),
-                          ),
-                          PopupMenuItem(
-                            value: 'subscriptions',
-                            child: itemText(
-                                text: "Subscriptions", context: context),
-                          ),
-                          PopupMenuItem(
-                            value: 'switch_company',
-                            child: itemText(
-                                text: "Switch Company", context: context),
-                          ),
-                          PopupMenuItem(
-                            value: 'logout',
-                            child: itemText(text: "Logout", context: context),
-                          ),
-                        ]
-                     
-                ).then((value) async {
+                    color: AppColors.secondaryColor,
+                    context: context,
+                    position: RelativeRect.fromLTRB(
+                        50.0, 50.0, 0.0, 0.0), // Position of the menu
+                    items: [
+                      PopupMenuItem(
+                        value: 'profile',
+                        child: itemText(text: "Profile", context: context),
+                      ),
+                      PopupMenuItem(
+                        value: 'subscriptions',
+                        child:
+                            itemText(text: "Subscriptions", context: context),
+                      ),
+                      PopupMenuItem(
+                        value: 'switch_company',
+                        child:
+                            itemText(text: "Switch Company", context: context),
+                      ),
+                      PopupMenuItem(
+                        value: 'logout',
+                        child: itemText(text: "Logout", context: context),
+                      ),
+                    ]).then((value) async {
                   if (value != null) {
                     switch (value) {
                       case 'profile':
-                        controller.changeIndex(companyAdminTaps.Profile.index);
+                        controller.isWorker.value == "admin"
+                            ? controller
+                                .changeIndex(companyAdminTaps.Profile.index)
+                            : controller
+                                .changeIndex(companyWorkerTaps.Profile.index);
                         break;
                       case 'subscriptions':
-                         Get.toNamed(AppRoutes.subscriptions);
-                        
+                        Get.toNamed(AppRoutes.subscriptions);
+
                         break;
                       case 'switch_company':
                         Get.offAllNamed(AppRoutes.companies);

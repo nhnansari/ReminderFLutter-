@@ -42,8 +42,9 @@ class CompainesDetailsScreen extends GetView<CompaniesDetailsController> {
                     CompainesTap(),
                     height10,
                     Obx(
-                      ()=> Expanded(
+                      () => Expanded(
                         child: PageView.builder(
+                          physics: NeverScrollableScrollPhysics(),
                           controller: controller.pageController,
                           onPageChanged: (int index) {
                             controller.changeIndex(index);
@@ -52,54 +53,52 @@ class CompainesDetailsScreen extends GetView<CompaniesDetailsController> {
                               ? companyAdminTaps.values.length
                               : companyWorkerTaps.values.length,
                           itemBuilder: (context, index) {
-                            
-                      
-                        var selectedTap = controller.isWorker.value == "admin"
-    ? companyAdminTaps.values[index]
-    : companyWorkerTaps.values[index];
+                            var selectedTap =
+                                controller.isWorker.value == "admin"
+                                    ? companyAdminTaps.values[index]
+                                    : companyWorkerTaps.values[index];
 
-switch (selectedTap) {
-  // Admin Taps
-  case companyAdminTaps.Employees:
-    return CompanyUserScreen();
-  case companyAdminTaps.Projects:
-    return ProjectScreen();
-  case companyAdminTaps.Team:
-    return TeamScreen();
-  case companyAdminTaps.Settings:
-    return SettingScreen();
-  case companyAdminTaps.Dashboard:
-    return DashboardScreen();
-  case companyAdminTaps.Reminders:
-    return ReminderScreen();
-  case companyAdminTaps.Task:
-    return TaskScreen();
-  case companyAdminTaps.Custom_Messages:
-    return CustomMessagesScreen();
-  case companyAdminTaps.Profile:
-    return ProfileScreen();
+                            switch (selectedTap) {
+                              // Admin Taps
+                              case companyAdminTaps.Employees:
+                                return CompanyUserScreen();
+                              case companyAdminTaps.Projects:
+                                return ProjectScreen();
+                              case companyAdminTaps.Team:
+                                return TeamScreen();
+                              case companyAdminTaps.Settings:
+                                return SettingScreen();
+                              case companyAdminTaps.Dashboard:
+                                return DashboardScreen();
+                              case companyAdminTaps.Reminders:
+                                return ReminderScreen();
+                              case companyAdminTaps.Task:
+                                return TaskScreen();
+                              case companyAdminTaps.Custom_Messages:
+                                return CustomMessagesScreen();
+                              case companyAdminTaps.Profile:
+                                return ProfileScreen();
 
-  // Worker Taps
-  case companyWorkerTaps.Projects:
-    return ProjectScreen();
-  case companyWorkerTaps.Team:
-    return TeamScreen();
-  case companyWorkerTaps.Settings:
-    return SettingScreen();
-  case companyWorkerTaps.Dashboard:
-    return DashboardScreen();
-  case companyWorkerTaps.Reminders:
-    return ReminderScreen();
-  case companyWorkerTaps.Task:
-    return TaskScreen();
-  case companyWorkerTaps.Profile:
-    return ProfileScreen();
+                              // Worker Taps
+                              case companyWorkerTaps.Projects:
+                                return ProjectScreen();
+                              case companyWorkerTaps.Team:
+                                return TeamScreen();
+                              case companyWorkerTaps.Settings:
+                                return SettingScreen();
+                              case companyWorkerTaps.Dashboard:
+                                return DashboardScreen();
+                              case companyWorkerTaps.Reminders:
+                                return ReminderScreen();
+                              case companyWorkerTaps.Task:
+                                return TaskScreen();
+                              case companyWorkerTaps.Profile:
+                                return ProfileScreen();
 
-  default:
-    return Center(child: Text("Unknown Tab"));
+                              default:
+                                return Center(child: Text("Unknown Tab"));
 // Return an empty container as a fallback
-                        }
-                            
+                            }
                           },
                         ),
                       ),
