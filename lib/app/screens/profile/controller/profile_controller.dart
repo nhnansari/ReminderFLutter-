@@ -1,3 +1,5 @@
+
+
 import '../../../core/widgets/custom_snackbar.dart';
 import '../../../core/widgets/loading.dart';
 import '../model/profile_model.dart';
@@ -24,6 +26,7 @@ class ProfileController extends GetxController {
   final profileModel = ProfileModel().obs;
 
   TextEditingController nameController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
@@ -53,8 +56,8 @@ class ProfileController extends GetxController {
       final Map<String, dynamic> body = {
         "name": nameController.text.trim(),
         "oldPassword": oldPasswordController.text.trim(),
-        "newPassword": passwordController.text.trim(),
-        "confirmPassword": confirmPasswordController.text.trim()
+        "newPassword":passwordController.text.isEmpty?null: passwordController.text.trim(),
+        "confirmPassword":confirmPasswordController.text.isEmpty?null: confirmPasswordController.text.trim()
       };
 
       // Show loading indicator
@@ -90,6 +93,7 @@ class ProfileController extends GetxController {
       if (response != null) {
         profileModel.value = ProfileModel.fromJson(response);
         nameController.text = profileModel.value.data!.fullName ??"";
+        emailController.text = profileModel.value.data!.email ?? "";
         update();
       }
     } catch (e) {

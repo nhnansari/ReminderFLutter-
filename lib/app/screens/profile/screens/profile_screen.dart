@@ -1,5 +1,3 @@
-
-import '../../../core/extention/extenton.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_spaces.dart';
 import '../../../core/utils/app_textstyle.dart';
@@ -32,13 +30,16 @@ class ProfileScreen extends GetView<ProfileController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Obx(
-                        ()=> controller.isBackButtonShow.value?
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: IconButton(onPressed: (){
-                              Get.back();
-                            }, icon: Icon(Icons.arrow_back)),
-                          ):SizedBox(),
+                          () => controller.isBackButtonShow.value
+                              ? Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      icon: Icon(Icons.arrow_back)),
+                                )
+                              : SizedBox(),
                         ),
                         Text(
                           "Profile",
@@ -77,13 +78,21 @@ class ProfileScreen extends GetView<ProfileController> {
                                       height14,
                                       CustomTextfeild(
                                         titleColor: AppColors.textColor,
+                                        controller: controller.emailController,
+                                        title: "Email",
+                                        readonly: true,
+                                        hinttext: "Enter Email Name",
+                                        iconPath: Icons.person,
+                                      ),
+                                      height14,
+                                      CustomTextfeild(
+                                        titleColor: AppColors.textColor,
                                         obscureText:
                                             controller.oldPasswordObscure.value,
                                         controller:
                                             controller.oldPasswordController,
                                         title: "Old Password",
                                         hinttext: "Enter old password",
-                                        validator: (v) => v?.validPassword(),
                                         iconPath: Icons.lock,
                                         icon: IconButton(
                                           onPressed: () =>
@@ -106,7 +115,6 @@ class ProfileScreen extends GetView<ProfileController> {
                                             controller.passwordController,
                                         title: "New Password",
                                         hinttext: "Enter new password",
-                                        validator: (v) => v?.validPassword(),
                                         iconPath: Icons.lock,
                                         icon: IconButton(
                                           onPressed: () =>
@@ -129,7 +137,6 @@ class ProfileScreen extends GetView<ProfileController> {
                                             .confirmPasswordController,
                                         title: "Confirm Password",
                                         hinttext: "Enter confirm password",
-                                        validator: (v) => v?.validPassword(),
                                         iconPath: Icons.lock,
                                         icon: IconButton(
                                           onPressed: () =>
