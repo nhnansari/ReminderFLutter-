@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class CompaniesDetailsController extends GetxController {
   var companiesModel = Company().obs;
   var isWorker = "".obs;
-  var currentScreen = Rx<dynamic>(companyWorkerTaps.Dashboard); 
+  var currentScreen = Rx<dynamic>(companyWorkerTaps.Dashboard);
 
   late final PageController pageController = PageController(initialPage: 0);
   late final ScrollController scrollController = ScrollController();
@@ -20,6 +20,7 @@ class CompaniesDetailsController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getData();
       isWorker.value = await AppPreferences.getserRole;
+      Get.log(isWorker.value);
 
       int initialRoute = AppPreferences.getCompaniesCurrentRoute ?? 0;
       final tapsList = isWorker.value == "admin"
@@ -46,8 +47,11 @@ class CompaniesDetailsController extends GetxController {
       });
     });
   }
+
   void changeIndex(int index) {
-    final tapsList = isWorker.value == "admin" ? companyAdminTaps.values : companyWorkerTaps.values;
+    final tapsList = isWorker.value == "admin"
+        ? companyAdminTaps.values
+        : companyWorkerTaps.values;
     if (index >= 0 && index < tapsList.length) {
       currentScreen.value = tapsList[index];
       AppPreferences.setCompaniesCurrentRoute(index);
@@ -58,7 +62,7 @@ class CompaniesDetailsController extends GetxController {
     final getArgs = await AppPreferences.getSetCompanyData;
     if (getArgs != null) {
       companiesModel.value = Company.fromJson(getArgs);
-     
+
       Get.log(companiesModel.value.id.toString());
       update();
     }

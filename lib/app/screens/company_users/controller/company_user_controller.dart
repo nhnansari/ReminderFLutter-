@@ -38,6 +38,7 @@ class CompanyUserController extends GetxController {
 
   CompanyUserModel companyUserModel = CompanyUserModel();
   final companyUsers = <CompanyUserData>[].obs;
+  RxList<CompanyUserData> filteredCompanyUsers = <CompanyUserData>[].obs;
   InvitedUsersModel invitedUsersModel = InvitedUsersModel();
   final invitedUsers = <InvitedUsersData>[].obs;
 

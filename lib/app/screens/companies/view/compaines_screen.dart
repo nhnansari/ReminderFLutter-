@@ -131,8 +131,8 @@ class CompainesScreen extends GetView<CompaniesController> {
                                         final company =
                                             controller.companies.value[index];
                                         return InkWell(
-                                          onTap: () {
-                                            controller.getMyRole(company);
+                                          onTap: ()async {
+                                          await  controller.getMyRole(company);
                                           },
                                           child: CustomContainer(
                                             boxConstraints:

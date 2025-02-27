@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:http/http.dart';
 import 'package:reminder_app/app/screens/subscription/controller/sunscription_controller.dart';
 
 import '../../../api/api_preference.dart';
@@ -60,11 +57,12 @@ class CompaniesController extends GetxController {
       final response = await companiesRepo.getMyRole(parameter: paramter);
 
       if (response != null) {
-        myRoleModel.value = MyRoleModel.fromJson(response);
+        
+        Get.log(response["role"].toString());
 
         await AppPreferences.setCompanyId(company.id!);
         await AppPreferences.setSetCompanyData(company.toJson());
-        await AppPreferences.setUserRole(myRoleModel.value.roleName);
+        await AppPreferences.setUserRole(response["role"]);
 
         Get.toNamed(AppRoutes.compainesDetails);
         CustomLoading.hide();
